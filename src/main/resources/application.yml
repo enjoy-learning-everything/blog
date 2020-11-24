@@ -1,6 +1,12 @@
 spring:
   profiles:
     active: run
+  servlet:
+    multipart:
+      #单个文件大小
+      max-file-size: 20MB
+      #单次请求文件的总大小
+      max-request-size: 20MB
 
-
+#默认评论头像
 comment.avatar: /images/Common/comment-avator1.png

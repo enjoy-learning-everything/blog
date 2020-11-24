@@ -64,9 +64,19 @@
 <!------中间内容------->
 <div class="m-padded-tb-big m-container">
     <div class="ui container">
+
+        <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
+            <i class="close icon"></i>
+            <div class="header">提示：</div>
+            <p th:text="${message}">恭喜，操作成功！</p>
+        </div>
+
         <div class="ui secondary segment form">
             <input type="hidden" name="page">
+
             <div class="inline fields">
+
+
                 <div class="field">
                     <input type="text" name="title" placeholder="标题">
                 </div>
@@ -161,11 +171,7 @@
                 </tfoot>
             </table>
 
-            <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
-                <i class="close icon"></i>
-                <div class="header">提示：</div>
-                <p th:text="${message}">恭喜，操作成功！</p>
-            </div>
+
 
         </div>
     </div>

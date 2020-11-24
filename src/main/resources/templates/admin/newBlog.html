@@ -68,13 +68,14 @@
 <!------中间内容------->
 <div class="m-padded-tb-big m-container">
     <div class="ui container">
-        <form id="blog-form" action="#" th:object="${blog}" th:action="@{/admin/blogs}" method="post" class="ui form">
+        <form id="blog-form" action="#" th:object="${blog}" enctype="multipart/form-data"
+              th:action="@{/admin/blogs}" method="post" class="ui form">
             <input type="hidden" name="published">
             <input type="hidden" name="id" th:value="*{id}">
             <div class="required field">
                 <div class="ui left labeled input">
                     <div class="ui selection compact  teal basic  dropdown label">
-                        <input type="hidden" name="flag"  th:value="*{flag}!=null ? *{flag} : '原创'">
+                        <input type="hidden" name="flag" th:value="*{flag}!=null ? *{flag} : '原创'">
                         <i class="dropdown icon"></i>
                         <div class="default text">类型</div>
                         <div class="menu">
@@ -106,13 +107,36 @@
                 </div>
             </div>
 
-
             <div class="required field">
                 <div class="ui left labeled input">
-                    <label class="ui teal basic label">首图</label>
-                    <input type="text" name="coverPicture" th:value="*{coverPicture}" placeholder="首图引用地址">
+                    <div class="ui selection compact  teal basic  dropdown label">
+                        <input type="hidden" onchange="transferType()" value="netLink" name="uploadType"
+                               id="uploadType">
+                        <i class="dropdown icon"></i>
+                        <div class="text">网络链接</div>
+                        <div class="menu">
+                            <div class="item" data-value="netLink">首图网络链接</div>
+                            <div class="item" data-value="upLoad">首图本地上传</div>
+                        </div>
+                    </div>
+
+                    <input type="text" class="type1_data type1" name="imageUrl" th:value="*{coverPicture}" placeholder="请输入作为首图的图片地址......">
+                    <button class="ui button type1 m-margin-left-small" type="button" onclick="return submitImage()">
+                        核验地址
+                    </button>
+                    <input type="file" id="file_data" class="type2_data" name="file" style="display: none">
+                    <input type="text" class="file_name type2" placeholder="请选择一张图片作为首图.......">
+                    <button class="ui button select_file type2 m-margin-left-small" type="button">选择图片</button>
                 </div>
+
             </div>
+
+            <!--            <div class="required field">-->
+            <!--                <div class="ui left labeled input">-->
+            <!--                    <label class="ui teal basic label">首图</label>-->
+            <!--                    <input type="text" name="coverPicture" th:value="*{coverPicture}" placeholder="首图引用地址">-->
+            <!--                </div>-->
+            <!--            </div>-->
 
             <div class="two fields">
                 <div class="required field">
@@ -158,32 +182,36 @@
             </div>
 
             <div class="required field">
-                <textarea name="description" class="m-text-lined"  th:text="*{description}" autocomplete="off"
-                          minlength="70"  maxlength="120" placeholder="博客描述"></textarea>
+                <textarea name="description" class="m-text-lined" th:text="*{description}" autocomplete="off"
+                          minlength="70" maxlength="120" placeholder="博客描述"></textarea>
             </div>
 
             <div class="inline fields">
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="recommend" name="recommend" checked th:checked="*{recommend}" class="hidden">
+                        <input type="checkbox" id="recommend" name="recommend" checked th:checked="*{recommend}"
+                               class="hidden">
                         <label for="recommend">推荐文章</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="appreciation" name="appreciateStatement" checked th:checked="*{appreciateStatement}" class="hidden">
+                        <input type="checkbox" id="appreciation" name="appreciateStatement" checked
+                               th:checked="*{appreciateStatement}" class="hidden">
                         <label for="appreciation">允许打赏</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="comment" name="commentStatement" checked th:checked="*{commentStatement}" class="hidden">
+                        <input type="checkbox" id="comment" name="commentStatement" checked
+                               th:checked="*{commentStatement}" class="hidden">
                         <label for="comment">允许评论</label>
                     </div>
                 </div>
                 <div class="field">
                     <div class="ui checkbox">
-                        <input type="checkbox" id="shareInfo" name="shareStatement" th:checked="*{shareStatement}" class="hidden">
+                        <input type="checkbox" id="shareInfo" name="shareStatement" th:checked="*{shareStatement}"
+                               class="hidden">
                         <label for="shareInfo">显示转载声明</label>
                     </div>
                 </div>
@@ -192,7 +220,7 @@
             <div class="ui error message"></div>
 
             <div class="ui right aligned container">
-                <button type="button" class="ui button" onclick="window.history.go(-1)">返回</button>
+                <button type="button" class="ui button" onclick="self.location=document.referrer">返回</button>
                 <button type="button" id="save-btn" class="ui secondary button">保存</button>
                 <button type="button" id="publish-btn" class="ui teal button">发布</button>
             </div>
@@ -259,6 +287,7 @@
 <script>
     var contentEditor;
 
+
     $(function () {
         contentEditor = editormd("md-content", {
             width: "100%",
@@ -279,11 +308,13 @@
 
 
     $('#save-btn').click(function () {
+        submitImage();
         $('[name="published"]').val(false);
         $('#blog-form').submit();
     });
 
     $('#publish-btn').click(function () {
+        submitImage();
         $('[name="published"]').val(true);
         $('#blog-form').submit();
     });
@@ -299,21 +330,21 @@
                 identifier: 'flag',
                 rules: [{
                     type: 'empty',
-                    prompt: '类型：类型不能为空！'
+                    prompt: '类型：类型不能为空'
                 }]
             },
             title: {
                 identifier: 'title',
                 rules: [{
                     type: 'empty',
-                    prompt: '标题：标题不能为空！'
+                    prompt: '标题：标题不能为空'
                 }]
             },
             content: {
                 identifier: 'content',
                 rules: [{
                     type: 'empty',
-                    prompt: '内容：内容不能为空！'
+                    prompt: '内容：内容不能为空'
                 }]
             },
             categoryId: {
@@ -343,9 +374,89 @@
                     type: 'empty',
                     prompt: '描述：描述不能为空'
                 }]
+            },
+            imageUrl: {
+                identifier: 'imageUrl',
+                rules: [{
+                    type: 'empty',
+                    prompt: '首图：首图地址不能为空'
+                }]
             }
         }
+    });
+
+    function transferType() {
+        var uploadType = $('#uploadType').val();
+        //根据下来菜单不同的选择显示不同的组件，并为激活的组件设置name属性
+        if (uploadType === 'netLink') {
+            $('.type1').css("cssText", "display:block!important");
+            $('.type2').css("cssText", "display:none!important");
+            $('.ui.form').form('add rule', 'imageUrl', {
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '首图：首图地址不能为空'
+                    }
+                ]
+            }).form('remove field', ['file']);
+        } else if (uploadType === 'upLoad') {
+            $('.type2').css("cssText", "display:block!important");
+            $('.type1').css("cssText", "display:none!important");
+            $('.ui.form').form('add rule', 'file', {
+                rules: [
+                    {
+                        type: 'empty',
+                        prompt: '首图：首图文件不能为空'
+                    }
+                ]
+            }).form('remove field', ['imageUrl']);
+        }
+    }
+
+    function submitImage(e) {
+        // var uploadType = $('#uploadType').val();
+        // if (uploadType === 'netLink') {
+        //     if ($('.type1_data').val() === '') {
+        //         alert("输入图片地址！");
+        //         return false;
+        //     }
+        // } else if (uploadType === 'upLoad') {
+        //     if ($('.type2_data').val() === '') {
+        //         alert("请先选择一张图片！");
+        //         return false;
+        //     }
+        // }
+    }
+
+    // 点击button触发文件选择
+    $('.select_file').click(function () {
+        $('#file_data').click();
+    });
+
+    //选择图片后进行条件过滤
+    $('#file_data').change(function () {
+        //获取上传的图片对象
+        var fileData = this.files[0];
+
+        //图片类型过滤
+        if (!/image\/\w+/.test(fileData.type)) {
+            alert("请勿上传非图片类型的文件！");
+            $("#file_data").val("");
+            return false;
+        }
+        //图片大小过滤
+        if (fileData.size > 2 * 1024 * 1024) {
+            alert("图片大小要求在2MB以内！");
+            $("#file_data").val("");
+            return false;
+        }
+        $('.file_name').val(fileData.name);
+
     })
+
+    $('.selection.dropdown')
+        .dropdown()
+    ;
 
 
 </script>

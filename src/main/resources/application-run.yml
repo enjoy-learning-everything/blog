@@ -17,5 +17,17 @@ logging:
   file:
     path: log/blog-dev.log
 
+server:
+  port: 8080
+
+#阿里云存储(OSS)配置
+#阿里云主账号AccessKey拥有所有API的访问权限，风险很高。建议创建并使用RAM账号进行API访问或日常运维，请登录 https://ram.console.aliyun.com 创建RAM账号。
+oss:
+  endpoint: xxxxxx #填写bucket所在的地域节点
+  keyid:    xxxxxxx # 填写AccessKey
+  keysecret: xxxxxxx  # 填写Accesssecret
+  bucketname: xxxxxx # 仓库名称
+  domainname: xxxxxxx    #bucket绑定的域名
+
 
 

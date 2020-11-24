@@ -151,7 +151,8 @@
                         </div>
                     </div>
                     <!--加入书签-->
-                    <button class="ui fluid teal button" style="border-radius: 0"><i class="bookmark icon"></i>加入书签</button>
+<!--                    <a href="javascript:void(0)" onclick="_addFavorite()">加入收藏</a>-->
+                    <a class="ui fluid teal button" onclick="_addFavorite()" rel="sidebar" style="border-radius: 0"><i class="bookmark icon"></i>加入书签</a>
                     <!--相关链接-->
                     <div class="ui three column grid m-padded-lr-large m-margin-tb-small" style="font-size: 1.3em">
                         <div class="column m-padded-mini">
@@ -346,6 +347,31 @@
 
     // 显示邮箱
     $('.email').popup();
+
+    function _addFavorite() {
+        var url = window.location || 'http://www.w3cschool.cn';
+        var title = document.title;
+        var ua = navigator.userAgent.toLowerCase();
+        if (ua.indexOf("360se") > -1) {
+            alert("由于360浏览器功能限制，请按 Ctrl+D 手动收藏！");
+        }
+        else if (ua.indexOf("msie 8") > -1) {
+            window.external.AddToFavoritesBar(url, title); //IE8
+        }
+        else if (document.all) {
+            try{
+                window.external.addFavorite(url, title);
+            }catch(e){
+                alert('您的浏览器不支持,请按 Ctrl+D 手动收藏!');
+            }
+        }
+        else if (window.sidebar) {
+            window.sidebar.addPanel(title, url, "");
+        }
+        else {
+            alert('您的浏览器不支持,请按 Ctrl+D 手动收藏!');
+        }
+    }
 </script>
 
 </body>
