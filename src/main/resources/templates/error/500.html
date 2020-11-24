@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>500错误</title>
+    <!--标题栏图标-->
+    <link rel="icon" href="../static/images/Common/favicon.ico" th:href="@{/images/Common/favicon.ico}" type="images/x-ico" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me-common.css" th:href="@{/css/me-common.css}">
+    <link rel="stylesheet" href="../static/css/me-special.css" th:href="@{/css/me-special.css}">
+    <link rel="stylesheet" href="../static/css/me-media.css" th:href="@{/css/me-media.css}">
+</head>
+<body>
+
+<!------导航------>
+<!--inverted:颜色反转；attached消除圆角-->
+<nav th:replace="_fragments :: menu(0)" class="ui inverted attached segment m-padded-tb-mini">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <img src="../static/images/Common/logo_row_simple.png" th:src="@{/images/Common/logo_row_simple.png}"
+                 class="left float image m-margin-right-middle" height="50px" alt="">
+            <a href="index.html" class="active m-item item m-mobile-hide"><i class="home icon m-margin-right-no"></i>首页</a>
+            <a href="categories.html" class="m-item item m-mobile-hide"><i class="folder open icon m-margin-right-no"></i>分类</a>
+            <a href="tags.html" class="m-item item m-mobile-hide"><i class="tags icon m-margin-right-no"></i>标签</a>
+            <a href="archives.html" class="m-item item m-mobile-hide"><i class="archive icon m-margin-right-no"></i>归档</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="heartbeat icon m-margin-right-no"></i>娱乐<i
+                    class="angle down icon m-margin-right-no "></i></a>
+            <a href="link.html" class="m-item item m-mobile-hide"><i class="linkify icon m-margin-right-no"></i>外链</a>
+            <a href="about.html" class="m-item item m-mobile-hide"><i class="user icon m-margin-right-no"></i>关于我</a>
+            <div class="right m-item item m-mobile-hide">
+                <div class="ui inverted transparent input">
+                    <input type="text" placeholder="请输入标题关键字">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui black menu toggle icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+
+<div class="m-container-small m-padded-tb-massive">
+    <div class="ui error message m-padded-tb-massive">
+        <div class="ui container">
+            <h1>500</h1>
+            <p>服务器内部错误，请联系管理员</p>
+        </div>
+    </div>
+</div>
+
+<br/>
+<br/>
+<br/>
+<br/>
+<br/>
+
+<!------底部footer------>
+<footer th:replace="_fragments :: footer">
+    <!--底部teal颜色的条-->
+    <div class="ui segment vertical teal inverted m-padded-tb-mini "></div>
+    <!--底部footer正文-->
+    <div class="ui inverted vertical segment m-padded-tb-big">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <!--QQ微信联系方式二维码及打赏二维码占六个栅栏-->
+                <div class="five wide center aligned column m-children-center">
+                    <!--QQ联系方式二维码-->
+                    <div class="m-inline-block m-margin-right-small">
+                        <img src="../static/images/Common/QQ.png" th:src="@{/images/Common/QQ.png}" class="ui rounded image" alt=""
+                             style="width: 100px;height: 100px">
+                        <span class="m-margin-top-small m-opacity-mini">我的QQ</span>
+                    </div>
+                    <!--微信联系方式二维码-->
+                    <div class="m-inline-block m-margin-right-small">
+                        <img src="../static/images/Common/WeChat.png" th:src="@{/images/Common/WeChat.png}" class="ui rounded image" alt=""
+                             style="width: 100px;height: 100px">
+                        <span class="m-margin-top-small m-opacity-mini">我的微信</span>
+                    </div>
+                    <!--打赏方式二维码-->
+                    <div class="m-inline-block">
+                        <img src="../static/images/Common/Pay.png" th:src="@{/images/Common/Pay.png}" class="ui rounded image" alt=""
+                             style="width: 100px;height: 100px">
+                        <span class="m-margin-top-small m-opacity-mini" style="color: red">打赏</span>
+                    </div>
+                </div>
+                <!--站点声明文字表述战11个栅栏-->
+                <div class="eleven wide left aligned column ">
+                    <h4 class="ui teal header">站点声明：</h4>
+                    <p class="m-opacity-mini">1.文中的商标及图像版权属于其合法持有人，只供传递信息之用，非商务用途。交流时请遵守理性，宽容的原则。</p>
+                    <p class="m-opacity-mini">2.所有文章未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。</p>
+                    <p class="m-opacity-mini">Copyright © 2020 xinglongfei.cn. Designed by Phoenix.
+                        备案号：京ICP备xxxxxxxx号-x </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    })
+</script>
+
+</body>
+</html>

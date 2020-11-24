@@ -1,0 +1,6 @@
+spring:
+  profiles:
+    active: run
+
+
+comment.avatar: /images/Common/comment-avator1.png

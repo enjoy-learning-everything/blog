@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head th:replace="_fragments :: head(~{::title})">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>关于我</title>
+    <!--标题栏图标-->
+    <link rel="icon" href="../static/images/Common/favicon.ico" th:href="@{/images/Common/favicon.ico}"
+          type="images/x-ico"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../static/css/me-common.css" th:href="@{/css/me-common.css}">
+    <link rel="stylesheet" href="../static/css/me-special.css" th:href="@{/css/me-special.css}">
+    <link rel="stylesheet" href="../static/css/me-media.css" th:href="@{/css/me-media.css}">
+</head>
+<body>
+
+<!------导航------>
+<!--inverted:颜色反转；attached消除圆角-->
+<nav th:replace="_fragments :: menu(7)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+    <div class="ui container">
+        <div class="ui inverted secondary stackable menu">
+            <img src="../static/images/Common/logo_row_simple.png" th:src="@{/images/Common/logo_row_simple.png}"
+                 class="left float image m-margin-right-middle" height="50px" alt="">
+            <a href="index.html" class="m-item item m-mobile-hide"><i class="home icon m-margin-right-no"></i>首页</a>
+            <a href="categories.html" class="m-item item m-mobile-hide"><i
+                    class="folder open icon m-margin-right-no"></i>分类</a>
+            <a href="tags.html" class="m-item item m-mobile-hide"><i class="tags icon m-margin-right-no"></i>标签</a>
+            <a href="archives.html" class="m-item item m-mobile-hide"><i
+                    class="archive icon m-margin-right-no"></i>归档</a>
+            <a href="#" class="m-item item m-mobile-hide"><i class="heartbeat icon m-margin-right-no"></i>娱乐<i
+                    class="angle down icon m-margin-right-no "></i></a>
+            <a href="link.html" class="m-item item m-mobile-hide"><i class="linkify icon m-margin-right-no"></i>外链</a>
+            <a href="about.html" class="active m-item item m-mobile-hide"><i class="user icon m-margin-right-no"></i>关于我</a>
+            <div class="right m-item item m-mobile-hide">
+                <div class="ui inverted transparent input">
+                    <input type="text" placeholder="请输入标题关键字">
+                    <i class="search link icon"></i>
+                </div>
+            </div>
+        </div>
+    </div>
+    <a href="#" class="ui black menu toggle icon button m-right-top m-mobile-show">
+        <i class="sidebar icon"></i>
+    </a>
+</nav>
+
+
+<!------中间内容------->
+<div class="m-padded-tb-big m-container-small">
+    <div class="ui container">
+        <div class="ui top attached segment  m-padded-lr-large">
+            <div class="m-margin-top-large">
+                <img src="../static/images/Index/page-cover.jpg" th:src="@{/images/Index/page-cover.jpg}" alt=""
+                     class="ui rounded image m-center">
+            </div>
+            <div class="m-about-text">
+                <!--分割线-->
+                <h4 class="ui horizontal divider header m-margin-tb-large">
+                    <i class="address book icon"></i>Introduce</h4>
+                <ul>
+                    <li>IT专业学生党，即将毕业，正在准备面试</li>
+                    <li>已有女友，比你好看</li>
+                    <li>曾兼职无数</li>
+                    <li>特别喜欢增加自己的阅历，不断地在让自己变得更加成熟</li>
+                    <li>还在前进的路上</li>
+                </ul>
+                <!--分割线-->
+                <h4 class="ui horizontal divider header m-margin-tb-large">
+                    <i class="tags icon"></i>interests
+                </h4>
+                <ul>
+                    <li>运动：羽毛球，骑行，健身，跑步等等都很喜欢</li>
+                    <li>电影：漫威迷，很喜欢超级英雄电影，还喜欢各种能反映现实，引起人深思的电影</li>
+                    <li>旅行：喜欢走遍世界，去外面看看，增加自己的阅历，特别喜欢去北京，上海也行</li>
+                    <li>阅读：很喜欢阅读，喜欢各种人物传记，哲思类书籍，专业书籍嘛，也还行</li>
+                    <li>音乐：喜欢华晨宇、薛之谦、李荣浩等等，也喜欢房东的猫的歌，很喜欢民谣</li>
+                    <li>思考：平时没事，喜欢思考，从过往或者现在悟出属于自己的人生</li>
+                    <li>独处：喜欢独处，享受孤独，不追求合群，独处常常使人们变的更加优秀</li>
+                    <li>动手：有的时候喜欢手工，很享受做手工的过程，动手能力略强</li>
+                </ul>
+                <!--分割线-->
+                <h4 class="ui horizontal divider header m-margin-tb-large">
+                    <i class="flag checkered icon"></i>The purpose of this blog
+                </h4>
+
+                <div class="m-padded-lr-large">
+                    <p>
+                        之前我的博客网站是用的github+hexo方式搭建的，最近打算自己通过代码来搭建博客，花了一个多礼拜的时间，把项目的基本功能模块搭建起来了，后续还会持续更新，最近在准备面试以及备战明年春招，争取每周为这个博客添砖加瓦，并且修复一些bug，其实现在也在准备着手思索博客系统2.0怎么实现，不过由于时间关系，应该得明年或者找到工作稳定下来后再去实现大版本更新了，不过在这之前，我会不断地去完善这个博客系统，实现小版本的更新。
+                    </p>
+                    <p>
+                        另外，我会在这个博客上放一些平时学习的成果，比如环境的配置，稍微指导一下新手，也会放一些信息安全方面的知识，或者一些个人感悟，或者喜欢的一些文章等等，不过平时事情比较多，更新比较慢。</p>
+                    </p>
+                    <p>
+                        我博客的主要目的就是记录自己的学习心得，但是不会经常记录，有时间就记记，方便自己日后回忆，也好复习，同时也希望通过我自己的经历能够让一些同仁或者IT方面的新手少走些一些弯路，其他一些感悟和喜欢的东西，也会放在上面，或许能找到一些知己，寻求到心灵的共鸣
+                    </p>
+                </div>
+
+
+                <!--分割线-->
+                <h4 class="ui horizontal divider header m-margin-tb-large">
+                    <i class="sitemap icon"></i>Technical direction
+                </h4>
+                <ul>
+                    <li>主修软件工程，熟悉 C，C++，java，jsp，略懂python</li>
+                    <li>网页前端方面：熟悉 html，css，javascript，canvas，bootstrap，layui，Vue，semanticui.</li>
+                    <li>网页后端方面：熟悉 J2EE，Spring，SpringMVC，Mybatis，Springboot.</li>
+                    <li>业余学习信息安全和攻防，打过一些CTF比赛，争取做一个白客，或许为国家的信息安全贡献自己的一份力量</li>
+                </ul>
+            </div>
+        </div>
+
+    </div>
+</div>
+<br>
+<br>
+<!------底部footer------>
+<footer th:replace="_fragments :: footer">
+    <!--底部teal颜色的条-->
+    <div class="ui segment vertical teal inverted m-padded-tb-mini "></div>
+    <!--底部footer正文-->
+    <div class="ui inverted vertical segment m-padded-tb-big">
+        <div class="ui container">
+            <div class="ui stackable grid">
+                <!--QQ微信联系方式二维码及打赏二维码占六个栅栏-->
+                <div class="five wide center aligned column m-children-center">
+                    <!--QQ联系方式二维码-->
+                    <div class="m-inline-block m-margin-right-small">
+                        <img src="../static/images/Common/QQ.png" th:src="@{/images/Common/QQ.png}"
+                             class="ui rounded image" alt=""
+                             style="width: 100px;height: 100px">
+                        <span class="m-margin-top-small m-opacity-mini">我的QQ</span>
+                    </div>
+                    <!--微信联系方式二维码-->
+                    <div class="m-inline-block m-margin-right-small">
+                        <img src="../static/images/Common/WeChat.png" th:src="@{/images/Common/WeChat.png}"
+                             class="ui rounded image" alt=""
+                             style="width: 100px;height: 100px">
+                        <span class="m-margin-top-small m-opacity-mini">我的微信</span>
+                    </div>
+                    <!--打赏方式二维码-->
+                    <div class="m-inline-block">
+                        <img src="../static/images/Common/Pay.png" th:src="@{/images/Common/Pay.png}"
+                             class="ui rounded image" alt=""
+                             style="width: 100px;height: 100px">
+                        <span class="m-margin-top-small m-opacity-mini" style="color: red">打赏</span>
+                    </div>
+                </div>
+                <!--站点声明文字表述战11个栅栏-->
+                <div class="eleven wide left aligned column ">
+                    <h4 class="ui teal header">站点声明：</h4>
+                    <p class="m-opacity-mini">1.文中的商标及图像版权属于其合法持有人，只供传递信息之用，非商务用途。交流时请遵守理性，宽容的原则。</p>
+                    <p class="m-opacity-mini">2.所有文章未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。</p>
+                    <p class="m-opacity-mini">Copyright © 2020 xinglongfei.cn. Designed by Phoenix.
+                        备案号：京ICP备xxxxxxxx号-x </p>
+                </div>
+            </div>
+        </div>
+    </div>
+</footer>
+
+
+<!--/*/<th:block th:replace="_fragments :: script">/*/-->
+<script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+<!--/*/</th:block>/*/-->
+
+<script>
+    $('.menu.toggle').click(function () {
+        $('.m-item').toggleClass('m-mobile-hide');
+    });
+
+    $('#payButton').popup({
+        popup: $('.payQR.popup'),
+        on: 'click',
+        position: 'top center'
+    });
+
+    //显示微信
+    $('#wechatButton').popup({
+        popup: $('.wechat.popup'),
+        position: 'bottom center'
+    });
+    //显示qq
+    $('#qqButton').popup({
+        popup: $('.qq.popup'),
+        position: 'bottom center'
+    });
+    // 显示邮箱
+    $('.email').popup();
+
+    // 显示GitHub
+    $('.github').popup();
+
+    // 显示Gitee
+    $('.gitee').popup();
+</script>
+
+</body>
+</html>

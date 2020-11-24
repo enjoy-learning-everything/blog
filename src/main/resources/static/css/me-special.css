@@ -1,0 +1,124 @@
+body{
+    background:url("../images/Common/bg1.png");
+}
+
+
+
+.m-footer-qrCode-inlineBlock{
+    display: inline-block!important;
+}
+
+
+.m-children-center span{
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+
+
+.m-suspend-parent{
+    position: relative!important;
+}
+
+.m-suspend-children{
+    position: absolute!important;
+    right: 1.5em;
+    top: 1.5em;
+}
+
+.m-right-top{
+    position: absolute!important;
+    top: 0;
+    right: 0;
+}
+
+
+.m-user-card .m-headline{
+    /*color: #4c4948;*/
+    font-size: 14px;
+}
+
+.m-user-card .m-length-num{
+    /*color: #4c4948;*/
+    font-size: 20px;
+}
+
+.m-user-card .author-name{
+    font-size: 22px;
+}
+.m-user-card .author-desc{
+    font-size: 14px;
+}
+
+.m-divider-short{
+    border: none!important;
+    border-bottom: black solid 3px!important;
+    width: 80px!important;
+    position: relative;
+    top: 2px;
+    left: 0;
+}
+
+.m-divider-long{
+    border: none!important;
+    border-top: #E7E7E7 solid 1px!important;
+}
+
+.m-link-divider-short{
+    border: none!important;
+    border-bottom: #00b5ad solid 3px!important;
+    width: 75px!important;
+    position: relative;
+    top: 2px;
+    left: 0;
+}
+
+.m-link-divider-long{
+    border: none!important;
+    border-top: #E7E7E7 solid 1px!important;
+}
+
+.m-comment-one-three{
+}
+
+.m-comment-input{
+    border: none!important;
+    border-bottom: #dedede dashed 1px!important;
+    width: 33% !important;
+    color: #555555!important;;
+    line-height: 1.8!important;;
+}
+
+.m-comment-input-error[name='nickname'],
+.m-comment-input-error[name='email']{
+    border-bottom: #eb5055 dashed 1px!important;
+}
+
+
+
+
+.m-comment-textarea{
+    border: none!important;
+    color: #555555!important;;
+    line-height: 1.8!important;;
+    resize: none!important;
+}
+
+.m-comment-box{
+    border: #e4e4e4 1px solid;
+    border-radius: 5px;
+}
+
+#comment-error ul{
+    padding-left: 10px!important;
+}
+
+#comment-error li{
+    display: inline!important;
+    list-style:disc!important;
+}
+
+.about-icon{
+    width: 36px!important;
+    height: 36px!important;
+}
