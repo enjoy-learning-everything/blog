@@ -4,6 +4,7 @@ import cn.xinglongfei.blog.config.AliyunOSSConfigConstant;
 import cn.xinglongfei.blog.enums.FilePathEnum;
 import cn.xinglongfei.blog.enums.FileUploadEnum;
 import cn.xinglongfei.blog.enums.ImageLinkEnum;
+import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.po.Blog;
 import cn.xinglongfei.blog.po.User;
 import cn.xinglongfei.blog.service.BlogService;
@@ -50,7 +51,7 @@ public class BlogController {
     @Autowired
     private FileUploadService fileUploadService;
 
-
+    @MyLog(operation = "【管理端】跳转页面：博客列表")
     @GetMapping("/blogs")
     public String blogs(@PageableDefault(size = 10, sort = {"createTime"},
             direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
@@ -59,6 +60,7 @@ public class BlogController {
         return LISTBLOGPAGE;
     }
 
+    @MyLog(operation = "【管理端】加载碎片：博客搜索结果列表")
     @PostMapping("/blogs/search")
     public String search(@PageableDefault(size = 10, sort = {"createTime"},
             direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
@@ -72,6 +74,7 @@ public class BlogController {
 
     }
 
+    @MyLog(operation = "【管理端】跳转页面：新增博客",type = "跳转")
     @GetMapping("/blogs/newBlog")
     public String newBlog(Model model) {
         setTypeAndTag(model);
@@ -79,7 +82,7 @@ public class BlogController {
         return NEWBLOGPAGE;
     }
 
-
+    @MyLog(operation = "【管理端】跳转页面：修改博客")
     @GetMapping("/blogs/{id}/edit")
     public String editBlog(@PathVariable Long id, Model model) {
         setTypeAndTag(model);
@@ -89,7 +92,7 @@ public class BlogController {
         return NEWBLOGPAGE;
     }
 
-
+    @MyLog(operation = "【管理端】访问接口：新增/修改博客",type = "新增/修改")
     @PostMapping("/blogs")
     public String newBlogPost(Blog blog, @RequestParam(value = "file", required = false) MultipartFile file,
                               @RequestParam String uploadType, @RequestParam(value = "imageUrl", required = false) String imageUrl,
@@ -216,7 +219,7 @@ public class BlogController {
         return REDIRECT_LISTBLOGPAGE;
     }
 
-
+    @MyLog(operation = "【管理端】访问接口：删除博客",type = "删除")
     @GetMapping("/blogs/{id}/delete")
     public String delete(@PathVariable Long id, RedirectAttributes attributes) {
         Blog blogTemp = blogService.getBlog(id);

@@ -1,79 +1,115 @@
 package cn.xinglongfei.blog.aspect;
 
+import cn.xinglongfei.blog.log.MyLog;
+import cn.xinglongfei.blog.po.Log;
+import cn.xinglongfei.blog.po.User;
+import cn.xinglongfei.blog.service.LogService;
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
-import org.aspectj.lang.annotation.*;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.aspectj.lang.annotation.Aspect;
+import org.aspectj.lang.annotation.Before;
+import org.aspectj.lang.annotation.Pointcut;
+import org.aspectj.lang.reflect.MethodSignature;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
 import javax.servlet.http.HttpServletRequest;
+import java.lang.reflect.Method;
 import java.util.Arrays;
+import java.util.Date;
+
 
 /**
- * Created by Phoenix on 2020/11/14
+ * 系统日志：切面处理类
+ * Created by Phoenix on 2020/11/28
  */
 @Aspect
 @Component
 public class LogAspect {
 
-    private final Logger logger = LoggerFactory.getLogger(this.getClass());
+    /**
+     * 操作数据库
+     */
+    @Autowired
+    private LogService sysLogService;
 
-    @Pointcut("execution(* cn.xinglongfei.blog.Controller.*.*(..))")
-    public void log() {
+
+    /**
+     * 我这里是使用log4j2把一些信息打印在控制台上面，可以不写
+     */
+    private static final Logger log = LogManager.getLogger(LogAspect.class);
+
+    //定义切点 @Pointcut
+    //在注解的位置切入代码
+    @Pointcut("@annotation(cn.xinglongfei.blog.log.MyLog)")
+    public void logPoinCut() {
     }
 
-    @Before("log()")
-    public void doBefore(JoinPoint joinPoint) {
-        ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
-        assert attributes != null;
-        HttpServletRequest request = attributes.getRequest();
-        String url = request.getRequestURL().toString();
+
+    //切面 配置通知
+    @Before("logPoinCut()")         //AfterReturning
+    public void saveOperation(JoinPoint joinPoint) {
+        log.info("---------------接口日志记录---------------");
+        //用于保存日志
+        Log sysLog = new Log();
+
+        //从切面织入点处通过反射机制获取织入点处的方法
+        MethodSignature signature = (MethodSignature) joinPoint.getSignature();
+        //获取切入点所在的方法
+        Method method = signature.getMethod();
+
+        //获取操作--方法上的Log的值
+        MyLog myLog = method.getAnnotation(MyLog.class);
+        if (myLog != null) {
+            //保存操作事件
+            String operation = myLog.operation();
+            sysLog.setOperation(operation);
+
+            //保存日志类型
+            String type = myLog.type();
+            sysLog.setType(type);
+
+            log.info("operation=" + operation + ",type=" + type);
+        }
+
+        //获取请求的类名
+        String className = joinPoint.getTarget().getClass().getName();
+        //获取请求的方法名
+        String methodName = method.getName();
+        sysLog.setMethod(className + "." + methodName);
+
+        //请求的参数
+        Object[] argsTemp = joinPoint.getArgs();
+////        System.out.println(argsTemp);
+////        //将参数所在的数组转换成json
+//        String args = JSON.toJSONString(argsTemp, SerializerFeature.WriteNullStringAsEmpty);
+        sysLog.setArgs(Arrays.toString(argsTemp));
+
+        // 客户端ip
+        HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String ip = request.getRemoteAddr();
-        String classMethod = joinPoint.getSignature().getDeclaringTypeName() + "." + joinPoint.getSignature().getName();
-        Object[] args = joinPoint.getArgs();
-        RequestLog requestLog = new RequestLog(url, ip, classMethod, args);
-        logger.info("Request : {}", requestLog);
-    }
+        sysLog.setIp(ip);
+        log.info("methodName="+methodName,"ip="+ip);
 
-    @After("log()")
-    public void doAfter() {
-//        logger.info("--------doAfter--------");
-    }
+        // 操作人账号、姓名（需要提前将用户信息存到session）
+        User user = (User) request.getSession().getAttribute("user");
+        if(user != null) {
+            Long userId = user.getId();
+            String userName = user.getUsername();
+            sysLog.setUserId(userId);
+            sysLog.setUsername(userName);
+            log.info("userId="+userId,"userName="+userName);
+        }
+        sysLog.setOperaTime(new Date());
 
-    //返回result，切面为log()
-    @AfterReturning(returning = "result", pointcut = "log()")
-    public void doAfterReturn(Object result) {
-        logger.info("Result : {}" , result);
-
-    }
-
-
-    private class RequestLog {
-        private String url;
-        private String ip;
-        private String classMethod;
-        private Object[] args;
-
-
-        public RequestLog(String url, String ip, String classMethod, Object[] args) {
-            this.url = url;
-            this.ip = ip;
-            this.classMethod = classMethod;
-            this.args = args;
+        //调用service保存SysLog实体类到数据库，且只记录非调试者IP
+        if(!sysLog.getIp().equals("0:0:0:0:0:0:0:1")&&!sysLog.getIp().equals("127.0.0.1")){
+            sysLogService.saveLog(sysLog);
         }
 
-        @Override
-        public String toString() {
-            return "RequestLog{" +
-                    "url='" + url + '\'' +
-                    ", ip='" + ip + '\'' +
-                    ", classMethod='" + classMethod + '\'' +
-                    ", args=" + Arrays.toString(args) +
-                    '}';
-        }
     }
-
 
 }

@@ -1,5 +1,6 @@
 package cn.xinglongfei.blog.Controller.admin;
 
+import cn.xinglongfei.blog.log.MyLog;
 import com.google.code.kaptcha.Constants;
 import com.google.code.kaptcha.Producer;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -23,6 +24,7 @@ public class CodeController {
     @Autowired
     private Producer captchaProducer = null;
 
+    @MyLog(operation = "【管理端】访问接口：加载验证码",type = "登录")
     @RequestMapping("/kaptcha")
     public void getKaptchaImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
         HttpSession session = request.getSession();

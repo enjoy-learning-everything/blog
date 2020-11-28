@@ -35,4 +35,13 @@ public class BlogQuery {
     public void setRecommend(boolean recommend) {
         this.recommend = recommend;
     }
+
+    @Override
+    public String toString() {
+        return "BlogQuery{" +
+                "title='" + title + '\'' +
+                ", categoryId=" + categoryId +
+                ", recommend=" + recommend +
+                '}';
+    }
 }

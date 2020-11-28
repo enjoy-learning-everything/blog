@@ -1,5 +1,6 @@
 package cn.xinglongfei.blog.Controller;
 
+import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.service.BlogService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,6 +16,7 @@ public class ArchiveShowController {
     @Autowired
     private BlogService blogService;
 
+    @MyLog(operation = "【访客端】跳转页面：归档列表")
     @GetMapping("/archives")
     public String archives(Model model) {
         model.addAttribute("archiveMap",blogService.archiveBlog());

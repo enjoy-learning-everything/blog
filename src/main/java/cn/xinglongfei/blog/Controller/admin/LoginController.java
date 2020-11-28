@@ -1,5 +1,6 @@
 package cn.xinglongfei.blog.Controller.admin;
 
+import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.po.User;
 import cn.xinglongfei.blog.service.UserService;
 import cn.xinglongfei.blog.util.CodeUtil;
@@ -25,13 +26,13 @@ public class LoginController {
     private UserService userService;
 
 
-
+    @MyLog(operation = "【管理端】跳转页面：登录",type = "跳转")
     @GetMapping
     public String loginPage() {
         return "admin/login";
     }
 
-
+    @MyLog(operation = "【管理端】访问接口：登录核验",type = "登录")
     @PostMapping("/login")
     public String login(@RequestParam String username, @RequestParam String password,
                         HttpSession session, RedirectAttributes attributes, HttpServletRequest request) {

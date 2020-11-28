@@ -1,6 +1,7 @@
 package cn.xinglongfei.blog.Controller;
 
 
+import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.service.BlogService;
 import cn.xinglongfei.blog.service.CategoryService;
 import cn.xinglongfei.blog.service.TagService;
@@ -29,6 +30,7 @@ public class IndexController {
     @Autowired
     private TagService tagService;
 
+    @MyLog(operation = "【访客端】跳转页面：主页")
     @GetMapping("/")
     public String index(@PageableDefault(size = 10, sort = {"createTime"},
             direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
@@ -41,6 +43,7 @@ public class IndexController {
         return "index";
     }
 
+    @MyLog(operation = "【访客端】跳转页面：搜索结果")
     @PostMapping("/search")
     public String search(@RequestParam String query, @PageableDefault(size = 10, sort = {"createTime"},
             direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
@@ -49,6 +52,7 @@ public class IndexController {
         return "search";
     }
 
+    @MyLog(operation = "【访客端】跳转页面：博客详情")
     @GetMapping("/blogs/{id}")
     public String blog(@PathVariable Long id, Model model) {
         model.addAttribute("blog",blogService.getAndConvert(id));

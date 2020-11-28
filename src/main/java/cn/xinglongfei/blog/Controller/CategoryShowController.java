@@ -1,5 +1,6 @@
 package cn.xinglongfei.blog.Controller;
 
+import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.po.Category;
 import cn.xinglongfei.blog.service.BlogService;
 import cn.xinglongfei.blog.service.CategoryService;
@@ -27,6 +28,7 @@ public class CategoryShowController {
     @Autowired
     private BlogService blogService;
 
+    @MyLog(operation = "【访客端】跳转页面：分类列表")
     @GetMapping("/categories/{id}")
     public String categories(@PageableDefault(size = 10, sort = {"updateTime"},
             direction = Sort.Direction.DESC) Pageable pageable, @PathVariable Long id, Model model) {

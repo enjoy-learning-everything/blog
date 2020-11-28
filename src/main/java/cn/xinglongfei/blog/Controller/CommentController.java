@@ -1,5 +1,6 @@
 package cn.xinglongfei.blog.Controller;
 
+import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.po.Comment;
 import cn.xinglongfei.blog.po.User;
 import cn.xinglongfei.blog.service.BlogService;
@@ -29,12 +30,14 @@ public class CommentController {
     @Value("${comment.avatar}")
     private String avatar;
 
+    @MyLog(operation = "【访客端】加载碎片：评论列表")
     @GetMapping("/comments/{blogId}")
     public String commentList(@PathVariable Long blogId, Model model) {
         model.addAttribute("comments", commentService.listCommentByBlogId(blogId));
         return "blog :: commentList";
     }
 
+    @MyLog(operation = "【访客端】访问接口：添加评论",type = "新增")
     @PostMapping("/comments")
     public String post(Comment comment, HttpSession session) {
         Long blogId = comment.getBlog().getId();

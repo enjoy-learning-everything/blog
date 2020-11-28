@@ -1,5 +1,6 @@
 package cn.xinglongfei.blog.Controller;
 
+import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.po.Tag;
 import cn.xinglongfei.blog.service.BlogService;
 import cn.xinglongfei.blog.service.TagService;
@@ -26,6 +27,7 @@ public class TagShowController {
     @Autowired
     private BlogService blogService;
 
+    @MyLog(operation = "【访客端】跳转页面：标签列表")
     @GetMapping("/tags/{id}")
     public String tags(@PageableDefault(size = 10, sort = {"updateTime"},
             direction = Sort.Direction.DESC) Pageable pageable, @PathVariable Long id, Model model) {

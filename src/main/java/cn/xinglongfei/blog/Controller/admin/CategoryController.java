@@ -1,5 +1,6 @@
 package cn.xinglongfei.blog.Controller.admin;
 
+import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.po.Category;
 import cn.xinglongfei.blog.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class CategoryController {
     @Autowired
     private CategoryService categoryService;
 
-
+    @MyLog(operation = "【管理端】跳转页面：分类列表")
     @GetMapping("/categories")
     public String categories(@PageableDefault(size = 10, sort = {"id"},
             direction = Sort.Direction.ASC) Pageable pageable, Model model) {
@@ -35,12 +36,14 @@ public class CategoryController {
         return "admin/categories";
     }
 
+    @MyLog(operation = "【管理端】跳转页面：新增分类",type = "跳转")
     @GetMapping("/categories/newCategory")
     public String newCategory(Model model) {
         model.addAttribute("category", new Category());
         return "admin/newCategory";
     }
 
+    @MyLog(operation = "【管理端】跳转页面：修改分类")
     @GetMapping("/categories/{id}/edit")
     public String editCategory(@PathVariable Long id, Model model) {
         model.addAttribute("category", categoryService.getCategory(id));
@@ -48,6 +51,7 @@ public class CategoryController {
     }
 
 
+    @MyLog(operation = "【管理端】访问接口：新增分类",type = "新增")
     @PostMapping("/categories")
     public String newCategoryPost(@Valid Category category, BindingResult result, RedirectAttributes attributes) {
         //重复值校验
@@ -69,6 +73,7 @@ public class CategoryController {
         return "redirect:/admin/categories";
     }
 
+    @MyLog(operation = "【管理端】访问接口：修改分类",type = "修改")
     @PostMapping("/categories/{id}")
     public String editCategoryPost(@Valid Category category, BindingResult result,
                                    @PathVariable Long id, RedirectAttributes attributes) {
@@ -92,6 +97,7 @@ public class CategoryController {
     }
 
 
+    @MyLog(operation = "【管理端】访问接口：修改分类",type = "删除")
     @GetMapping("/categories/{id}/delete")
     public String delete(@PathVariable Long id,RedirectAttributes attributes){
         categoryService.deleteCategory(id);

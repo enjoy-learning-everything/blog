@@ -1,5 +1,6 @@
 package cn.xinglongfei.blog.Controller.admin;
 
+import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.po.Tag;
 import cn.xinglongfei.blog.service.TagService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -27,7 +28,7 @@ public class TagController {
     @Autowired
     private TagService tagService;
 
-
+    @MyLog(operation = "【管理端】跳转页面：标签列表")
     @GetMapping("/tags")
     public String tags(@PageableDefault(size = 10, sort = {"id"},
             direction = Sort.Direction.ASC) Pageable pageable, Model model) {
@@ -35,19 +36,21 @@ public class TagController {
         return "admin/tags";
     }
 
+    @MyLog(operation = "【管理端】跳转页面：新增标签",type = "跳转")
     @GetMapping("/tags/newTag")
     public String newTag(Model model) {
         model.addAttribute("tag", new Tag());
         return "admin/newTag";
     }
 
+    @MyLog(operation = "【管理端】跳转页面：修改标签")
     @GetMapping("/tags/{id}/edit")
     public String editTag(@PathVariable Long id, Model model) {
         model.addAttribute("tag", tagService.getTag(id));
         return "admin/newTag";
     }
 
-
+    @MyLog(operation = "【管理端】访问接口：新增标签",type = "修改")
     @PostMapping("/tags")
     public String newTagPost(@Valid Tag Tag, BindingResult result, RedirectAttributes attributes) {
         //重复值校验
@@ -69,6 +72,7 @@ public class TagController {
         return "redirect:/admin/tags";
     }
 
+    @MyLog(operation = "【管理端】访问接口：修改标签",type = "修改")
     @PostMapping("/tags/{id}")
     public String editTagPost(@Valid Tag Tag, BindingResult result,
                                    @PathVariable Long id, RedirectAttributes attributes) {
@@ -91,7 +95,7 @@ public class TagController {
         return "redirect:/admin/tags";
     }
 
-
+    @MyLog(operation = "【管理端】访问接口：修改标签",type = "删除")
     @GetMapping("/tags/{id}/delete")
     public String delete(@PathVariable Long id,RedirectAttributes attributes){
         tagService.deleteTag(id);
