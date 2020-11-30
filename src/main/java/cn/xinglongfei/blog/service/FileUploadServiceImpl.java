@@ -27,7 +27,7 @@ public class FileUploadServiceImpl implements FileUploadService {
             return FileUploadEnum.FILE_IS_NULL.getValue();
         } else {
             if (file.getSize() > 2 * 1024 * 1024) {
-                return FileUploadEnum.FILE_SIZE_EXCEEDS_1MB.getValue();
+                return FileUploadEnum.FILE_SIZE_EXCEEDS_2MB.getValue();
             } else {
                 if ("".equals(filename.trim())) {
                     return FileUploadEnum.FILE_NAME_IS_NULL.getValue();
@@ -43,7 +43,7 @@ public class FileUploadServiceImpl implements FileUploadService {
                     } else {
                         //执行上传操作
                         String uploadUrl = AliyunOSSUtil.upLoadFile(newFile, locationPath, DiyFilename);
-                        if (uploadUrl.equals("") || uploadUrl == null) {
+                        if (uploadUrl == null || uploadUrl.equals("")) {
                             return FileUploadEnum.UPLOAD_FILE_FAIL.getValue();
                         }
                         System.out.println(newFile.exists());

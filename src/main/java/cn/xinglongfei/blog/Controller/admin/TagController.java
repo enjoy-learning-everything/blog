@@ -50,7 +50,7 @@ public class TagController {
         return "admin/newTag";
     }
 
-    @MyLog(operation = "【管理端】访问接口：新增标签",type = "修改")
+    @MyLog(operation = "【管理端】访问接口：新增标签",type = "新增")
     @PostMapping("/tags")
     public String newTagPost(@Valid Tag Tag, BindingResult result, RedirectAttributes attributes) {
         //重复值校验
@@ -78,7 +78,7 @@ public class TagController {
                                    @PathVariable Long id, RedirectAttributes attributes) {
         //重复值校验
         Tag TagFind = tagService.getTagByName(Tag.getName());
-        if (TagFind != null) {
+        if (TagFind != null && !TagFind.getId().equals(Tag.getId())) {
             result.rejectValue("name", "nameError", "数据库中已有该标签");
         }
         //非空校验

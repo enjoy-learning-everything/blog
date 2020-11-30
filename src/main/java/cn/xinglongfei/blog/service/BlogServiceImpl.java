@@ -101,7 +101,7 @@ public class BlogServiceImpl implements BlogService {
     @Override
     public Map<String, List<Blog>> archiveBlog() {
         List<String> years = blogResposiory.findGroupYear();
-        Map<String,List<Blog>> map = new HashMap<>();
+        Map<String,List<Blog>> map = new TreeMap<>();
         for(String year:years){
             map.put(year,blogResposiory.findByYear(year));
         }

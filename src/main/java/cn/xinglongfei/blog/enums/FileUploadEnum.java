@@ -9,6 +9,7 @@ public enum FileUploadEnum {
     FILE_NAME_IS_NULL("file_name_is_null","文件名为空"),
     NOT_A_IMAGE_FILE("not_a_image_file","不是图片文件"),
     FILE_SIZE_EXCEEDS_1MB("file_size_exceeds_1MB","文件大小超过1MB"),
+    FILE_SIZE_EXCEEDS_2MB("file_size_exceeds_2MB","文件大小超过2MB"),
     FILE_DEAL_FAIL("file_deal_fail","文件处理异常"),
     UPLOAD_FILE_SUCCESS("upload_file_success","文件上传成功"),
     UPLOAD_FILE_FAIL("upload_file_fail","文件上传失败"),

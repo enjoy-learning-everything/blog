@@ -14,6 +14,7 @@ public class WebConfig implements WebMvcConfigurer {
 
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
+        //设置拦截器，拦截管理页面，但不拦截管理页面的登录页面和登录提交页面
         registry.addInterceptor(new LoginInterceptor()).addPathPatterns("/admin/**")
                 .excludePathPatterns("/admin").excludePathPatterns("/admin/login");
     }

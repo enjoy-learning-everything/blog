@@ -22,15 +22,17 @@
         <div class="ui inverted secondary stackable menu">
             <img src="../../static/images/Common/logo_row_simple.png" th:src="@{/images/Common/logo_row_simple.png}"
                  class="left float image m-margin-right-middle" height="50px" alt="">
-            <a href="../index.html" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon m-margin-right-no"></i>博客</a>
+            <a href="../index.html" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon m-margin-right-no"></i>博客管理</a>
             <a href="../categories.html" th:href="@{/admin/categories}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i
-                    class="folder open icon m-margin-right-no" ></i>分类</a>
-            <a href="../tags.html" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon m-margin-right-no"></i>标签</a>
-            <a href="../logs.html" th:href="@{/admin/logs}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i class="pencil alternate icon m-margin-right-no"></i>日志</a>
+                    class="folder open icon m-margin-right-no" ></i>分类管理</a>
+            <a href="../tags.html" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon m-margin-right-no"></i>标签管理</a>
+            <a href="../link.html" th:href="@{/admin/links}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i
+                    class="linkify icon m-margin-right-no"></i>外链管理</a>
+            <a href="../link.html" th:href="@{/admin/linkCategories}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i
+                    class="linkify icon m-margin-right-no"></i>分类管理</a>
+            <a href="../logs.html" th:href="@{/admin/logs}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="pencil alternate icon m-margin-right-no"></i>日志管理</a>
 <!--            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="heartbeat icon m-margin-right-no"></i>娱乐<i-->
 <!--                    class="angle down icon m-margin-right-no "></i></a>-->
-<!--            <a href="../link.html" class="m-item item m-mobile-hide"><i-->
-<!--                    class="linkify icon m-margin-right-no" th:classappend="${n==6} ? 'active'"></i>外链</a>-->
 <!--            <a href="../about.html" class="m-item item m-mobile-hide"><i class="user icon m-margin-right-no" th:classappend="${n==7} ? 'active'"></i>关于我</a>-->
             <div class="right m-item m-mobile-hide menu">
                 <div class="ui dropdown item">

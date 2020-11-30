@@ -8,7 +8,8 @@ public enum FilePathEnum {
     BANNER("Banner"),
     COVER_PICTURE("CoverPicture"),
     OTHERS("Others"),
-    USER("User");
+    USER("User"),
+    LINKAVATAR("LinkAvatar");
 
 
     private String path;

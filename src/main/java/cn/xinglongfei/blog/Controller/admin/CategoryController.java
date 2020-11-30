@@ -79,7 +79,7 @@ public class CategoryController {
                                    @PathVariable Long id, RedirectAttributes attributes) {
         //重复值校验
         Category categoryFind = categoryService.getCategoryByName(category.getName());
-        if (categoryFind != null) {
+        if (categoryFind != null && !categoryFind.getId().equals(category.getId())) {
             result.rejectValue("name", "nameError", "数据库中已有该分类");
         }
         //非空校验

@@ -4,6 +4,9 @@ import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.po.Log;
 import cn.xinglongfei.blog.po.User;
 import cn.xinglongfei.blog.service.LogService;
+import eu.bitwalker.useragentutils.Browser;
+import eu.bitwalker.useragentutils.OperatingSystem;
+import eu.bitwalker.useragentutils.UserAgent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.aspectj.lang.JoinPoint;
@@ -92,23 +95,32 @@ public class LogAspect {
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
         String ip = request.getRemoteAddr();
         sysLog.setIp(ip);
-        log.info("methodName="+methodName,"ip="+ip);
+        log.info("methodName=" + methodName, "ip=" + ip);
+
+        //获取用户的浏览器版本以及操作系统版本
+        UserAgent userAgent = UserAgent.parseUserAgentString(request.getHeader("User-Agent"));
+        Browser browser = userAgent.getBrowser();
+        OperatingSystem os = userAgent.getOperatingSystem();
+        sysLog.setBrowser(browser.toString());
+        sysLog.setSystem(os.toString());
+        log.info("Browser=" + browser.toString(), "OperatingSystem=" + os.toString());
 
         // 操作人账号、姓名（需要提前将用户信息存到session）
         User user = (User) request.getSession().getAttribute("user");
-        if(user != null) {
+        if (user != null) {
             Long userId = user.getId();
             String userName = user.getUsername();
             sysLog.setUserId(userId);
             sysLog.setUsername(userName);
-            log.info("userId="+userId,"userName="+userName);
+            log.info("userId=" + userId, "userName=" + userName);
         }
+        //设置时间
         sysLog.setOperaTime(new Date());
 
         //调用service保存SysLog实体类到数据库，且只记录非调试者IP
-        if(!sysLog.getIp().equals("0:0:0:0:0:0:0:1")&&!sysLog.getIp().equals("127.0.0.1")){
-            sysLogService.saveLog(sysLog);
-        }
+//        if(!sysLog.getIp().equals("0:0:0:0:0:0:0:1")&&!sysLog.getIp().equals("127.0.0.1")){
+        sysLogService.saveLog(sysLog);
+//        }
 
     }
 

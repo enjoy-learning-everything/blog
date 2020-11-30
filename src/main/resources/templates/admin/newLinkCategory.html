@@ -3,10 +3,11 @@
 <head th:replace="admin/_fragments :: head(~{::title})">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>分类管理页</title>
+    <title>分类新增</title>
     <!--标题栏图标-->
-    <link rel="icon" href="../../static/images/Common/favicon.ico" th:href="@{/images/Common/favicon.ico}"
+    <link rel="icon" href="../..//images/Common/favicon.ico" th:href="@{/images/Common/favicon.ico}"
           type="images/x-ico"/>
+    <!--引入semantic-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../../static/css/me-common.css" th:href="@{/css/me-common.css}">
     <link rel="stylesheet" href="../../static/css/me-special.css" th:href="@{/css/me-special.css}">
@@ -16,7 +17,7 @@
 
 <!------导航------>
 <!--inverted:颜色反转；attached消除圆角-->
-<nav th:replace="admin/_fragments :: menu(6)" class="ui inverted attached segment m-padded-tb-mini">
+<nav th:replace="admin/_fragments :: menu(5)" class="ui inverted attached segment m-padded-tb-mini">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <img src="../../static/images/Common/logo_row_simple.png" th:src="@{/images/Common/logo_row_simple.png}"
@@ -50,63 +51,59 @@
     </a>
 </nav>
 
-<!------中间内容------->
-<div class="m-padded-tb-big">
+<!--二级导航-->
+<div class="ui attached pointing menu">
     <div class="ui container">
-
-        <table class="ui celled striped selectable single line table celled teal">
-            <thead>
-            <tr>
-                <th>序号</th>
-<!--                <th>用户ID</th>-->
-                <th>用户名</th>
-                <th>操作者IP</th>
-                <th>用户系统</th>
-                <th>用户浏览器</th>
-                <th>执行操作</th>
-<!--                <th>操作类型</th>-->
-                <th>方法名称</th>
-                <th>操作时间</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr th:each="log,iterStata : ${page.content}">
-                <td th:text="${iterStata.count}">1</td>
-<!--                <td th:text="${log.userId}">1</td>-->
-                <td th:text="${log.username}">Phoenix</td>
-                <td th:text="${log.ip}">127.0.0.1</td>
-                <td th:text="${log.system}">Windows_10</td>
-                <td th:text="${log.browser}">Chrome_8</td>
-                <td th:text="${log.operation}">登录</td>
-<!--                <td th:text="${log.type}">登录</td>-->
-                <td th:text="${#strings.substring(log.method,31)}">/login</td>
-<!--                <td th:text="${log.args}">null</td>-->
-                <td th:text="${#dates.format(log.operaTime,'yyyy-MM-dd HH:mm:ss')}">1990-01-01-0:00</td>
-            </tr>
-            </tbody>
-            <tfoot>
-            <tr th:if="${page.totalPages}>1">
-                <th colspan="8" >
-                    <div class="ui right floated pagination menu" >
-                        <a class="icon item" th:href="@{/admin/logs(page=${page.number}-1)}"
-                           th:unless="${page.first}">
-                            <i class="left chevron icon"></i>
-                        </a>
-                        <!--                        <a class="item">1</a>-->
-                        <!--                        <a class="item">2</a>-->
-                        <!--                        <a class="item">3</a>-->
-                        <!--                        <a class="item">4</a>-->
-                        <a class="icon item" th:href="@{/admin/logs(page=${page.number}+1)}"
-                           th:unless="${page.last}">
-                            <i class="right chevron icon"></i>
-                        </a>
-                    </div>
-                </th>
-            </tr>
-            </tfoot>
-        </table>
+        <div class="right menu">
+            <a href="#" th:href="@{/admin/linkCategories/newLinkCategory}" class="teal item active">新增</a>
+            <a href="#" th:href="@{/admin/linkCategories}" class="item">列表</a>
+        </div>
     </div>
 </div>
+
+
+<!------中间内容------->
+<div class="m-padded-tb-big m-container-small">
+    <div class="ui container">
+        <form action="#" method="post" th:object="${linkCategory}"
+              th:action="*{id}==null ? @{/admin/linkCategories} : @{/admin/linkCategories/{id}(id=*{id})}"
+               class="ui form">
+            <input type="hidden" name="id" th:value="*{id}">
+            <div class="required field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">名称</label>
+                    <input type="text" name="name" placeholder="请输入外链分类名称" th:value="*{name}">
+                </div>
+            </div>
+            <div class="required field">
+                <div class="ui left labeled input">
+                    <label class="ui teal basic label">优先级</label>
+                    <input type="text" name="priority" placeholder="请输入外链分类优先级" th:value="*{priority}">
+                </div>
+            </div>
+
+            <div class="ui error message"></div>
+
+            <!--/*/
+            <div class="ui negative message" th:if="${#fields.hasErrors('name')}">
+                <i class="close icon"></i>
+                <div class="header">验证失败</div>
+                <p th:errors="*{name}">提交的信息不符合规则</p>
+            </div>
+            /*/-->
+            <div class="ui right aligned container">
+                <button type="button" class="ui button" onclick="self.location=document.referrer">返回</button>
+                <button class="ui teal button">提交</button>
+            </div>
+        </form>
+    </div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
 <br>
 <br>
 <!------底部footer------>
@@ -154,12 +151,16 @@
     </div>
 </footer>
 
+
 <!--/*/<th:block th:replace="admin/_fragments :: script">/*/-->
 <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
+<!--引入semantic-->
 <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
 <!--/*/</th:block>/*/-->
 
+
 <script>
+
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
     });
@@ -174,6 +175,26 @@
                 .closest('.message')
                 .transition('fade');
         });
+
+    $('.ui.form').form({
+        fields: {
+            name: {
+                identifier: 'name',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入外链分类名称！'
+                }]
+            },
+            priority: {
+                identifier: 'priority',
+                rules: [{
+                    type: 'empty',
+                    prompt: '请输入外链分类优先级！'
+                }]
+            }
+        }
+    })
+
 
 </script>
 

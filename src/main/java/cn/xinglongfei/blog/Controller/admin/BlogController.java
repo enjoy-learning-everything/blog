@@ -71,7 +71,6 @@ public class BlogController {
     private void setTypeAndTag(Model model) {
         model.addAttribute("categories", categoryService.listCategory());
         model.addAttribute("tags", tagService.listTag());
-
     }
 
     @MyLog(operation = "【管理端】跳转页面：新增博客",type = "跳转")
@@ -99,6 +98,7 @@ public class BlogController {
                               RedirectAttributes attributes, HttpSession session) {
         //获取session中的用户信息
         blog.setUser((User) session.getAttribute("user"));
+        //根据博客分类ID和tagsID设置博客分类和标签
         blog.setCategory(categoryService.getCategory(blog.getCategory().getId()));
         blog.setTags(tagService.listTag(blog.getTagIds()));
         Blog blogTemp = null;

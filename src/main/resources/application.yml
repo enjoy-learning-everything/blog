@@ -7,6 +7,9 @@ spring:
       max-file-size: 20MB
       #单次请求文件的总大小
       max-request-size: 20MB
+  jackson:
+    date-format: yyyy-MM-dd HH:mm:ss
+    time-zone: GMT+8
 
 #默认评论头像
 comment.avatar: /images/Common/comment-avator1.png
