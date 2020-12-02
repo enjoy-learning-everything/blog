@@ -28,7 +28,7 @@
             <a href="../archives.html" class="m-item item m-mobile-hide"><i class="archive icon m-margin-right-no"></i>归档</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="heartbeat icon m-margin-right-no"></i>娱乐<i
                     class="angle down icon m-margin-right-no "></i></a>
-            <a href="../link.html" class="m-item item m-mobile-hide"><i
+            <a href="../links.html" class="m-item item m-mobile-hide"><i
                     class="linkify icon m-margin-right-no"></i>外链</a>
             <a href="../about.html" class="m-item item m-mobile-hide"><i class="user icon m-margin-right-no"></i>关于我</a>
             <div class="right m-item m-mobile-hide menu">
@@ -114,7 +114,7 @@
         </div>
 
         <div id="table-container">
-            <table th:fragment="blogListTable" class="ui celled teal table">
+            <table th:fragment="linkListTable" class="ui celled striped selectable single line table celled teal">
                 <thead  class="center aligned">
                 <tr>
                     <th></th>
@@ -130,10 +130,10 @@
                 <tbody class="center aligned">
                 <tr th:each="link,iterSta : ${page.content}">
                     <td th:text="${iterSta.count}">1</td>
-                    <td class="left aligned"><a class="m-table-blacke" th:href="${link.url}"
+                    <td class="left aligned"><a class="m-table-blacker" th:href="${link.url}"
                            target="_blank" th:text="${link.title}">刻意练习清单</a></td>
                     <td th:text="${link.description}">认知升级</td>
-                    <td th:text="${link.priority}">草稿</td>
+                    <td th:text="${link.priority}==999?'/':${link.priority}">草稿</td>
                     <td th:text="${link.email}">xxxx@xx.com</td>
                     <td th:text="${link.linkCategory.name}">认知升级</td>
                     <td th:text="${#dates.format(link.createTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 9:45</td>

@@ -47,6 +47,7 @@ public class LinkController {
     @GetMapping("/links")
     public String links(@PageableDefault(size = 10, sort = {"priority"},
             direction = Sort.Direction.ASC) Pageable pageable, Model model) {
+        model.addAttribute("linkCategories", linkCategoryService.listLinkCategory());
         model.addAttribute("page", linkService.listLink(pageable));
         return "admin/links";
     }
@@ -55,9 +56,9 @@ public class LinkController {
     @MyLog(operation = "【管理端】加载碎片：外链搜索结果列表")
     @PostMapping("/links/search")
     public String search(@PageableDefault(size = 10, sort = {"priority"},
-            direction = Sort.Direction.DESC) Pageable pageable, LinkQuery link, Model model) {
+            direction = Sort.Direction.ASC) Pageable pageable, LinkQuery link, Model model) {
         model.addAttribute("page", linkService.listLink(pageable, link));
-        return "admin/blogs :: blogListTable";
+        return "admin/links :: linkListTable";
     }
 
     @MyLog(operation = "【管理端】跳转页面：新增外链", type = "跳转")
@@ -209,7 +210,6 @@ public class LinkController {
         return "redirect:/admin/links";
     }
 
-
     @MyLog(operation = "【管理端】访问接口：删除外链", type = "删除")
     @GetMapping("/links/{id}/delete")
     public String delete(@PathVariable Long id, RedirectAttributes attributes) {
@@ -220,7 +220,7 @@ public class LinkController {
             linkService.deleteLink(id);
         }
         attributes.addFlashAttribute("message", "删除成功");
-        return "redirect:/admin/lsinks";
+        return "redirect:/admin/links";
     }
 
 }

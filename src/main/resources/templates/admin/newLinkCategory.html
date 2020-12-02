@@ -29,7 +29,7 @@
             <a href="../archives.html" class="m-item item m-mobile-hide"><i class="archive icon m-margin-right-no"></i>归档</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="heartbeat icon m-margin-right-no"></i>娱乐<i
                     class="angle down icon m-margin-right-no "></i></a>
-            <a href="../link.html" class="m-item item m-mobile-hide"><i
+            <a href="../links.html" class="m-item item m-mobile-hide"><i
                     class="linkify icon m-margin-right-no"></i>外链</a>
             <a href="../about.html" class="m-item item m-mobile-hide"><i class="user icon m-margin-right-no"></i>关于我</a>
             <div class="right m-item m-mobile-hide menu">
@@ -75,7 +75,7 @@
                     <input type="text" name="name" placeholder="请输入外链分类名称" th:value="*{name}">
                 </div>
             </div>
-            <div class="required field">
+            <div class="field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">优先级</label>
                     <input type="text" name="priority" placeholder="请输入外链分类优先级" th:value="*{priority}">
@@ -185,13 +185,13 @@
                     prompt: '请输入外链分类名称！'
                 }]
             },
-            priority: {
-                identifier: 'priority',
-                rules: [{
-                    type: 'empty',
-                    prompt: '请输入外链分类优先级！'
-                }]
-            }
+            // priority: {
+            //     identifier: 'priority',
+            //     rules: [{
+            //         type: 'empty',
+            //         prompt: '请输入外链分类优先级！'
+            //     }]
+            // }
         }
     })
 

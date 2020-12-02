@@ -10,7 +10,7 @@ import java.util.List;
  */
 @Entity
 @Table(name = "t_blog")
-public class Blog {
+public class Blog implements Comparable<Blog>{
     @Id
     @GeneratedValue
     private Long id;
@@ -252,6 +252,17 @@ public class Blog {
         } else {
             return tagIds;
         }
+    }
+
+    @Override
+    public int compareTo(Blog blog) {
+        //先按照优先级排序
+        int i = Integer.parseInt(String.valueOf(blog.getCreateTime().getTime()).substring(0, 10))
+                -Integer.parseInt(String.valueOf(this.getCreateTime().getTime()).substring(0, 10));
+        if (i == 0) {
+            return (int) (this.getId() - blog.getId());//如果优先级相等了再用ID进行排序
+        }
+        return i;
     }
 
     @Override

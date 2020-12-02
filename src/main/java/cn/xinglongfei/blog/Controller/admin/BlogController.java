@@ -55,7 +55,9 @@ public class BlogController {
     @GetMapping("/blogs")
     public String blogs(@PageableDefault(size = 10, sort = {"createTime"},
             direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
+        //传输分类列表信息
         model.addAttribute("categories", categoryService.listCategory());
+        //传输博客分页信息
         model.addAttribute("page", blogService.listBlog(pageable, blog));
         return LISTBLOGPAGE;
     }
@@ -64,10 +66,15 @@ public class BlogController {
     @PostMapping("/blogs/search")
     public String search(@PageableDefault(size = 10, sort = {"createTime"},
             direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
+        //传输博客分页信息
         model.addAttribute("page", blogService.listBlog(pageable, blog));
         return "admin/blogs :: blogListTable";
     }
 
+    /**
+     * 传输分类和标签列表信息
+     * @param model 页面模型层
+     */
     private void setTypeAndTag(Model model) {
         model.addAttribute("categories", categoryService.listCategory());
         model.addAttribute("tags", tagService.listTag());
@@ -85,8 +92,10 @@ public class BlogController {
     @GetMapping("/blogs/{id}/edit")
     public String editBlog(@PathVariable Long id, Model model) {
         setTypeAndTag(model);
+        //获取原博客信息
         Blog blog = blogService.getBlog(id);
         blog.init();
+        //传入原博客信息
         model.addAttribute("blog", blog);
         return NEWBLOGPAGE;
     }

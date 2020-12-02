@@ -32,6 +32,7 @@ public class TagShowController {
     public String tags(@PageableDefault(size = 10, sort = {"updateTime"},
             direction = Sort.Direction.DESC) Pageable pageable, @PathVariable Long id, Model model) {
         List<Tag> tags = TagService.listTagTop(1000);
+        //如果id=-1说明未选择某标签，默认选中第0个标签
         if (id == -1) {
             id = tags.get(0).getId();
         }

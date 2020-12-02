@@ -15,7 +15,7 @@
 
 <!------导航------>
 <!--inverted:颜色反转；attached消除圆角-->
-<nav th:replace="_fragments :: menu(7)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="_fragments :: menu(6)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <img src="../static/images/Common/logo_row_simple.png" th:src="@{/images/Common/logo_row_simple.png}"
@@ -29,7 +29,7 @@
                     class="archive icon m-margin-right-no"></i>归档</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="heartbeat icon m-margin-right-no"></i>娱乐<i
                     class="angle down icon m-margin-right-no "></i></a>
-            <a href="link.html" class="active m-item item m-mobile-hide"><i class="linkify icon m-margin-right-no"></i>外链</a>
+            <a href="links.html" class="active m-item item m-mobile-hide"><i class="linkify icon m-margin-right-no"></i>外链</a>
             <a href="about.html" class="m-item item m-mobile-hide"><i class="user icon m-margin-right-no"></i>关于我</a>
             <div class="right m-item item m-mobile-hide">
                 <div class="ui inverted transparent input">
@@ -49,8 +49,17 @@
 <div class="m-padded-tb-big m-container-small">
     <div class="ui container">
         <!--友情链接-->
-        <div class="ui top attached segment">
-            <h3 class="ui teal header m-margin-top-small">友情链接</h3>
+        <div class="ui top attached segment" th:each="item : ${linksMap}">
+<!--            <h3 class="ui teal header m-margin-top-small" th:text="${item.key}">友情链接</h3>-->
+<!--            <span th:text="${item.value.size()}"></span>-->
+            <div class="ui bottom aligned two column grid">
+                <div class="column">
+                    <h3 class="ui teal header m-margin-top-small" th:text="${item.key}">友情链接</h3>
+                </div>
+                <div class=" right aligned column">
+                    共&nbsp;<h3 class="ui orange header m-inline-block" th:text="${item.value.size()}">14</h3>&nbsp;个
+                </div>
+            </div>
             <div class="m-margin-tb-small">
                 <div class="ui section divider m-margin-tb-no m-link-divider-short"
                      style="border-color: #00b5ad!important;"></div>
@@ -60,21 +69,23 @@
             <div class="ui grid">
                 <div class="column m-margin-tb-small">
                     <div class="ui mini horizontal link list">
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
+                        <a href="#" th:href="@{${link.url}}" target="_blank" class="block m-text-blacker" th:each="link : ${item.value}">
+                            <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
+                                <div class="m-inline-block middle aligned m-margin-right-tiny">
+                                    <img src="../static/images/Index/page-cover.jpg" th:src="@{${link.avatar}}" alt="" class="ui circular image"
+                                         width="50px" height="50px">
+                                </div>
+                                <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
+                                    <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;" th:text="${link.title}">
+                                        以小型的博客
+                                    </h3>
+                                    <p class="" style="font-size: 12px!important;" th:text="${link.description}">
+                                        正确做好任何一件事情的前晰晰。
+                                    </p>
+                                </div>
                             </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
+                        </a>
+                        <!--/*-->
                         <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
                             <div class="m-inline-block middle aligned m-margin-right-tiny">
                                 <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
@@ -180,6 +191,7 @@
                                 </p>
                             </div>
                         </div>
+                        <!--*/-->
                     </div>
 
                 </div>
@@ -187,6 +199,9 @@
             </div>
 
         </div>
+
+
+        <!--/*-->
         <!--学习网站-->
         <div class="ui top attached segment">
             <h3 class="ui teal header m-margin-top-small">学习网站</h3>
@@ -405,7 +420,7 @@
             </div>
 
         </div>
-
+        <!--*/-->
 
     </div>
 </div>

@@ -33,22 +33,32 @@ public class CommentController {
     @MyLog(operation = "【访客端】加载碎片：评论列表")
     @GetMapping("/comments/{blogId}")
     public String commentList(@PathVariable Long blogId, Model model) {
+        //传入评论列表
         model.addAttribute("comments", commentService.listCommentByBlogId(blogId));
         return "blog :: commentList";
     }
 
+    /**
+     * 添加评论
+     * @param comment 评论对象
+     * @param session session对象
+     * @return 调用/comments/{blogId}接口
+     */
     @MyLog(operation = "【访客端】访问接口：添加评论",type = "新增")
     @PostMapping("/comments")
     public String post(Comment comment, HttpSession session) {
+        //获取博客信息
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.getBlog(blogId));
         User user = (User) session.getAttribute("user");
+        //用户名不为空则设置为管理员身份
         if (user != null) {
             comment.setAvatar(user.getAvatar());
             comment.setAdminComment(true);
         } else {
             comment.setAvatar(avatar);
         }
+        //保存评论
         commentService.saveComment(comment);
         return "redirect:/comments/" + blogId;
     }

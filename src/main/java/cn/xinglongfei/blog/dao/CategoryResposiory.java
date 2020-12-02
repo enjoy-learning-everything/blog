@@ -12,8 +12,18 @@ import java.util.List;
  */
 public interface CategoryResposiory extends JpaRepository<Category,Long> {
 
+    /**
+     * 根据名字查询分类
+     * @param name 名字
+     * @return 分类
+     */
     Category findByName(String name);
 
+    /**
+     * 根据pageable对象查询符合要求的分类List
+     * @param pageable 分页查询，封装了当前页，每页显示的条数，排序方式
+     * @return 符合要求的分类List
+     */
     @Query("select c from Category c")
     List<Category> findTop(Pageable pageable);
 }

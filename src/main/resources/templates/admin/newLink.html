@@ -32,7 +32,7 @@
             <a href="../archives.html" class="m-item item m-mobile-hide"><i class="archive icon m-margin-right-no"></i>归档</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="heartbeat icon m-margin-right-no"></i>娱乐<i
                     class="angle down icon m-margin-right-no "></i></a>
-            <a href="../link.html" class="m-item item m-mobile-hide"><i
+            <a href="../links.html" class="m-item item m-mobile-hide"><i
                     class="linkify icon m-margin-right-no"></i>外链</a>
             <a href="../about.html" class="m-item item m-mobile-hide"><i class="user icon m-margin-right-no"></i>关于我</a>
             <div class="right m-item m-mobile-hide menu">
@@ -84,7 +84,7 @@
                     <input type="text" name="url" placeholder="请输入网站网址" th:value="*{url}">
                 </div>
             </div>
-            <div class="required field">
+            <div class="field">
                 <div class="ui left labeled input">
                     <label class="ui teal basic label">优先级</label>
                     <input type="text" name="priority" placeholder="请输入网站显示优先级" th:value="*{priority}">
@@ -244,49 +244,49 @@
                 identifier: 'title',
                 rules: [{
                     type: 'empty',
-                    prompt: '类型：类型不能为空'
+                    prompt: '网站名称：网站名称不能为空'
                 }]
             },
             url: {
                 identifier: 'url',
                 rules: [{
                     type: 'empty',
-                    prompt: '标题：标题不能为空'
+                    prompt: '网站网址：网站网址不能为空'
                 }]
             },
-            priority: {
-                identifier: 'priority',
-                rules: [{
-                    type: 'empty',
-                    prompt: '内容：内容不能为空'
-                }]
-            },
+            // priority: {
+            //     identifier: 'priority',
+            //     rules: [{
+            //         type: 'empty',
+            //         prompt: '优先级：优先级不能为空'
+            //     }]
+            // },
             linkCategoryId: {
                 identifier: 'linkCategory.id',
                 rules: [{
                     type: 'empty',
-                    prompt: '分类：分类不能为空'
+                    prompt: '外链分类：外链分类不能为空'
                 }]
             },
-            email: {
-                identifier: 'email',
-                rules: [{
-                    type: 'empty',
-                    prompt: '标签：标签不能为空'
-                }]
-            },
+            // email: {
+            //     identifier: 'email',
+            //     rules: [{
+            //         type: 'empty',
+            //         prompt: '站长邮箱：站长邮箱不能为空'
+            //     }]
+            // },
             description: {
                 identifier: 'description',
                 rules: [{
                     type: 'empty',
-                    prompt: '描述：描述不能为空'
+                    prompt: '网站描述：网站描述不能为空'
                 }]
             },
             imageUrl: {
                 identifier: 'imageUrl',
                 rules: [{
                     type: 'empty',
-                    prompt: '首图：首图地址不能为空'
+                    prompt: '网站图标：图标地址不能为空'
                 }]
             }
         }
@@ -302,7 +302,7 @@
                 rules: [
                     {
                         type: 'empty',
-                        prompt: '首图：首图地址不能为空'
+                        prompt: '网站图标：图标地址不能为空'
                     }
                 ]
             }).form('remove field', ['file']);
@@ -313,7 +313,7 @@
                 rules: [
                     {
                         type: 'empty',
-                        prompt: '首图：首图文件不能为空'
+                        prompt: '网站图标：图标文件不能为空'
                     }
                 ]
             }).form('remove field', ['imageUrl']);

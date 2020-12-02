@@ -47,8 +47,8 @@ public class IndexController {
     @PostMapping("/search")
     public String search(@RequestParam String query, @PageableDefault(size = 10, sort = {"createTime"},
             direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
+        //根据用户输入的内容（query）查询出内容和标题中包含该字段的博客
         model.addAttribute("page", blogService.listBlog("%"+query+"%",pageable));
-        model.addAttribute("query", blogService.listBlog("%"+query+"%",pageable));
         return "search";
     }
 

@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
@@ -40,12 +41,7 @@ public class LinkCategoryServiceImpl implements LinkCategoryService {
         return linkCategoryResposiory.findByName(name);
     }
 
-    @Override
-    public LinkCategory getLinkCategoryByPriority(Long priority) {
-        return linkCategoryResposiory.findByPriority(priority);
-    }
-
-
+    @Transactional
     @Override
     public LinkCategory saveLinkCategory(LinkCategory linkCategory) {
         return linkCategoryResposiory.save(linkCategory);
@@ -56,6 +52,7 @@ public class LinkCategoryServiceImpl implements LinkCategoryService {
         return linkCategoryResposiory.getOne(id);
     }
 
+    @Transactional
     @Override
     public LinkCategory updateLinkCategory(Long id, LinkCategory linkCategory) {
         LinkCategory linkCategoryTemp = linkCategoryResposiory.getOne(id);
@@ -66,6 +63,7 @@ public class LinkCategoryServiceImpl implements LinkCategoryService {
         return linkCategoryResposiory.save(linkCategoryTemp);
     }
 
+    @Transactional
     @Override
     public void deleteLinkCategory(Long id) {
         linkCategoryResposiory.deleteById(id);

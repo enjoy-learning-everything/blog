@@ -29,7 +29,7 @@
                     class="archive icon m-margin-right-no"></i>归档</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="heartbeat icon m-margin-right-no"></i>娱乐<i
                     class="angle down icon m-margin-right-no "></i></a>
-            <a href="link.html" class="m-item item m-mobile-hide"><i class="linkify icon m-margin-right-no"></i>外链</a>
+            <a href="links.html" class="m-item item m-mobile-hide"><i class="linkify icon m-margin-right-no"></i>外链</a>
             <a href="about.html" class="m-item item m-mobile-hide"><i class="user icon m-margin-right-no"></i>关于我</a>
             <div class="right m-item item m-mobile-hide">
                 <div class="ui inverted transparent input">
@@ -61,7 +61,7 @@
         </div>
 
         <div th:each="item : ${archiveMap}" class="m-margin-top-large">
-            <h2 class="ui center aligned header" th:text="${item.key}">2017</h2>
+            <h3 class="ui center aligned header" th:text="${item.key}">2017</h3>
             <div class="ui fluid vertical menu">
                 <a href="#" th:href="@{/blogs/{id}(id=${blog.id})}" target="_blank" class="item"
                    th:each="blog : ${item.value}">

@@ -34,6 +34,7 @@ public class BlogServiceImpl implements BlogService {
         return blogResposiory.getOne(id);
     }
 
+
     @Transactional
     @Override
     public Blog getAndConvert(Long id) {
@@ -93,17 +94,44 @@ public class BlogServiceImpl implements BlogService {
 
     @Override
     public List<Blog> listRecommendBlogTop(Integer size) {
+        //根据创建时间降序排序
         Sort sort =Sort.by(Sort.Direction.DESC,"createTime");
+        //根据传入的大小和排序方式构建分页查询对象
         Pageable pageable =PageRequest.of(0,size,sort);
+        //根据分页查询对象查询出需要查询的结果
         return blogResposiory.findTop(pageable);
     }
 
+    /**
+     * 将所有博客按照年份分组，组与组之间按照年份倒序排序，组内的所有博客按照创建时间倒序排序
+     * @return 排序后的Map
+     */
     @Override
     public Map<String, List<Blog>> archiveBlog() {
+        //获取所有博客的年份，并把按倒序排序
         List<String> years = blogResposiory.findGroupYear();
-        Map<String,List<Blog>> map = new TreeMap<>();
+        years.sort(new Comparator<String>() {
+
+            @Override
+            public int compare(String o1, String o2) {
+                // 返回值为int类型，大于0表示正序，小于0表示逆序
+                return o2.compareTo(o1);
+            }
+        });
+        //TreeMap默认按Key的字典升序排序，由于年份需要降序，所以需要自定义排序
+        Map<String,List<Blog>> map = new TreeMap<>(new Comparator<String>() {
+            @Override
+            public int compare(String o1, String o2) {
+                return o2.compareTo(o1);
+            }
+        });
+
         for(String year:years){
-            map.put(year,blogResposiory.findByYear(year));
+            //获取某一个年份对应的所有的博客
+            List<Blog> blogList = blogResposiory.findByYear(year);
+            //将博客按创建时间降序排序
+            Collections.sort(blogList);
+            map.put(year,blogList);
         }
         return map;
     }

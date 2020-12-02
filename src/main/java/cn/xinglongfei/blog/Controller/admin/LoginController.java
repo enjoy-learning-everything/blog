@@ -40,8 +40,10 @@ public class LoginController {
             attributes.addFlashAttribute("message", "验证码错误！");
             return "redirect:/admin";
         } else {
+            //检查用户名和密码是否正确，正确则返回用户名信息
             User user = userService.checkUser(username, password);
             if (user != null) {
+                //清空密码后将User放入session
                 user.setPassword(null);
                 session.setAttribute("user", user);
                 return "admin/index";

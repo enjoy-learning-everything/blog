@@ -19,7 +19,9 @@ public class ArchiveShowController {
     @MyLog(operation = "【访客端】跳转页面：归档列表")
     @GetMapping("/archives")
     public String archives(Model model) {
+        //传入归档Map
         model.addAttribute("archiveMap",blogService.archiveBlog());
+        //传入博客总数
         model.addAttribute("blogCount",blogService.countBlog());
         return "archives";
     }

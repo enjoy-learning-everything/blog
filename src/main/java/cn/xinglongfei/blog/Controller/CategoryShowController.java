@@ -33,6 +33,7 @@ public class CategoryShowController {
     public String categories(@PageableDefault(size = 10, sort = {"updateTime"},
             direction = Sort.Direction.DESC) Pageable pageable, @PathVariable Long id, Model model) {
         List<Category> categories = categoryService.listCategoryTop(1000);
+        //如果id=-1说明未选择某分类，默认选中第0个分类
         if (id == -1) {
             id = categories.get(0).getId();
         }

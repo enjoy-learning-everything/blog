@@ -19,8 +19,6 @@ public interface LinkCategoryService {
 
     LinkCategory getLinkCategoryByName(String name);
 
-    LinkCategory getLinkCategoryByPriority(Long priority);
-
     LinkCategory saveLinkCategory(LinkCategory linkCategory);
 
     LinkCategory getLinkCategory(Long id);

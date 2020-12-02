@@ -8,8 +8,12 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 public interface LinkCategoryResposiory extends JpaRepository<LinkCategory,Long> {
 
+    /**
+     * 根据名字查询外链分类
+     * @param name 名字
+     * @return 外链分类
+     */
     LinkCategory findByName(String name);
 
-    LinkCategory findByPriority(Long priority);
 
 }

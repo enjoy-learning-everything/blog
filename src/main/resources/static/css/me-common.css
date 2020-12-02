@@ -295,7 +295,11 @@
     color: rgba(0, 0, 0, 0.55) !important;
 }
 
-.m-table-blacke{
+.m-text-blacker {
+    color: rgba(0, 0, 0, 0.8) !important;
+}
+
+.m-table-blacker{
     color: rgba(0,0,0,.87)!important;
 }
 

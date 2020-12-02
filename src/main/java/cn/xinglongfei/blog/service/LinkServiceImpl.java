@@ -1,6 +1,7 @@
 package cn.xinglongfei.blog.service;
 
 import cn.xinglongfei.blog.NotFoundException;
+import cn.xinglongfei.blog.dao.LinkCategoryResposiory;
 import cn.xinglongfei.blog.dao.LinkResposiory;
 import cn.xinglongfei.blog.po.Link;
 import cn.xinglongfei.blog.po.LinkCategory;
@@ -12,14 +13,13 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
+import java.util.*;
 
 /**
  * Created by Phoenix on 2020/11/30
@@ -30,10 +30,29 @@ public class LinkServiceImpl implements LinkService{
     @Autowired
     private LinkResposiory linkResposiory;
 
+    @Autowired
+    private LinkCategoryResposiory linkCategoryResposiory;
+
     @Override
     public Long countLink() {
         return linkResposiory.count();
     }
+
+    @Override
+    public Map<String, List<Link>> archiveLink() {
+        List<LinkCategory> linkCategoryList = linkCategoryResposiory.findAll();
+        //按照优先级排序，优先级相同则按照ID排序
+        Collections.sort(linkCategoryList);
+        Map<String,List<Link>> listMap = new TreeMap<>();
+        List<Link> linkTemp = new ArrayList<>();
+        for (LinkCategory linkCategory:linkCategoryList){
+            linkTemp = linkResposiory.findAllByLinkCategory(linkCategory);
+            Collections.sort(linkTemp);
+            listMap.put(linkCategory.getName(),linkTemp);
+        }
+        return listMap;
+    }
+
 
     @Override
     public Page<Link> listLink(Pageable pageable) {
@@ -63,6 +82,7 @@ public class LinkServiceImpl implements LinkService{
         return linkResposiory.findAll();
     }
 
+    @Transactional
     @Override
     public Link saveLink(Link link) {
         if(link.getId() == null){
@@ -76,6 +96,7 @@ public class LinkServiceImpl implements LinkService{
         return linkResposiory.getOne(id);
     }
 
+    @Transactional
     @Override
     public Link updateLink(Long id, Link link) {
         Link linkTemp = linkResposiory.getOne(id);
@@ -86,6 +107,7 @@ public class LinkServiceImpl implements LinkService{
         return linkResposiory.save(linkTemp);
     }
 
+    @Transactional
     @Override
     public void deleteLink(Long id) {
         linkResposiory.deleteById(id);
