@@ -6,13 +6,12 @@ import cn.xinglongfei.blog.po.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 /**
@@ -57,9 +56,18 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<Tag> listTagTop(Integer size) {
-        Sort sort =Sort.by(Sort.Direction.DESC,"blogs.size");
-        Pageable pageable = PageRequest.of(0,size,sort);
-        return tagResposiory.findTop(pageable);
+        List<Tag> tags = tagResposiory.findAll();
+        for (int i = 0; i < tags.size(); i++) {
+            for (int j = 0; j < tags.get(i).getBlogs().size(); j++) {
+                if (!tags.get(i).getBlogs().get(j).isPublished()) {
+                    tags.get(i).getBlogs().remove(j);
+                    //删除了后需要重置游标，防止漏掉
+                    j--;
+                }
+            }
+        }
+        Collections.sort(tags);
+        return tags.subList(0, Math.min(tags.size(), size));
     }
 
     @Override

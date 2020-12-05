@@ -54,20 +54,20 @@ public class BlogController {
     @MyLog(operation = "【管理端】跳转页面：博客列表")
     @GetMapping("/blogs")
     public String blogs(@PageableDefault(size = 10, sort = {"createTime"},
-            direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
+            direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blogQuery, Model model) {
         //传输分类列表信息
         model.addAttribute("categories", categoryService.listCategory());
         //传输博客分页信息
-        model.addAttribute("page", blogService.listBlog(pageable, blog));
+        model.addAttribute("page", blogService.listBlog(pageable, blogQuery));
         return LISTBLOGPAGE;
     }
 
     @MyLog(operation = "【管理端】加载碎片：博客搜索结果列表")
     @PostMapping("/blogs/search")
     public String search(@PageableDefault(size = 10, sort = {"createTime"},
-            direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
+            direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blogQuery, Model model) {
         //传输博客分页信息
-        model.addAttribute("page", blogService.listBlog(pageable, blog));
+        model.addAttribute("page", blogService.listBlog(pageable, blogQuery));
         return "admin/blogs :: blogListTable";
     }
 
@@ -87,6 +87,14 @@ public class BlogController {
         model.addAttribute("blog", new Blog());
         return NEWBLOGPAGE;
     }
+
+    @MyLog(operation = "【访客端】跳转页面：博客详情")
+    @GetMapping("/blogs/{id}")
+    public String blog(@PathVariable Long id, Model model) {
+            model.addAttribute("blog",blogService.getAndConvert(id));
+            return "blog";
+    }
+
 
     @MyLog(operation = "【管理端】跳转页面：修改博客")
     @GetMapping("/blogs/{id}/edit")

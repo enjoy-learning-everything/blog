@@ -13,7 +13,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="t_category")
-public class Category {
+public class Category implements Comparable<Category>{
 
     @Id
     @GeneratedValue
@@ -49,6 +49,11 @@ public class Category {
 
     public void setBlogs(List<Blog> blogs) {
         this.blogs = blogs;
+    }
+
+    @Override
+    public int compareTo(Category o) {
+        return o.blogs.size()-this.blogs.size(); // 根据博客数量降序排序
     }
 
     @Override

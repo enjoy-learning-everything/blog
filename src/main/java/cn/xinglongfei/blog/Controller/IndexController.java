@@ -2,6 +2,7 @@ package cn.xinglongfei.blog.Controller;
 
 
 import cn.xinglongfei.blog.log.MyLog;
+import cn.xinglongfei.blog.po.Blog;
 import cn.xinglongfei.blog.service.BlogService;
 import cn.xinglongfei.blog.service.CategoryService;
 import cn.xinglongfei.blog.service.TagService;
@@ -34,7 +35,7 @@ public class IndexController {
     @GetMapping("/")
     public String index(@PageableDefault(size = 10, sort = {"createTime"},
             direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
-        model.addAttribute("page", blogService.listBlog(pageable));
+        model.addAttribute("page", blogService.listPublishedBlog(pageable));
         model.addAttribute("categories", categoryService.listCategoryTop(6));
         model.addAttribute("categoryCount", categoryService.countCategory());
         model.addAttribute("tags", tagService.listTagTop(6));
@@ -55,7 +56,13 @@ public class IndexController {
     @MyLog(operation = "【访客端】跳转页面：博客详情")
     @GetMapping("/blogs/{id}")
     public String blog(@PathVariable Long id, Model model) {
-        model.addAttribute("blog",blogService.getAndConvert(id));
-        return "blog";
+        Blog blog = blogService.getBlog(id);
+        //只能查看发布的博客
+        if(blog.isPublished()){
+            model.addAttribute("blog",blogService.getAndConvert(id));
+            return "blog";
+        }else{
+            return "error/404";
+        }
     }
 }

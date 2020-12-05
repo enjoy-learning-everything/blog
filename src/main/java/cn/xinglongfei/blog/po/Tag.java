@@ -9,7 +9,7 @@ import java.util.List;
  */
 @Entity
 @Table(name="t_tag")
-public class Tag {
+public class Tag  implements Comparable<Tag>{
 
     @Id
     @GeneratedValue
@@ -46,6 +46,10 @@ public class Tag {
         this.blogs = blogs;
     }
 
+    @Override
+    public int compareTo(Tag o) {
+        return o.blogs.size()-this.blogs.size(); // 根据博客数量降序排序
+    }
 
     @Override
     public String toString() {

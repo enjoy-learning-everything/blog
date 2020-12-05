@@ -118,9 +118,9 @@ public class LogAspect {
         sysLog.setOperaTime(new Date());
 
         //调用service保存SysLog实体类到数据库，且只记录非调试者IP
-//        if(!sysLog.getIp().equals("0:0:0:0:0:0:0:1")&&!sysLog.getIp().equals("127.0.0.1")){
+        if(!sysLog.getIp().equals("0:0:0:0:0:0:0:1")&&!sysLog.getIp().equals("127.0.0.1")){
         sysLogService.saveLog(sysLog);
-//        }
+        }
 
     }
 

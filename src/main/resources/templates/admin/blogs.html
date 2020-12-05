@@ -131,7 +131,7 @@
                 <tbody class="center aligned">
                 <tr th:each="blog,iterSta : ${page.content}">
                     <td th:text="${iterSta.count}">1</td>
-                    <td class="left aligned"><a class="m-table-blacker" th:href="@{/blogs/{id}(id=${blog.id})}"
+                    <td class="left aligned"><a class="m-table-blacker" th:href="@{/admin/blogs/{id}(id=${blog.id})}"
                            target="_blank" th:text="${blog.title}">刻意练习清单</a></td>
                     <td th:text="${blog.category.name}">认知升级</td>
                     <td th:text="${blog.recommend} ? '是':'否'">是</td>

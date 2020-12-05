@@ -1,7 +1,6 @@
 package cn.xinglongfei.blog.dao;
 
 import cn.xinglongfei.blog.po.Category;
-import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 
@@ -19,11 +18,7 @@ public interface CategoryResposiory extends JpaRepository<Category,Long> {
      */
     Category findByName(String name);
 
-    /**
-     * 根据pageable对象查询符合要求的分类List
-     * @param pageable 分页查询，封装了当前页，每页显示的条数，排序方式
-     * @return 符合要求的分类List
-     */
-    @Query("select c from Category c")
-    List<Category> findTop(Pageable pageable);
+
+    @Query("select t from Category t ")
+    List<Category> findTop();
 }

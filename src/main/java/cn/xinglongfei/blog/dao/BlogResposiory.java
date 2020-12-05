@@ -17,20 +17,30 @@ import java.util.List;
 public interface BlogResposiory extends JpaRepository<Blog, Long>, JpaSpecificationExecutor<Blog> {
 
     /**
-     * 根据pageable对象查询符合要求的博客List
+     * 根据pageable对象查询推荐的博客List
      * @param pageable 分页查询，封装了当前页，每页显示的条数，排序方式
      * @return 符合要求的博客List
      */
-    @Query("select b from Blog b where b.recommend = true")
+    @Query("select b from Blog b where b.recommend = true and b.published = true")
     List<Blog> findTop(Pageable pageable);
 
     /**
-     * 条件查询，根据标题和内容查询博客
+     * 根据pageable对象查询已发布的博客
+     * @param pageable 分页查询，封装了当前页，每页显示的条数，排序方式
+     * @return 已发布的博客
+     */
+    @Query("select b from Blog b where b.published = true")
+    Page<Blog> findAllPublishedBlog(Pageable pageable);
+
+
+
+    /**
+     * 条件查询，根据标题和内容查询已发布的博客
      * @param query 需要查询的字段
      * @param pageable 分页查询，封装了当前页，每页显示的条数，排序方式
-     * @return 标题或内容包含了该字段的博客
+     * @return 标题或内容包含了该字段的已发布的博客
      */
-    @Query("select b from Blog b where b.title like ?1 or b.content like ?1")
+    @Query("select b from Blog b where (b.title like ?1 or b.content like ?1)and b.published = true ")
     Page<Blog> findByQuery(String query,Pageable pageable);
 
     /**
@@ -55,6 +65,6 @@ public interface BlogResposiory extends JpaRepository<Blog, Long>, JpaSpecificat
      * @param year 年份
      * @return 对应年份下的所有博客
      */
-    @Query("select b from Blog b where function('date_format',b.createTime,'%Y') = ?1")
+    @Query("select b from Blog b where function('date_format',b.createTime,'%Y') = ?1 and b.published = true ")
     List<Blog> findByYear(String year);
 }

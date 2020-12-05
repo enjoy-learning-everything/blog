@@ -27,10 +27,19 @@ public class LoginController {
 
 
     @MyLog(operation = "【管理端】跳转页面：登录",type = "跳转")
-    @GetMapping
-    public String loginPage() {
-        return "admin/login";
+    @GetMapping(value = {"","/login"})
+    public String loginPage(HttpSession session) {
+        User user= (User) session.getAttribute("user");
+        //已经登录了就不用进入登陆页面了
+        if(user!=null){
+            return "admin/index";
+        }else {
+            return "admin/login";
+        }
     }
+
+
+
 
     @MyLog(operation = "【管理端】访问接口：登录核验",type = "登录")
     @PostMapping("/login")

@@ -40,7 +40,7 @@ public class CategoryShowController {
         BlogQuery blogQuery = new BlogQuery();
         blogQuery.setCategoryId(id);
         model.addAttribute("categories", categories);
-        model.addAttribute("page", blogService.listBlog(pageable, blogQuery));
+        model.addAttribute("page", blogService.listPublishedBlog(pageable, blogQuery));
         model.addAttribute("activeCagegoryId",id);
         return "categories";
     }

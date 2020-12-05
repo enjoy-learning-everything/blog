@@ -72,8 +72,36 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Page<Blog> listPublishedBlog(Pageable pageable, BlogQuery blogQuery) {
+        return blogResposiory.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+                if (!"".equals(blogQuery.getTitle()) && blogQuery.getTitle() != null) {
+                    predicates.add(cb.like(root.<String>get("title"),"%"+blogQuery.getTitle()+"%"));
+                }
+                if(blogQuery.getCategoryId() !=null){
+                    predicates.add(cb.equal(root.<Category>get("category").get("id"),blogQuery.getCategoryId()));
+                }
+                if(blogQuery.isRecommend()){
+                    predicates.add(cb.equal(root.<Boolean>get("recommend"),blogQuery.isRecommend()));
+                }
+                //只能查询到发布了的博客
+                predicates.add(cb.equal(root.<Boolean>get("published"),Boolean.TRUE));
+                cq.where(predicates.toArray(new Predicate[predicates.size()]));
+                return null;
+            }
+        }, pageable);
+    }
+
+    @Override
     public Page<Blog> listBlog(Pageable pageable) {
         return blogResposiory.findAll(pageable);
+    }
+
+    @Override
+    public Page<Blog> listPublishedBlog(Pageable pageable) {
+        return blogResposiory.findAllPublishedBlog(pageable);
     }
 
     @Override
@@ -88,9 +116,26 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
+    public Page<Blog> listPublishedBlog(Long tagId, Pageable pageable) {
+        return blogResposiory.findAll(new Specification<Blog>() {
+            @Override
+            public Predicate toPredicate(Root<Blog> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
+                List<Predicate> predicates = new ArrayList<>();
+                Join join = root.join("tags");
+                predicates.add(cb.equal(join.get("id"),tagId));
+                //只能查询到发布了的博客
+                predicates.add(cb.equal(root.<Boolean>get("published"),Boolean.TRUE));
+                cq.where(predicates.toArray(new Predicate[predicates.size()]));
+                return null;
+            }
+        },pageable);
+    }
+
+    @Override
     public Page<Blog> listBlog(String query, Pageable pageable) {
         return blogResposiory.findByQuery(query,pageable);
     }
+
 
     @Override
     public List<Blog> listRecommendBlogTop(Integer size) {
@@ -129,9 +174,12 @@ public class BlogServiceImpl implements BlogService {
         for(String year:years){
             //获取某一个年份对应的所有的博客
             List<Blog> blogList = blogResposiory.findByYear(year);
-            //将博客按创建时间降序排序
-            Collections.sort(blogList);
-            map.put(year,blogList);
+            //如果当年有发布了的博客，就显示当年（因为有的年份的博客可能全部只是保存）
+            if(blogList.size()>0){
+                //将博客按创建时间降序排序
+                Collections.sort(blogList);
+                map.put(year,blogList);
+            }
         }
         return map;
     }
