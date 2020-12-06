@@ -1,6 +1,8 @@
 ## 博客系统
 
-博客地址：[http://xinglongfei.cn/](http://xinglongfei.cn/)
+博客预览地址：[http://xinglongfei.cn/](http://xinglongfei.cn/)
+
+> 数据库文件位于项目根目录下(仅包含结构，数据为空)，其实也不需要数据库文件，只需要建立一个名为“blog”的空数据库，因为启动项目的时候，检测到表缺失，会自动创建缺失的表。
 
 ### 写在前面
 
@@ -12,6 +14,7 @@
 ### 1.项目使用的技术
 * Springboot
 * Spring Data JPA
+* Mysql
 * Maven
 * semanticUI实现
 
@@ -23,7 +26,7 @@
 * [动画插件：ANIMATE.CSS](http://www.animate.net.cn/)
 * [开源在线 Markdown 编辑器: editor.md](https://pandao.github.io/editor.md/)
 * [jQuery定位跳转插件：jquery.scrollto.js](https://github.com/flesler/jquery.scrollTo)
-
+* ……
 
 ### 3.博客功能
 #### 前端展示
