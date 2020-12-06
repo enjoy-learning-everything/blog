@@ -1,6 +1,6 @@
 spring:
   profiles:
-    active: dev
+    active: run
   servlet:
     multipart:
       #单个文件大小

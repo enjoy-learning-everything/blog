@@ -1,0 +1,27 @@
+.editormd-menu > li.divider {
+    overflow: inherit;
+    padding: 5px 0px;
+}
+
+header .nav-transparent {    /*修改当行兰样式*/
+    background-image: linear-gradient(to right, #0EBAB8 0%, #0B6AA0 100%);
+}
+
+
+.editormd-form input[type="text"] {
+    display: inline-block;
+    width: 246px!important;
+}
+
+.editormd-dialog-container label {
+    font-size: 14px;
+    color: #444;
+}
+
+.editormd-dialog-container select {
+    display: inline;
+    background-color: rgba(255,255,255,0.9);
+    width: 182px;
+    border-radius: 2px;
+    height: 25px;
+}

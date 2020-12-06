@@ -9,6 +9,7 @@ public enum FilePathEnum {
     COVER_PICTURE("CoverPicture"),
     OTHERS("Others"),
     USER("User"),
+    PAGE("Page"),
     LINKAVATAR("LinkAvatar");
 
 

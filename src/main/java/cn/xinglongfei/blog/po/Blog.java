@@ -1,16 +1,18 @@
 package cn.xinglongfei.blog.po;
 
 import javax.persistence.*;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
+import java.util.UUID;
 
 /**
  * Created by Phoenix on 2020/11/16
  */
 @Entity
 @Table(name = "t_blog")
-public class Blog implements Comparable<Blog>{
+public class Blog implements Comparable<Blog> {
     @Id
     @GeneratedValue
     private Long id;
@@ -24,6 +26,7 @@ public class Blog implements Comparable<Blog>{
     private String description;
     private String coverPicture;
     private String flag;
+    private String imageFolder;
     private boolean appreciateStatement;
     private boolean shareStatement;
     private boolean commentStatement;
@@ -54,6 +57,7 @@ public class Blog implements Comparable<Blog>{
     private String tagIds;
 
     public Blog() {
+        this.imageFolder = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "-" + UUID.randomUUID().toString().substring(0, 4);
     }
 
     public Long getId() {
@@ -176,6 +180,14 @@ public class Blog implements Comparable<Blog>{
         this.wordCounts = wordCounts;
     }
 
+    public String getImageFolder() {
+        return imageFolder;
+    }
+
+    public void setImageFolder(String imageFolder) {
+        this.imageFolder = imageFolder;
+    }
+
     public Date getCreateTime() {
         return createTime;
     }
@@ -258,7 +270,7 @@ public class Blog implements Comparable<Blog>{
     public int compareTo(Blog blog) {
         //先按照优先级排序
         int i = Integer.parseInt(String.valueOf(blog.getCreateTime().getTime()).substring(0, 10))
-                -Integer.parseInt(String.valueOf(this.getCreateTime().getTime()).substring(0, 10));
+                - Integer.parseInt(String.valueOf(this.getCreateTime().getTime()).substring(0, 10));
         if (i == 0) {
             return (int) (this.getId() - blog.getId());//如果优先级相等了再用ID进行排序
         }
@@ -292,4 +304,5 @@ public class Blog implements Comparable<Blog>{
                 ", tagIds='" + tagIds + '\'' +
                 '}';
     }
+
 }

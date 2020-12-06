@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>博客新增</title>
     <!--标题栏图标-->
-    <link rel="icon" href="../..//images/Common/favicon.ico" th:href="@{/images/Common/favicon.ico}"
+    <link rel="icon" href="../../static/images/Common/favicon.ico" th:href="@{/images/Common/favicon.ico}"
           type="images/x-ico"/>
     <!--引入semantic-->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
@@ -72,6 +72,7 @@
               th:action="@{/admin/blogs}" method="post" class="ui form">
             <input type="hidden" name="published">
             <input type="hidden" name="id" th:value="*{id}">
+            <input type="hidden" id="localPath" th:value="*{imageFolder}">
             <div class="required field">
                 <div class="ui left labeled input">
                     <div class="ui selection compact  teal basic  dropdown label">
@@ -120,8 +121,9 @@
                         </div>
                     </div>
 
-                    <input type="text" class="type1_data type1" name="imageUrl" th:value="*{coverPicture}" placeholder="请输入作为首图的图片地址......">
-                    <button class="ui button type1 m-margin-left-small" type="button" onclick="return submitImage()">
+                    <input type="text" class="type1_data type1" name="imageUrl" th:value="*{coverPicture}"
+                           placeholder="请输入作为首图的图片地址......">
+                    <button class="ui button type1 m-margin-left-small" type="button">
                         核验地址
                     </button>
                     <input type="file" id="file_data" class="type2_data" name="file" style="display: none">
@@ -285,18 +287,27 @@
 
 
 <script>
-    var contentEditor;
 
 
     $(function () {
-        contentEditor = editormd("md-content", {
+        //设置表情默认文件夹
+        editormd.emoji.path = "/lib/editormd/plugins/emoji-dialog/emoji/"
+        var contentEditor = editormd("md-content", {
+            //开启emoji（默认关闭）
+            emoji: true,
             width: "100%",
             height: 640,
             syncScrolling: "single",
-            // path: "../../static/lib/editormd/lib/"
-            path: "/lib/editormd/lib/"
+            // path: "../../static/lib/editormd/lib/",
+            path: "/lib/editormd/lib/",
+            saveHTMLToTextarea: true, //注意3：这个配置，方便post提交表单
+            //开启图片上传
+            imageUpload: true,
+            imageFormats: ["jpg", "jpeg", "gif", "png", "bmp"],
+            imageUploadURL: "/editorUpload?localPath="+$('#localPath').val(),//图片接口
         });
     });
+
 
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
@@ -308,13 +319,11 @@
 
 
     $('#save-btn').click(function () {
-        submitImage();
         $('[name="published"]').val(false);
         $('#blog-form').submit();
     });
 
     $('#publish-btn').click(function () {
-        submitImage();
         $('[name="published"]').val(true);
         $('#blog-form').submit();
     });
@@ -413,20 +422,6 @@
         }
     }
 
-    function submitImage(e) {
-        // var uploadType = $('#uploadType').val();
-        // if (uploadType === 'netLink') {
-        //     if ($('.type1_data').val() === '') {
-        //         alert("输入图片地址！");
-        //         return false;
-        //     }
-        // } else if (uploadType === 'upLoad') {
-        //     if ($('.type2_data').val() === '') {
-        //         alert("请先选择一张图片！");
-        //         return false;
-        //     }
-        // }
-    }
 
     // 点击button触发文件选择
     $('.select_file').click(function () {
