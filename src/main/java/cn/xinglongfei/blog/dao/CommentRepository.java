@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Phoenix on 2020/11/19
  */
-public interface CommentResposiory extends JpaRepository<Comment,Long> {
+public interface CommentRepository extends JpaRepository<Comment,Long> {
 
     /**
      * 根据博客ID查询出所有一级评论（类似于森林的所有根节点），并按要求排序

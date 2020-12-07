@@ -14,7 +14,7 @@ import java.util.List;
 /**
  * Created by Phoenix on 2020/11/18
  */
-public interface BlogResposiory extends JpaRepository<Blog, Long>, JpaSpecificationExecutor<Blog> {
+public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificationExecutor<Blog> {
 
     /**
      * 根据pageable对象查询推荐的博客List

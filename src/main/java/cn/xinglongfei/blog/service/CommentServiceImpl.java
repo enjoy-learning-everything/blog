@@ -1,6 +1,6 @@
 package cn.xinglongfei.blog.service;
 
-import cn.xinglongfei.blog.dao.CommentResposiory;
+import cn.xinglongfei.blog.dao.CommentRepository;
 import cn.xinglongfei.blog.po.Comment;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,17 +19,17 @@ import java.util.List;
 public class CommentServiceImpl implements CommentService {
 
     @Autowired
-    private CommentResposiory commentResposiory;
+    private CommentRepository commentRepository;
 
     @Override
     public Long countComment() {
-        return commentResposiory.count();
+        return commentRepository.count();
     }
 
     @Override
     public List<Comment> listCommentByBlogId(Long blogId) {
         Sort sort = Sort.by(Sort.Direction.ASC,"createTime");
-        List<Comment> comments = commentResposiory.findByBlogIdAndParentCommentNull(blogId,sort);
+        List<Comment> comments = commentRepository.findByBlogIdAndParentCommentNull(blogId,sort);
         return eachComment(comments);
     }
 
@@ -38,12 +38,12 @@ public class CommentServiceImpl implements CommentService {
     public Comment saveComment(Comment comment) {
         Long parentCommentId = comment.getParentComment().getId();
         if(parentCommentId!= -1){
-            comment.setParentComment(commentResposiory.getOne(parentCommentId));
+            comment.setParentComment(commentRepository.getOne(parentCommentId));
         }else {
             comment.setParentComment(null);
         }
         comment.setCreateTime(new Date());
-        return commentResposiory.save(comment);
+        return commentRepository.save(comment);
     }
 
     /**

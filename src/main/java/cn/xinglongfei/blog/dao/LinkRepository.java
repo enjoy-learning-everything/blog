@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Phoenix on 2020/11/30
  */
-public interface LinkResposiory extends JpaRepository<Link,Long>, JpaSpecificationExecutor<Link> {
+public interface LinkRepository extends JpaRepository<Link,Long>, JpaSpecificationExecutor<Link> {
 
     /**
      * 查询出对应分类下的所有外链

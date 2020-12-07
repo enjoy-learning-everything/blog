@@ -6,7 +6,7 @@ import org.springframework.data.jpa.repository.JpaRepository;
 /**
  * Created by Phoenix on 2020/11/18
  */
-public interface TagResposiory extends JpaRepository <Tag,Long>{
+public interface TagRepository extends JpaRepository <Tag,Long>{
 
     Tag findByName(String name);
 

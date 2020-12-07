@@ -91,20 +91,9 @@
 
             </div>
 
-
             <div class="required field">
                 <div id="md-content" style="z-index: 1!important;">
-
-                    <textarea name="content" placeholder="博客内容" th:text="*{content}" style="display: none">[TOC]
-
-#### Disabled options
-
-- TeX (Based on KaTeX);
-- Emoji;
-- Task lists;
-- HTML tags decode;
-- Flowchart and Sequence Diagram;
-</textarea>
+                    <textarea name="content" placeholder="博客内容" th:text="*{content}" style="display: none"></textarea>
                 </div>
             </div>
 
@@ -304,7 +293,7 @@
             //开启图片上传
             imageUpload: true,
             imageFormats: ["jpg", "jpeg", "gif", "png", "bmp"],
-            imageUploadURL: "/editorUpload?localPath="+$('#localPath').val(),//图片接口
+            imageUploadURL: "/editorUpload?localPath=" + $('#localPath').val(),//图片接口
         });
     });
 
@@ -313,9 +302,20 @@
         $('.m-item').toggleClass('m-mobile-hide');
     });
 
+
+
+
     $('.ui.dropdown').dropdown({
         on: 'hover'
     });
+
+    $('.ui.tag.dropdown')
+        .dropdown({
+            //允许自定义添加
+            allowAdditions:true,
+            //最大数量:3
+            maxSelections: 3
+        });
 
 
     $('#save-btn').click(function () {
@@ -328,10 +328,6 @@
         $('#blog-form').submit();
     });
 
-    // $('.ui.tag.dropdown')
-    //     .dropdown({
-    //         allowAdditions: true
-    //     });
 
     $('.ui.form').form({
         fields: {
@@ -449,9 +445,6 @@
 
     })
 
-    $('.selection.dropdown')
-        .dropdown()
-    ;
 
 
 </script>

@@ -1,7 +1,7 @@
 package cn.xinglongfei.blog.service;
 
 import cn.xinglongfei.blog.NotFoundException;
-import cn.xinglongfei.blog.dao.CategoryResposiory;
+import cn.xinglongfei.blog.dao.CategoryRepository;
 import cn.xinglongfei.blog.po.Category;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,45 +21,45 @@ import java.util.List;
 public class CategoryServiceImpl implements CategoryService {
 
     @Autowired
-    private CategoryResposiory categoryResposiory;
+    private CategoryRepository categoryRepository;
 
     @Override
     public Long countCategory() {
-        return categoryResposiory.count();
+        return categoryRepository.count();
     }
 
     @Transactional
     @Override
     public Category saveCategory(Category category) {
         ;
-        return categoryResposiory.save(category);
+        return categoryRepository.save(category);
     }
 
     @Override
     public List<Category> listCategory() {
-        return categoryResposiory.findAll();
+        return categoryRepository.findAll();
     }
 
     @Override
     public Category getCategoryByName(String name) {
-        return categoryResposiory.findByName(name);
+        return categoryRepository.findByName(name);
     }
 
 
     @Override
     public Category getCategory(Long id) {
-        return categoryResposiory.getOne(id);
+        return categoryRepository.getOne(id);
     }
 
 
     @Override
     public Page<Category> listCategory(Pageable pageable) {
-        return categoryResposiory.findAll(pageable);
+        return categoryRepository.findAll(pageable);
     }
 
     @Override
     public List<Category> listCategoryTop(Integer size) {
-        List<Category> types =categoryResposiory.findAll();
+        List<Category> types = categoryRepository.findAll();
         List<Category> typeList =new ArrayList<>();
         int size1 =types.size();
         for (int i=0;i<size1;i++){
@@ -84,17 +84,17 @@ public class CategoryServiceImpl implements CategoryService {
     @Transactional
     @Override
     public Category updateCategory(Long id, Category category) {
-        Category categoryTemp = categoryResposiory.getOne(id);
+        Category categoryTemp = categoryRepository.getOne(id);
         if (categoryTemp == null) {
             throw new NotFoundException("不存在该类型");
         }
         BeanUtils.copyProperties(category, categoryTemp);
-        return categoryResposiory.save(categoryTemp);
+        return categoryRepository.save(categoryTemp);
     }
 
     @Transactional
     @Override
     public void deleteCategory(Long id) {
-        categoryResposiory.deleteById(id);
+        categoryRepository.deleteById(id);
     }
 }

@@ -71,11 +71,11 @@
             <div class="ui mini horizontal link list">
                 <div class="item m-item-black m-text-bigger">
                     <i class="calendar icon"></i>发表于：
-                    <span th:text="${#dates.format(blog.createTime,'yyyy-MM-dd')}">2017-10-02</span>
+                    <span th:text="${#dates.format(blog.createTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02</span>
                 </div>
                 <div class="item m-item-black m-text-bigger">
                     <i class="history icon"></i>更新于：
-                    <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-02</span>
+                    <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02</span>
                 </div>
                 <div class="item m-item-black m-text-bigger">
                     <i class="inbox icon"></i>分类名：
@@ -92,18 +92,18 @@
                 <!--                <div class="item m-item-black m-text-bigger">-->
                 <!--                    <i class="clock outline icon"></i>预计用时：5min-->
                 <!--                </div>-->
-                <div class="item m-item-black m-text-bigger">
-                    <i class="eye icon"></i>浏览量：
-                    <span th:text="${blog.viewCounts}">222</span>
-                </div>
-                <div class="item m-item-black m-text-bigger">
-                    <i class="thumbs up icon"></i>点赞数：
-                    <span th:text="${blog.likeCounts}">2</span>
-                </div>
-                <div class="item m-item-black m-text-bigger">
-                    <i class="comment icon"></i>评论数：
-                    <span th:text="${blog.commentCounts}">2</span>
-                </div>
+<!--                <div class="item m-item-black m-text-bigger">-->
+<!--                    <i class="eye icon"></i>浏览量：-->
+<!--                    <span th:text="${blog.viewCounts}">222</span>-->
+<!--                </div>-->
+<!--                <div class="item m-item-black m-text-bigger">-->
+<!--                    <i class="thumbs up icon"></i>点赞数：-->
+<!--                    <span th:text="${blog.likeCounts}">2</span>-->
+<!--                </div>-->
+<!--                <div class="item m-item-black m-text-bigger">-->
+<!--                    <i class="comment icon"></i>评论数：-->
+<!--                    <span th:text="${blog.commentCounts}">2</span>-->
+<!--                </div>-->
             </div>
 
             <!--分割线-->
@@ -119,7 +119,7 @@
             <!--分割线-->
             <h4 class="ui horizontal divider header m-margin-top-large"><i class="tag icon"></i>Description</h4>
 
-            <div id="content" class="typo typo-selection ui segment basic js-toc-content" th:utext="${blog.content}">
+            <div id="content" class="typo typo-selection ui segment basic js-toc-content common-img-parent" th:utext="${blog.content}">
                 <h2 id="1-服务器常用的状态码及其对应的含义如下："><a href="#1-服务器常用的状态码及其对应的含义如下：" class="headerlink"
                                                   title="1. 服务器常用的状态码及其对应的含义如下："></a>1. 服务器常用的状态码及其对应的含义如下：</h2>
                 <h3 id="1-1-概括："><a href="#1-1-概括：" class="headerlink" title="1.1 概括："></a>1.1 概括：</h3>
@@ -241,7 +241,7 @@
                 <div id="comment-data" class="ui basic segment">
                     <div th:fragment="commentList">
                         <div class="ui threaded comments">
-                            <h3 class="ui header">1238 Comments</h3>
+                            <h3 class="ui header">XXX Comments</h3>
                             <div class="comment" th:each="comment : ${comments}">
                                 <a class="avatar">
                                     <img src="../static/images/Common/avatar.png" th:src="@{${comment.avatar}}">
@@ -382,6 +382,12 @@
     <!--    <img src="./static/images/Common/WeChat.png" alt="" class="ui rounded image" style="width: 120px!important;">-->
 </div>
 
+<!--放大图片的显示层-->
+<div id="outerDiv" style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);z-index:5;width:100%;height:100%;display:none;">
+    <div id="innerDiv" style="position:absolute;">
+        <img id="bigImg" style="border:5px solid #fff;" src="" />
+    </div>
+</div>
 
 <!------底部footer------>
 <footer th:replace="_fragments :: footer">
@@ -464,6 +470,14 @@
         headingSelector: 'h1, h2, h3',
         // For headings inside relative or absolute positioned containers within content.
         hasInnerContainers: true,
+    });
+
+    //触发放大图片的函数
+    $(function () {
+        $(".common-img-parent img").click(function () {
+            var _this = $(this); //将当前的pimg元素作为_this传入函数
+            imgShow("#outerDiv", "#innerDiv", "#bigImg", _this);
+        });
     });
 
     $('#payButton').popup({

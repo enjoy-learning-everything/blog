@@ -1,7 +1,7 @@
 package cn.xinglongfei.blog.service;
 
 import cn.xinglongfei.blog.NotFoundException;
-import cn.xinglongfei.blog.dao.TagResposiory;
+import cn.xinglongfei.blog.dao.TagRepository;
 import cn.xinglongfei.blog.po.Tag;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,42 +21,42 @@ import java.util.List;
 public class TagServiceImpl implements TagService {
 
     @Autowired
-    private TagResposiory tagResposiory;
+    private TagRepository tagRepository;
 
     @Override
     public Long countTag() {
-        return tagResposiory.count();
+        return tagRepository.count();
     }
 
     @Transactional
     @Override
     public Tag saveTag(Tag tag) {
-        return tagResposiory.save(tag);
+        return tagRepository.save(tag);
     }
 
     @Override
     public Tag getTagByName(String name) {
-        return tagResposiory.findByName(name);
+        return tagRepository.findByName(name);
     }
 
     @Override
     public Tag getTag(Long id) {
-        return tagResposiory.getOne(id);
+        return tagRepository.getOne(id);
     }
 
     @Override
     public Page<Tag> listTag(Pageable pageable) {
-        return tagResposiory.findAll(pageable);
+        return tagRepository.findAll(pageable);
     }
 
     @Override
     public List<Tag> listTag() {
-        return tagResposiory.findAll();
+        return tagRepository.findAll();
     }
 
     @Override
     public List<Tag> listTagTop(Integer size) {
-        List<Tag> tags = tagResposiory.findAll();
+        List<Tag> tags = tagRepository.findAll();
         for (int i = 0; i < tags.size(); i++) {
             for (int j = 0; j < tags.get(i).getBlogs().size(); j++) {
                 if (!tags.get(i).getBlogs().get(j).isPublished()) {
@@ -72,7 +72,7 @@ public class TagServiceImpl implements TagService {
 
     @Override
     public List<Tag> listTag(String ids) {
-        return tagResposiory.findAllById(convertToList(ids));
+        return tagRepository.findAllById(convertToList(ids));
     }
 
     private List<Long> convertToList(String ids) {
@@ -80,7 +80,19 @@ public class TagServiceImpl implements TagService {
         if (!"".equals(ids) && ids != null) {
             String[] idArray = ids.split(",");
             for (int i = 0; i < idArray.length; i++) {
+                boolean isNum=false;
+                //判断传来的是否数字
+                isNum = idArray[i].matches("[0-9]+");
+                if (isNum){
                 list.add(new Long(idArray[i]));
+                }else{
+                    //不是数字就表明是新标签，先添加到数据库
+                    Tag tag = new Tag();
+                    tag.setName(idArray[i]);
+                    saveTag(tag);
+                    Long id= tagRepository.findByName(idArray[i]).getId();
+                    list.add(id);
+                }
             }
         }
 
@@ -90,17 +102,17 @@ public class TagServiceImpl implements TagService {
     @Transactional
     @Override
     public Tag updateTag(Long id, Tag tag) {
-        Tag tagTemp = tagResposiory.getOne(id);
+        Tag tagTemp = tagRepository.getOne(id);
         if (tagTemp == null) {
             throw new NotFoundException("不存在该类型");
         }
         BeanUtils.copyProperties(tag, tagTemp);
-        return tagResposiory.save(tagTemp);
+        return tagRepository.save(tagTemp);
     }
 
     @Transactional
     @Override
     public void deleteTag(Long id) {
-        tagResposiory.deleteById(id);
+        tagRepository.deleteById(id);
     }
 }

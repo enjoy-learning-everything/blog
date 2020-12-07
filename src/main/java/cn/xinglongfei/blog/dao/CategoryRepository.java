@@ -9,7 +9,7 @@ import java.util.List;
 /**
  * Created by Phoenix on 2020/11/17
  */
-public interface CategoryResposiory extends JpaRepository<Category,Long> {
+public interface CategoryRepository extends JpaRepository<Category,Long> {
 
     /**
      * 根据名字查询分类

@@ -1,8 +1,8 @@
 package cn.xinglongfei.blog.service;
 
 import cn.xinglongfei.blog.NotFoundException;
-import cn.xinglongfei.blog.dao.LinkCategoryResposiory;
-import cn.xinglongfei.blog.dao.LinkResposiory;
+import cn.xinglongfei.blog.dao.LinkCategoryRepository;
+import cn.xinglongfei.blog.dao.LinkRepository;
 import cn.xinglongfei.blog.po.Link;
 import cn.xinglongfei.blog.po.LinkCategory;
 import cn.xinglongfei.blog.util.MyBeanUtils;
@@ -28,25 +28,25 @@ import java.util.*;
 public class LinkServiceImpl implements LinkService{
 
     @Autowired
-    private LinkResposiory linkResposiory;
+    private LinkRepository linkRepository;
 
     @Autowired
-    private LinkCategoryResposiory linkCategoryResposiory;
+    private LinkCategoryRepository linkCategoryRepository;
 
     @Override
     public Long countLink() {
-        return linkResposiory.count();
+        return linkRepository.count();
     }
 
     @Override
     public Map<String, List<Link>> archiveLink() {
-        List<LinkCategory> linkCategoryList = linkCategoryResposiory.findAll();
+        List<LinkCategory> linkCategoryList = linkCategoryRepository.findAll();
         //按照优先级排序，优先级相同则按照ID排序
         Collections.sort(linkCategoryList);
         Map<String,List<Link>> listMap = new TreeMap<>();
         List<Link> linkTemp = new ArrayList<>();
         for (LinkCategory linkCategory:linkCategoryList){
-            linkTemp = linkResposiory.findAllByLinkCategory(linkCategory);
+            linkTemp = linkRepository.findAllByLinkCategory(linkCategory);
             Collections.sort(linkTemp);
             listMap.put(linkCategory.getName(),linkTemp);
         }
@@ -56,12 +56,12 @@ public class LinkServiceImpl implements LinkService{
 
     @Override
     public Page<Link> listLink(Pageable pageable) {
-        return linkResposiory.findAll(pageable);
+        return linkRepository.findAll(pageable);
     }
 
     @Override
     public Page<Link> listLink(Pageable pageable, LinkQuery link) {
-        return linkResposiory.findAll(new Specification<Link>() {
+        return linkRepository.findAll(new Specification<Link>() {
             @Override
             public Predicate toPredicate(Root<Link> root, CriteriaQuery<?> cq, CriteriaBuilder cb) {
                 List<Predicate> predicates = new ArrayList<>();
@@ -79,7 +79,7 @@ public class LinkServiceImpl implements LinkService{
 
     @Override
     public List<Link> listLink() {
-        return linkResposiory.findAll();
+        return linkRepository.findAll();
     }
 
     @Transactional
@@ -88,28 +88,28 @@ public class LinkServiceImpl implements LinkService{
         if(link.getId() == null){
             link.setCreateTime(new Date());
         }
-        return linkResposiory.save(link);
+        return linkRepository.save(link);
     }
 
     @Override
     public Link getLink(Long id) {
-        return linkResposiory.getOne(id);
+        return linkRepository.getOne(id);
     }
 
     @Transactional
     @Override
     public Link updateLink(Long id, Link link) {
-        Link linkTemp = linkResposiory.getOne(id);
+        Link linkTemp = linkRepository.getOne(id);
         if (linkTemp == null) {
             throw new NotFoundException("该外链不存在");
         }
         BeanUtils.copyProperties(link, linkTemp, MyBeanUtils.getNullPropertyNames(link));
-        return linkResposiory.save(linkTemp);
+        return linkRepository.save(linkTemp);
     }
 
     @Transactional
     @Override
     public void deleteLink(Long id) {
-        linkResposiory.deleteById(id);
+        linkRepository.deleteById(id);
     }
 }

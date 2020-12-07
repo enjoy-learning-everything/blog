@@ -1,7 +1,7 @@
 package cn.xinglongfei.blog.service;
 
 import cn.xinglongfei.blog.NotFoundException;
-import cn.xinglongfei.blog.dao.LinkCategoryResposiory;
+import cn.xinglongfei.blog.dao.LinkCategoryRepository;
 import cn.xinglongfei.blog.po.LinkCategory;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -19,53 +19,53 @@ import java.util.List;
 public class LinkCategoryServiceImpl implements LinkCategoryService {
 
     @Autowired
-    private LinkCategoryResposiory linkCategoryResposiory;
+    private LinkCategoryRepository linkCategoryRepository;
 
     @Override
     public Long countLinkCategory() {
-        return linkCategoryResposiory.count();
+        return linkCategoryRepository.count();
     }
 
     @Override
     public Page<LinkCategory> listLinkCategory(Pageable pageable) {
-        return linkCategoryResposiory.findAll(pageable);
+        return linkCategoryRepository.findAll(pageable);
     }
 
     @Override
     public List<LinkCategory> listLinkCategory() {
-        return linkCategoryResposiory.findAll();
+        return linkCategoryRepository.findAll();
     }
 
     @Override
     public LinkCategory getLinkCategoryByName(String name) {
-        return linkCategoryResposiory.findByName(name);
+        return linkCategoryRepository.findByName(name);
     }
 
     @Transactional
     @Override
     public LinkCategory saveLinkCategory(LinkCategory linkCategory) {
-        return linkCategoryResposiory.save(linkCategory);
+        return linkCategoryRepository.save(linkCategory);
     }
 
     @Override
     public LinkCategory getLinkCategory(Long id) {
-        return linkCategoryResposiory.getOne(id);
+        return linkCategoryRepository.getOne(id);
     }
 
     @Transactional
     @Override
     public LinkCategory updateLinkCategory(Long id, LinkCategory linkCategory) {
-        LinkCategory linkCategoryTemp = linkCategoryResposiory.getOne(id);
+        LinkCategory linkCategoryTemp = linkCategoryRepository.getOne(id);
         if (linkCategoryTemp == null) {
             throw new NotFoundException("该外链分类不存在");
         }
         BeanUtils.copyProperties(linkCategory, linkCategoryTemp);
-        return linkCategoryResposiory.save(linkCategoryTemp);
+        return linkCategoryRepository.save(linkCategoryTemp);
     }
 
     @Transactional
     @Override
     public void deleteLinkCategory(Long id) {
-        linkCategoryResposiory.deleteById(id);
+        linkCategoryRepository.deleteById(id);
     }
 }

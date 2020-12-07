@@ -1,6 +1,6 @@
 package cn.xinglongfei.blog.service;
 
-import cn.xinglongfei.blog.dao.LogResposiory;
+import cn.xinglongfei.blog.dao.LogRepository;
 import cn.xinglongfei.blog.po.Log;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -14,20 +14,20 @@ import org.springframework.stereotype.Service;
 public class LogServiceImpl implements LogService {
 
     @Autowired
-    private LogResposiory logResposiory;
+    private LogRepository logRepository;
 
     @Override
     public Long countLog() {
-        return logResposiory.count();
+        return logRepository.count();
     }
 
     @Override
     public Log saveLog(Log log) {
-        return logResposiory.save(log);
+        return logRepository.save(log);
     }
 
     @Override
     public Page<Log> listLog(Pageable pageable) {
-        return logResposiory.findAll(pageable);
+        return logRepository.findAll(pageable);
     }
 }
