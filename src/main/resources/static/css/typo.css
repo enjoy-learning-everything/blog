@@ -55,6 +55,10 @@
   margin: 1em 0;
 }
 
+.typo blockquote p:last-child{
+  margin-bottom: 0;
+}
+
 
 /* Firefox 以外，元素没有下划线，需添加 */
 .typo acronym,.typo abbr {
@@ -272,6 +276,7 @@
 .typo ol, .typo-ol {
   list-style: decimal;
   margin-left: 0;
+  padding-left: 0;
 }
 
 .typo li ul, .typo li ol, .typo-ul ul, .typo-ul ol, .typo-ol ul, .typo-ol ol {
@@ -281,6 +286,7 @@
 
 .typo li{
   margin-left: 1em;
+  line-height: 1.8em;
 }
 
 .typo li ul, .typo-ul ul, .typo-ol ul {

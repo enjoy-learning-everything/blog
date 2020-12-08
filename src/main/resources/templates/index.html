@@ -10,6 +10,10 @@
     <link rel="stylesheet" href="../static/css/me-common.css" th:href="@{/css/me-common.css}">
     <link rel="stylesheet" href="../static/css/me-special.css" th:href="@{/css/me-special.css}">
     <link rel="stylesheet" href="../static/css/me-media.css" th:href="@{/css/me-media.css}">
+    <style type="text/css">
+
+    </style>
+
 </head>
 <body>
 
@@ -94,7 +98,7 @@
 
                                     </div>
                                 </div>
-                                <div class="six wide column ui  img-effect m-padded-no image rounded">
+                                <div class="six wide column ui  img-effect m-padded-no m-mobile-padding-no image rounded" id="m-mobile-padding-no">
                                     <a href="blog.html" th:href="@{/blogs/{id}(id=${blog.id})}" target="_blank" class="m-suspend-parent">
                                         <img src="../static/images/Index/page-cover.jpg" th:src="@{${blog.coverPicture}}" alt="" class="ui rounded image">
                                         <div class="right aligned three wide column m-padded-tb-mini m-suspend-children">

@@ -62,7 +62,7 @@
 <!------中间内容------->
 <div id="waypoint" class="m-padded-tb-big m-container-small animate__animated animate__fadeIn">
     <div class="ui container hover-shadow-light">
-        <div class="ui top attached segment m-padded-big">
+        <div class="ui top attached segment m-width-change">
             <h2 class="m-margin-bottom-small">
                 <a class="ui teal right inverted  label m-margin-right-small" style="vertical-align: middle;"
                    th:text="${blog.flag}">原创</a>
@@ -361,7 +361,7 @@
 <br>
 <br>
 
-<div id="toolbar" class="m-fixed m-right-bottom m-padded-middle" style="display: none">
+<div id="toolbar" class="m-fixed m-mobile-hide m-right-bottom m-padded-middle" style="display: none">
     <div class="ui vertical icon buttons ">
         <div class="ui teal toc button">目录</div>
         <a href="#comment-container" class="ui teal button">评论</a>
@@ -379,9 +379,20 @@
     </ol>
 </div>
 
-<div id="qrcode" class="ui wechat-qr flowing popup transition hidden " style="width: 120px!important;">
-    <!--    <img src="./static/images/Common/WeChat.png" alt="" class="ui rounded image" style="width: 120px!important;">-->
+<!--<div id="qrcode" class="ui wechat-qr flowing popup transition hidden " style="width: 120px!important;">-->
+<!--    &lt;!&ndash;    <img src="./static/images/Common/WeChat.png" alt="" class="ui rounded image" style="width: 120px!important;">&ndash;&gt;-->
+<!--</div>-->
+<div class="ui wechat-qr flowing popup transition hidden" style="width: 130px;!important;">
+    <div class="ui orange basic label">
+        <div class="ui images" style="font-size: inherit !important;">
+            <div class="image">
+                <div id="qrcode"></div>
+            </div>
+            <div style="text-align: center;">微信扫码阅读</div>
+        </div>
+    </div>
 </div>
+
 
 <!--放大图片的显示层-->
 <div id="outerDiv"
@@ -520,8 +531,8 @@
         position: 'left center'
     });
 
-    var serverRootUrl = "https://xinglongfei.cn";
-    var url = /*[[@{blog/{id}(id=${blog.id})}]]*/"";
+    var serverRootUrl = "http://xinglongfei.cn";
+    var url = /*[[@{/blogs/{id}(id=${blog.id})}]]*/"";
     var qrcode = new QRCode("qrcode", {
         text: serverRootUrl + url,
         width: 110,
