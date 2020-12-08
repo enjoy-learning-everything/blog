@@ -5,7 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>分类页</title>
     <!--标题栏图标-->
-    <link rel="icon" href="../static/images/Common/favicon.ico" th:href="@{/images/Common/favicon.ico}" type="images/x-ico" />
+    <link rel="icon" href="../static/images/Common/favicon.ico" th:href="@{/images/Common/favicon.ico}"
+          type="images/x-ico"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
     <link rel="stylesheet" href="../static/css/me-common.css" th:href="@{/css/me-common.css}">
     <link rel="stylesheet" href="../static/css/me-special.css" th:href="@{/css/me-special.css}">
@@ -21,9 +22,11 @@
             <img src="../static/images/Common/logo_row_simple.png" th:src="@{/images/Common/logo_row_simple.png}"
                  class="left float image m-margin-right-middle" height="50px" alt="">
             <a href="index.html" class="m-item item m-mobile-hide"><i class="home icon m-margin-right-no"></i>首页</a>
-            <a href="categories.html" class="active m-item item m-mobile-hide"><i class="folder open icon m-margin-right-no"></i>分类</a>
+            <a href="categories.html" class="active m-item item m-mobile-hide"><i
+                    class="folder open icon m-margin-right-no"></i>分类</a>
             <a href="tags.html" class="m-item item m-mobile-hide"><i class="tags icon m-margin-right-no"></i>标签</a>
-            <a href="archives.html" class="m-item item m-mobile-hide"><i class="archive icon m-margin-right-no"></i>归档</a>
+            <a href="archives.html" class="m-item item m-mobile-hide"><i
+                    class="archive icon m-margin-right-no"></i>归档</a>
             <a href="#" class="m-item item m-mobile-hide"><i class="heartbeat icon m-margin-right-no"></i>娱乐<i
                     class="angle down icon m-margin-right-no "></i></a>
             <a href="links.html" class="m-item item m-mobile-hide"><i class="linkify icon m-margin-right-no"></i>外链</a>
@@ -45,90 +48,103 @@
 <!------中间内容------->
 <div class="m-padded-tb-big m-container-small">
     <div class="ui container">
-        <!--header-->
-        <div class="ui top attached segment">
-            <div class="ui middle aligned two column grid">
-                <div class="column">
-                    <h3 class="ui teal header">分类</h3>
+        <div class="hover-shadow-light">
+            <!--header-->
+            <div class="ui top attached segment">
+                <div class="ui middle aligned two column grid">
+                    <div class="column">
+                        <h3 class="ui teal header">分类</h3>
+                    </div>
+                    <div class=" right aligned column">
+                        共<h2 class="ui orange header m-inline-block m-text-thin"
+                             th:text="${#arrays.length(categories)}">14</h2>个
+                    </div>
                 </div>
-                <div class=" right aligned column">
-                    共<h2 class="ui orange header m-inline-block m-text-thin" th:text="${#arrays.length(categories)}">14</h2>个
-                </div>
+            </div>
+
+            <!--content-->
+            <div class="ui bottom attached segment m-padded-tb-large ">
+                <a class="ui labeled button m-margin-tb-tiny m-margin-lr-tiny" th:each="category :${categories}"
+                   th:href="@{/categories/{id}(id=${category.id})}">
+                    <div class="ui basic button" th:classappend="${category.id==activeCagegoryId} ? 'teal'"
+                         th:text="${category.name}">思考与感悟
+                    </div>
+                    <div class="ui basic left pointing label" th:classappend="${category.id==activeCagegoryId} ? 'teal'"
+                         th:text="${#arrays.length(category.blogs)}">24
+                    </div>
+                </a>
             </div>
         </div>
 
-        <!--content-->
-        <div class="ui attached segment m-padded-tb-large">
-            <a class="ui labeled button m-margin-tb-tiny m-margin-lr-tiny" th:each="category :${categories}" th:href="@{/categories/{id}(id=${category.id})}">
-                <div class="ui basic button" th:classappend="${category.id==activeCagegoryId} ? 'teal'" th:text="${category.name}">思考与感悟</div>
-                <div class="ui basic left pointing label"  th:classappend="${category.id==activeCagegoryId} ? 'teal'"  th:text="${#arrays.length(category.blogs)}">24</div>
-            </a>
-        </div>
+        <div class="ui hover-shadow-light segments">
+            <div class="ui teal top attached segment">
+                <div class="ui padded vertical segment m-padded-tb-large" th:each="blog : ${page.content}">
+                    <div class="ui middle aligned mobile reversed stackable grid">
+                        <div class="ten wide column">
+                            <h3 class="ui header">
+                                <a href="#" class="m-item-black" th:href="@{/blogs/{id}(id=${blog.id})}"
+                                   target="_blank" th:text="${blog.title}">你真的理解什么是财富自由吗？</a>
 
-        <div class="ui teal top attached segment">
-            <div class="ui padded vertical segment m-padded-tb-large" th:each="blog : ${page.content}">
-                <div class="ui middle aligned mobile reversed stackable grid" >
-                    <div class="ten wide column">
-                        <h3 class="ui header" >
-                            <a href="#" class="m-item-black" th:href="@{/blogs/{id}(id=${blog.id})}"
-                               target="_blank" th:text="${blog.title}">你真的理解什么是财富自由吗？</a>
-
-                        </h3>
-                        <p class="m-text" th:text="|${blog.description}......|">
-                            正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已....</p>
-                        <div class="ui grid">
-                            <div class="column">
-                                <div class="ui mini horizontal link list">
-                                    <div class="item">
-                                        <i class="calendar icon"></i><span th:text="${#dates.format(blog.createTime,'yyyy-MM-dd')}">2017-10-02</span>
-                                    </div>
-                                    <div class="item">
-                                        <i class="history icon"></i><span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-02</span>
-                                    </div>
-                                    <!--                                            <div class="item">-->
-                                    <!--                                                <i class="tag icon"></i>软件开发-->
-                                    <!--                                            </div>-->
-                                    <div class="item">
-                                        <i class="eye icon"></i><span th:text="${blog.viewCounts}">222</span>
+                            </h3>
+                            <p class="m-text" th:text="|${blog.description}......|">
+                                正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已....</p>
+                            <div class="ui grid">
+                                <div class="column">
+                                    <div class="ui mini horizontal link list">
+                                        <div class="item">
+                                            <i class="calendar icon"></i><span
+                                                th:text="${#dates.format(blog.createTime,'yyyy-MM-dd')}">2017-10-02</span>
+                                        </div>
+                                        <div class="item">
+                                            <i class="history icon"></i><span
+                                                th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-02</span>
+                                        </div>
+                                        <!--                                            <div class="item">-->
+                                        <!--                                                <i class="tag icon"></i>软件开发-->
+                                        <!--                                            </div>-->
+                                        <div class="item">
+                                            <i class="eye icon"></i><span th:text="${blog.viewCounts}">222</span>
+                                        </div>
                                     </div>
                                 </div>
-                            </div>
 
+                            </div>
+                        </div>
+                        <div class="six wide column ui img-effect m-padded-no image rounded">
+                            <a href="blog.html" th:href="@{/blogs/{id}(id=${blog.id})}" target="_blank"
+                               class="m-suspend-parent">
+                                <img src="../static/images/Index/page-cover.jpg" th:src="@{${blog.coverPicture}}" alt=""
+                                     class="ui rounded image">
+                                <div class="right aligned three wide column m-padded-tb-mini m-suspend-children">
+                                    <a href="#" class="ui teal label m-padded-small m-text-thin"
+                                       th:text="${blog.category.name}">认知升级</a>
+                                </div>
+                            </a>
                         </div>
                     </div>
-                    <div class="six wide column">
-                        <a href="blog.html" th:href="@{/blogs/{id}(id=${blog.id})}" target="_blank" class="m-suspend-parent">
-                            <img src="../static/images/Index/page-cover.jpg" th:src="@{${blog.coverPicture}}" alt="" class="ui rounded image">
-                            <div class="right aligned three wide column m-padded-tb-mini m-suspend-children">
-                                <a href="#" class="ui teal label m-padded-small m-text-thin" th:text="${blog.category.name}">认知升级</a>
-                            </div>
-                        </a>
+                </div>
+            </div>
+
+            <!--底部分页-->
+            <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
+                <div class="ui middle aligned two column grid">
+                    <div class="column">
+                        <a class="ui mini teal basic button" th:href="@{/(page=${page.number}-1)}"
+                           th:unless="${page.first}">上一页</a>
+                    </div>
+                    <div class="right aligned column">
+                        <a class="ui mini teal basic button" th:href="@{/(page=${page.number}+1)}"
+                           th:unless="${page.last}">下一页</a>
                     </div>
                 </div>
             </div>
-
         </div>
-
-        <!--底部分页-->
-        <div class="ui bottom attached segment" th:if="${page.totalPages}>1">
-            <div class="ui middle aligned two column grid">
-                <div class="column">
-                    <a class="ui mini teal basic button" th:href="@{/(page=${page.number}-1)}"
-                       th:unless="${page.first}">上一页</a>
-                </div>
-                <div class="right aligned column">
-                    <a class="ui mini teal basic button" th:href="@{/(page=${page.number}-1)}"
-                       th:unless="${page.last}">下一页</a>
-                </div>
-            </div>
-        </div>
-
     </div>
 </div>
 <br>
 <br>
 <!------底部footer------>
-<footer  th:replace="_fragments :: footer">
+<footer th:replace="_fragments :: footer">
     <!--底部teal颜色的条-->
     <div class="ui segment vertical teal inverted m-padded-tb-mini "></div>
     <!--底部footer正文-->
@@ -139,19 +155,22 @@
                 <div class="five wide center aligned column m-children-center">
                     <!--QQ联系方式二维码-->
                     <div class="m-inline-block m-margin-right-small">
-                        <img src="../static/images/Common/QQ.png" th:src="@{/images/Common/QQ.png}" class="ui rounded image" alt=""
+                        <img src="../static/images/Common/QQ.png" th:src="@{/images/Common/QQ.png}"
+                             class="ui rounded image" alt=""
                              style="width: 100px;height: 100px">
                         <span class="m-margin-top-small m-opacity-mini">我的QQ</span>
                     </div>
                     <!--微信联系方式二维码-->
                     <div class="m-inline-block m-margin-right-small">
-                        <img src="../static/images/Common/WeChat.png" th:src="@{/images/Common/WeChat.png}" class="ui rounded image" alt=""
+                        <img src="../static/images/Common/WeChat.png" th:src="@{/images/Common/WeChat.png}"
+                             class="ui rounded image" alt=""
                              style="width: 100px;height: 100px">
                         <span class="m-margin-top-small m-opacity-mini">我的微信</span>
                     </div>
                     <!--打赏方式二维码-->
                     <div class="m-inline-block">
-                        <img src="../static/images/Common/Pay.png" th:src="@{/images/Common/Pay.png}" class="ui rounded image" alt=""
+                        <img src="../static/images/Common/Pay.png" th:src="@{/images/Common/Pay.png}"
+                             class="ui rounded image" alt=""
                              style="width: 100px;height: 100px">
                         <span class="m-margin-top-small m-opacity-mini" style="color: red">打赏</span>
                     </div>

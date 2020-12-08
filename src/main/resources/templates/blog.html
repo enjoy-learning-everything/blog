@@ -61,7 +61,7 @@
 
 <!------中间内容------->
 <div id="waypoint" class="m-padded-tb-big m-container-small animate__animated animate__fadeIn">
-    <div class="ui container">
+    <div class="ui container hover-shadow-light">
         <div class="ui top attached segment m-padded-big">
             <h2 class="m-margin-bottom-small">
                 <a class="ui teal right inverted  label m-margin-right-small" style="vertical-align: middle;"
@@ -70,20 +70,20 @@
             </h2>
             <div class="ui mini horizontal link list">
                 <div class="item m-item-black m-text-bigger">
-                    <i class="calendar icon"></i>发表于：
+                    <i class="calendar icon"></i>发表于:
                     <span th:text="${#dates.format(blog.createTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02</span>
                 </div>
                 <div class="item m-item-black m-text-bigger">
-                    <i class="history icon"></i>更新于：
+                    <i class="history icon"></i>更新于:
                     <span th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02</span>
                 </div>
                 <div class="item m-item-black m-text-bigger">
-                    <i class="inbox icon"></i>分类名：
+                    <i class="inbox icon"></i>分类名:
                     <span th:text="${blog.category.name}">认知强化</span>
                 </div>
                 <div class="item m-item-black m-text-bigger">
-                    <i class="tags icon"></i>标签：
-                    <span th:each="tag : ${blog.tags}" th:text="${tag.name}">软件开发; 后端开发; SSM框架</span>
+                    <i class="tags icon"></i>标签:
+                    <span th:each="tag : ${blog.tags}" th:text="| ${tag.name}; |">软件开发; 后端开发; SSM框架</span>
                 </div>
                 <!--                <br/>-->
                 <!--                <div class="item m-margin-left-no m-item-black m-text-bigger">-->
@@ -119,7 +119,8 @@
             <!--分割线-->
             <h4 class="ui horizontal divider header m-margin-top-large"><i class="tag icon"></i>Description</h4>
 
-            <div id="content" class="typo typo-selection ui segment basic js-toc-content common-img-parent" th:utext="${blog.content}">
+            <div id="content" class="typo typo-selection ui segment basic js-toc-content
+            line-numbers data-download-link no-whitespace-normalization common-img-parent" th:utext="${blog.content}">
                 <h2 id="1-服务器常用的状态码及其对应的含义如下："><a href="#1-服务器常用的状态码及其对应的含义如下：" class="headerlink"
                                                   title="1. 服务器常用的状态码及其对应的含义如下："></a>1. 服务器常用的状态码及其对应的含义如下：</h2>
                 <h3 id="1-1-概括："><a href="#1-1-概括：" class="headerlink" title="1.1 概括："></a>1.1 概括：</h3>
@@ -478,6 +479,15 @@
             var _this = $(this); //将当前的pimg元素作为_this传入函数
             imgShow("#outerDiv", "#innerDiv", "#bigImg", _this);
         });
+    });
+
+    //初始化复制代码到剪贴板功能
+    var clipboard = new ClipboardJS('.btn');
+    clipboard.on('success', function(e) {
+        console.log(e);
+    });
+    clipboard.on('error', function(e) {
+        console.log(e);
     });
 
     $('#payButton').popup({

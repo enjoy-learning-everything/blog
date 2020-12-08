@@ -49,22 +49,25 @@
 <div class="m-padded-tb-big m-container-small">
     <div class="ui container">
         <!--header-->
-        <div class="ui top attached padded segment">
-            <div class="ui middle aligned two column grid">
-                <div class="column">
-                    <h3 class="ui teal header">归档</h3>
-                </div>
-                <div class=" right aligned column">
-                    共<h2 class="ui orange header m-inline-block m-text-thin" th:text="${blogCount}">14</h2>篇博客
+        <div class="hover-shadow-light">
+            <div class="ui padded segment ">
+                <div class="ui middle aligned two column grid">
+                    <div class="column">
+                        <h3 class="ui teal header">归档</h3>
+                    </div>
+                    <div class=" right aligned column">
+                        共<h2 class="ui orange header m-inline-block m-text-thin" th:text="${blogCount}">14</h2>篇博客
+                    </div>
                 </div>
             </div>
         </div>
 
         <div th:each="item : ${archiveMap}" class="m-margin-top-large">
             <h3 class="ui center aligned header" th:text="${item.key}">2017</h3>
-            <div class="ui fluid vertical menu">
-                <a href="#" th:href="@{/blogs/{id}(id=${blog.id})}" target="_blank" class="item"
-                   th:each="blog : ${item.value}">
+            <div class="hover-shadow-light">
+                <div class="ui fluid vertical menu ">
+                    <a href="#" th:href="@{/blogs/{id}(id=${blog.id})}" target="_blank" class="item"
+                       th:each="blog : ${item.value}">
                     <span>
                         <i class="mini teal circle icon m-margin-right-large"></i>
                         <span th:text="${blog.title}">关于刻意练习的清单</span>&nbsp;
@@ -72,8 +75,9 @@
                              th:text="${#dates.format(blog.createTime,'MM月dd日')}">09月03日
                         </div>
                     </span>
-                    <span class="ui orange middle basic label m-padded-tiny" th:text="${blog.flag}">原创</span>
-                </a>
+                        <span class="ui orange middle basic label m-padded-tiny" th:text="${blog.flag}">原创</span>
+                    </a>
+                </div>
             </div>
         </div>
 

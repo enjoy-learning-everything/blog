@@ -16,7 +16,7 @@
 
 <!------导航------>
 <!--inverted:颜色反转；attached消除圆角-->
-<nav th:replace="_fragments :: menu(7)" class="ui inverted attached segment m-padded-tb-mini m-shadow-small">
+<nav th:replace="_fragments :: menu(7)" class="ui inverted attached segment m-padded-tb-mini">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <img src="../static/images/Common/logo_row_simple.png" th:src="@{/images/Common/logo_row_simple.png}"
@@ -46,8 +46,8 @@
 
 
 <!------中间内容------->
-<div class="m-padded-tb-big m-container-small">
-    <div class="ui container">
+<div class="m-padded-tb-big m-container-small  ">
+    <div class="ui container hover-shadow-light">
         <div class="ui top attached segment  m-padded-lr-large">
             <div class="m-margin-top-large">
                 <img src="../static/images/Index/page-cover.jpg" th:src="@{/images/Index/page-cover.jpg}" alt=""

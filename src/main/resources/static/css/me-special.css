@@ -1,129 +1,164 @@
-body{
-    background:url("../images/Common/bg1.png");
+body {
+    background: url("../images/Common/bg1.png");
 }
 
 
-
-.m-footer-qrCode-inlineBlock{
-    display: inline-block!important;
+.m-footer-qrCode-inlineBlock {
+    display: inline-block !important;
 }
 
 
-.m-children-center span{
+.m-children-center span {
     display: block;
     width: 100%;
     text-align: center;
 }
 
 
-.m-suspend-parent{
-    position: relative!important;
+.m-suspend-parent {
+    position: relative !important;
 }
 
-.m-suspend-children{
-    position: absolute!important;
-    right: 1.5em;
-    top: 1.5em;
+.m-suspend-children {
+    position: absolute !important;
+    right: 1em;
+    top: 1em;
 }
 
-.m-right-top{
-    position: absolute!important;
+.m-right-top {
+    position: absolute !important;
     top: 0;
     right: 0;
 }
 
 
-.m-user-card .m-headline{
+.m-user-card .m-headline {
     /*color: #4c4948;*/
     font-size: 14px;
 }
 
-.m-user-card .m-length-num{
+.m-user-card .m-length-num {
     /*color: #4c4948;*/
     font-size: 20px;
 }
 
-.m-user-card .author-name{
+.m-user-card .author-name {
     font-size: 22px;
 }
-.m-user-card .author-desc{
+
+.m-user-card .author-desc {
     font-size: 14px;
 }
 
-.m-divider-short{
-    border: none!important;
-    border-bottom: black solid 3px!important;
-    width: 80px!important;
+.m-divider-short {
+    border: none !important;
+    border-bottom: black solid 3px !important;
+    width: 80px !important;
     position: relative;
     top: 2px;
     left: 0;
 }
 
-.m-divider-long{
-    border: none!important;
-    border-top: #E7E7E7 solid 1px!important;
+.m-divider-long {
+    border: none !important;
+    border-top: #E7E7E7 solid 1px !important;
 }
 
-.m-link-divider-short{
-    border: none!important;
-    border-bottom: #00b5ad solid 3px!important;
-    width: 75px!important;
+.m-link-divider-short {
+    border: none !important;
+    border-bottom: #00b5ad solid 3px !important;
+    width: 75px !important;
     position: relative;
     top: 2px;
     left: 0;
 }
 
-.m-link-divider-long{
-    border: none!important;
-    border-top: #E7E7E7 solid 1px!important;
+.m-link-divider-long {
+    border: none !important;
+    border-top: #E7E7E7 solid 1px !important;
 }
 
-.m-comment-one-three{
+.m-comment-one-three {
 }
 
-.m-comment-input{
-    border: none!important;
-    border-bottom: #dedede dashed 1px!important;
+.m-comment-input {
+    border: none !important;
+    border-bottom: #dedede dashed 1px !important;
     width: 33% !important;
-    color: #555555!important;;
-    line-height: 1.8!important;;
+    color: #555555 !important;;
+    line-height: 1.8 !important;;
 }
 
 .m-comment-input-error[name='nickname'],
-.m-comment-input-error[name='email']{
-    border-bottom: #eb5055 dashed 1px!important;
+.m-comment-input-error[name='email'] {
+    border-bottom: #eb5055 dashed 1px !important;
 }
 
 
-
-
-.m-comment-textarea{
-    border: none!important;
-    color: #555555!important;;
-    line-height: 1.8!important;;
-    resize: none!important;
+.m-comment-textarea {
+    border: none !important;
+    color: #555555 !important;;
+    line-height: 1.8 !important;;
+    resize: none !important;
 }
 
-.m-comment-box{
+.m-comment-box {
     border: #e4e4e4 1px solid;
     border-radius: 5px;
 }
 
-#comment-error ul{
-    padding-left: 10px!important;
+#comment-error ul {
+    padding-left: 10px !important;
 }
 
-#comment-error li{
-    display: inline!important;
-    list-style:disc!important;
+#comment-error li {
+    display: inline !important;
+    list-style: disc !important;
 }
 
-.about-icon{
-    width: 36px!important;
-    height: 36px!important;
+.about-icon {
+    width: 36px !important;
+    height: 36px !important;
 }
 
-.type2{
-    display: none!important;
+.type2 {
+    display: none !important;
 }
 
+/*鼠标悬浮四周阴影效果移出后恢复过渡效果*/
+.hover-shadow-heavy {
+    transition: all 0.2s linear;
+}
+
+/*鼠标悬浮四周阴影效果*/
+.hover-shadow-heavy:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s linear;
+}
+
+/*鼠标悬浮四周阴影效果移出后恢复过渡效果*/
+.hover-shadow-light {
+    transition: all 0.2s linear;
+}
+
+/*鼠标悬浮四周阴影效果*/
+.hover-shadow-light:hover {
+    box-shadow: 0 0 7px rgba(0, 0, 0, 0.3);
+    transition: all 0.2s linear;
+}
+
+/*图片鼠标悬浮放大，移出恢复的父级元素，需要隐藏超出的部分*/
+.img-effect {
+    overflow: hidden;
+}
+
+/*鼠标移出后恢复过渡效果*/
+.img-effect img {
+    transition: all 0.4s linear;
+}
+
+/*鼠标悬浮放大效果*/
+.img-effect:hover img {
+    transform: scale(1.4);
+    transition: all 0.4s linear;
+}

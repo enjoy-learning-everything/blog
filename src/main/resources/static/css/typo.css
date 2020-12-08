@@ -1,7 +1,7 @@
 @charset "utf-8";
 
 .typo p {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 300;
   line-height: 1.8;
   text-align: justify;
@@ -47,18 +47,14 @@
 /* 块/段落引用 */
 .typo blockquote {
   position: relative;
+  background: #f8f8f8;
   color: #999;
   font-weight: 400;
   border-left: 1px solid #1abc9c;
-  padding-left: 1em;
-  margin: 1em 3em 1em 2em;
+  padding: 1em;
+  margin: 1em 0;
 }
 
-@media only screen and ( max-width: 640px ) {
-  .typo blockquote {
-    margin: 1em 0;
-  }
-}
 
 /* Firefox 以外，元素没有下划线，需添加 */
 .typo acronym,.typo abbr {
@@ -233,7 +229,7 @@
 
 .typo h1,.typo h2,.typo h3,.typo h4,.typo h5,.typo h6 {
   font-family: PingFang SC, Verdana, Helvetica Neue, Microsoft Yahei, Hiragino Sans GB, Microsoft Sans Serif, WenQuanYi Micro Hei, sans-serif;
-  font-weight: 100;
+  font-weight: 500;
   color: #000;
   line-height: 1.35;
 }
@@ -268,18 +264,23 @@
 
 /* 在文章中，应该还原 ul 和 ol 的样式 */
 .typo ul, .typo-ul {
-  margin-left: 1.3em;
+  margin-left: 0;
   list-style: disc;
+  padding-left: 0;
 }
 
 .typo ol, .typo-ol {
   list-style: decimal;
-  margin-left: 1.9em;
+  margin-left: 0;
 }
 
 .typo li ul, .typo li ol, .typo-ul ul, .typo-ul ol, .typo-ol ul, .typo-ol ol {
   margin-bottom: 0.8em;
-  margin-left: 2em;
+  margin-left: 0;
+}
+
+.typo li{
+  margin-left: 1em;
 }
 
 .typo li ul, .typo-ul ul, .typo-ol ul {
