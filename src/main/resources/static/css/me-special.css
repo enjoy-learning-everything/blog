@@ -162,3 +162,37 @@ body {
     transform: scale(1.4);
     transition: all 0.4s linear;
 }
+
+/*目录外层*/
+.toc-container{
+    width: 350px!important;
+    padding: 20px 0!important;
+}
+
+
+.js-toc {
+    margin: 0;
+    padding: 0 20px 0 40px;
+    overflow: auto !important;
+    max-height: 310px;
+    /*position: relative;*/
+}
+
+/*目录列表*/
+.js-toc .toc-list{
+    position: relative;
+}
+
+/*目录非当前节点的左边那个游标*/
+.js-toc .toc-link::before{
+    width: 3px!important;
+    background-color: #ffffff!important;
+}
+
+/*目录当前节点的左边那个游标*/
+.js-toc .is-active-link::before{
+    width: 4px!important;
+    background-color: #54BC4B!important;
+
+}
+

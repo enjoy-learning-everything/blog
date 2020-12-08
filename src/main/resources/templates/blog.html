@@ -92,18 +92,18 @@
                 <!--                <div class="item m-item-black m-text-bigger">-->
                 <!--                    <i class="clock outline icon"></i>预计用时：5min-->
                 <!--                </div>-->
-<!--                <div class="item m-item-black m-text-bigger">-->
-<!--                    <i class="eye icon"></i>浏览量：-->
-<!--                    <span th:text="${blog.viewCounts}">222</span>-->
-<!--                </div>-->
-<!--                <div class="item m-item-black m-text-bigger">-->
-<!--                    <i class="thumbs up icon"></i>点赞数：-->
-<!--                    <span th:text="${blog.likeCounts}">2</span>-->
-<!--                </div>-->
-<!--                <div class="item m-item-black m-text-bigger">-->
-<!--                    <i class="comment icon"></i>评论数：-->
-<!--                    <span th:text="${blog.commentCounts}">2</span>-->
-<!--                </div>-->
+                <!--                <div class="item m-item-black m-text-bigger">-->
+                <!--                    <i class="eye icon"></i>浏览量：-->
+                <!--                    <span th:text="${blog.viewCounts}">222</span>-->
+                <!--                </div>-->
+                <!--                <div class="item m-item-black m-text-bigger">-->
+                <!--                    <i class="thumbs up icon"></i>点赞数：-->
+                <!--                    <span th:text="${blog.likeCounts}">2</span>-->
+                <!--                </div>-->
+                <!--                <div class="item m-item-black m-text-bigger">-->
+                <!--                    <i class="comment icon"></i>评论数：-->
+                <!--                    <span th:text="${blog.commentCounts}">2</span>-->
+                <!--                </div>-->
             </div>
 
             <!--分割线-->
@@ -374,8 +374,8 @@
     </div>
 </div>
 
-<div class="ui toc-container flowing popup transition hidden" style="width: 350px!important;">
-    <ol class="js-toc">
+<div class="ui toc-container flowing popup transition hidden">
+    <ol id="exceptBodyScroll" class="js-toc">
     </ol>
 </div>
 
@@ -384,9 +384,10 @@
 </div>
 
 <!--放大图片的显示层-->
-<div id="outerDiv" style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);z-index:5;width:100%;height:100%;display:none;">
+<div id="outerDiv"
+     style="position:fixed;top:0;left:0;background:rgba(0,0,0,0.7);z-index:5;width:100%;height:100%;display:none;">
     <div id="innerDiv" style="position:absolute;">
-        <img id="bigImg" style="border:5px solid #fff;" src="" />
+        <img id="bigImg" style="border:5px solid #fff;" src=""/>
     </div>
 </div>
 
@@ -468,7 +469,7 @@
         // Where to grab the headings to build the table of contents.
         contentSelector: '.js-toc-content',
         // Which headings to grab inside of the contentSelector element.
-        headingSelector: 'h1, h2, h3',
+        headingSelector: 'h1, h2, h3, h4, h5',
         // For headings inside relative or absolute positioned containers within content.
         hasInnerContainers: true,
     });
@@ -481,12 +482,21 @@
         });
     });
 
+    //鼠标移入目录内容时禁用页面滚动，防止目录和页面一起滚动
+    document.getElementById('exceptBodyScroll').onmousewheel = function(event) {
+        if (!event) event = window.event;
+        this.scrollTop = this.scrollTop - (event.wheelDelta ? event.wheelDelta : -event.detail * 10);
+        return false;
+    }
+
+
+
     //初始化复制代码到剪贴板功能
     var clipboard = new ClipboardJS('.btn');
-    clipboard.on('success', function(e) {
+    clipboard.on('success', function (e) {
         console.log(e);
     });
-    clipboard.on('error', function(e) {
+    clipboard.on('error', function (e) {
         console.log(e);
     });
 
@@ -499,7 +509,10 @@
     $('.toc.button').popup({
         popup: $('.toc-container.popup'),
         on: 'click',
-        position: 'left center'
+        closable: true,
+        hideOnScroll: true,
+        position: 'left center',
+
     });
 
     $('.wechat').popup({
