@@ -134,7 +134,7 @@ public class LinkController {
         return "redirect:/admin/links";
     }
 
-    @MyLog(operation = "【管理端】访问接口：修改外链", type = "新增")
+    @MyLog(operation = "【管理端】访问接口：修改外链", type = "修改")
     @PostMapping("/links/{id}")
     public String editLink(Link link, @RequestParam(value = "file", required = false) MultipartFile file,
                               @RequestParam String uploadType, @RequestParam(value = "imageUrl", required = false) String imageUrl,

@@ -57,7 +57,6 @@ public class Blog implements Comparable<Blog> {
     private String tagIds;
 
     public Blog() {
-        this.imageFolder = new SimpleDateFormat("yyyyMMddHHmmss").format(new Date()) + "-" + UUID.randomUUID().toString().substring(0, 4);
     }
 
     public Long getId() {
