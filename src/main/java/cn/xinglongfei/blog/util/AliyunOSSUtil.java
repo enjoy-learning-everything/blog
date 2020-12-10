@@ -119,9 +119,9 @@ public class AliyunOSSUtil {
 
 
     public static String deleteFile(String ossFilePathAndFileName) {
+        logger.info("------OSS文件删除开始--------");
         //获取相对于根目录的地址
         String filePathAndName = URLUtil.getFilePath(ossFilePathAndFileName)+"/"+URLUtil.getFileName(ossFilePathAndFileName);
-        logger.info("------OSS文件删除开始--------");
 
         // 创建ClientConfiguration实例，您可以按照实际情况修改默认参数。
         ClientBuilderConfiguration conf = new ClientBuilderConfiguration();
@@ -129,7 +129,7 @@ public class AliyunOSSUtil {
         conf.setSupportCname(true);
         // 创建OSSClient实例。
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret, conf);
-        if(isFileExist(filePathAndName)){
+        if(isFileExist(ossFilePathAndFileName)){
             ossClient.deleteObject(bucketName, filePathAndName);
         }
         logger.info("------OSS文件删除结束--------");
@@ -140,13 +140,16 @@ public class AliyunOSSUtil {
 
     public static boolean isFileExist(String ossFilePathAndFileName) {
         logger.info("------OSS文件存在性检测开始--------");
+        //获取相对于根目录的地址
+        String filePathAndName = URLUtil.getFilePath(ossFilePathAndFileName)+"/"+URLUtil.getFileName(ossFilePathAndFileName);
+
         // 创建ClientConfiguration实例，您可以按照实际情况修改默认参数。
         ClientBuilderConfiguration conf = new ClientBuilderConfiguration();
         // 设置是否支持CNAME。CNAME是指将自定义域名绑定到存储空间上。
         conf.setSupportCname(true);
         // 创建OSSClient实例。
         OSS ossClient = new OSSClientBuilder().build(endpoint, accessKeyId, accessKeySecret, conf);
-        boolean result = ossClient.doesObjectExist(bucketName, ossFilePathAndFileName);
+        boolean result = ossClient.doesObjectExist(bucketName, filePathAndName);
         logger.info("------OSS文件存在性检测结束--------存在："+result);
         // 关闭OSSClient。
         ossClient.shutdown();

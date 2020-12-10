@@ -11,7 +11,6 @@ import cn.xinglongfei.blog.service.BlogService;
 import cn.xinglongfei.blog.service.CategoryService;
 import cn.xinglongfei.blog.service.FileUploadService;
 import cn.xinglongfei.blog.service.TagService;
-import cn.xinglongfei.blog.util.AliyunOSSUtil;
 import cn.xinglongfei.blog.util.URLUtil;
 import cn.xinglongfei.blog.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +82,7 @@ public class BlogController {
         model.addAttribute("tags", tagService.listTag());
     }
 
-    @MyLog(operation = "【管理端】跳转页面：新增博客", type = "跳转")
+    @MyLog(operation = "【管理端】跳转页面：新增博客")
     @GetMapping("/blogs/newBlog")
     public String newBlog(Model model) {
         setTypeAndTag(model);
@@ -115,9 +114,9 @@ public class BlogController {
     }
 
 
-    @MyLog(operation = "【管理端】访问接口：新增/修改博客", type = "新增/修改")
+    @MyLog(operation = "【管理端】访问接口：新增博客", type = "新增")
     @PostMapping("/blogs")
-    public String newBlogPost(Blog blog, @RequestParam(value = "file", required = false) MultipartFile file, @RequestParam String published,
+    public String newBlogPost(Blog blog, @RequestParam(value = "file", required = false) MultipartFile file,
                               @RequestParam String uploadType, @RequestParam(value = "imageUrl", required = false) String imageUrl,
                               RedirectAttributes attributes, HttpSession session) {
         //获取session中的用户信息
@@ -150,22 +149,36 @@ public class BlogController {
             } else if (uploadType.equals("netLink")) {
                 if (!URLUtil.verifyImageUrl(imageUrl).equals(ImageLinkEnum.URL_IS_VERIFIED.getDesc())) {
                     attributes.addFlashAttribute("message", URLUtil.verifyImageUrl(imageUrl));
-                }
-                //随机文件名
-                String randomName = UUID.randomUUID().toString().replace("-", "") + ".jpg";
-                //设置博客首图地址为上传文件成功后，在阿里云oss中，该文件的访问地址
-                blog.setCoverPicture("http://" + AliyunOSSConfigConstant.getDomainName() + "/" + FilePathEnum.COVER_PICTURE.getPath() + "/"
-                        + randomName);
-                String result = fileUploadService.upLoadFileToALiYunOSS(imageUrl, FilePathEnum.COVER_PICTURE.getPath(), randomName);
-                if (result.equals(ImageLinkEnum.UPLOAD_BY_URL_SUCCESS.getValue())) {
-                    blogTemp = blogService.saveBlog(blog);
-                    if (blogTemp == null) {
-                        attributes.addFlashAttribute("message", "根据地址上传文件成功，数据库新增失败");
-                    } else {
-                        attributes.addFlashAttribute("message", "根据地址上传文件成功，数据库新增成功");
-                    }
                 } else {
-                    attributes.addFlashAttribute("message", ImageLinkEnum.getDescByValue(result));
+                    //检测是否阿里云OSS当前文件夹中已经有这个文件地址了
+                    // (其实函数只能判断是否是oss路径，但是上面已经判断是有效的图片路径了，两者都通过就可以认为是存在此文件)
+                    if (URLUtil.isOSSFile(imageUrl)) {
+                        blog.setCoverPicture(imageUrl);
+                        blogTemp = blogService.saveBlog(blog);
+                        if (blogTemp == null) {
+                            attributes.addFlashAttribute("message", "检测到此图片已存在，无需上传到OSS，但数据库新增失败");
+                        } else {
+                            attributes.addFlashAttribute("message", "检测到此图片已存在，无需上传到OSS，数据库新增成功");
+                        }
+                        //如果不是oss端文件
+                    } else {
+                        //随机文件名
+                        String randomName = UUID.randomUUID().toString().replace("-", "") + ".jpg";
+                        //设置博客首图地址为上传文件成功后，在阿里云oss中，该文件的访问地址
+                        blog.setCoverPicture("http://" + AliyunOSSConfigConstant.getDomainName() + "/" + FilePathEnum.COVER_PICTURE.getPath() + "/"
+                                + randomName);
+                        String result = fileUploadService.upLoadFileToALiYunOSS(imageUrl, FilePathEnum.COVER_PICTURE.getPath(), randomName);
+                        if (result.equals(ImageLinkEnum.UPLOAD_BY_URL_SUCCESS.getValue())) {
+                            blogTemp = blogService.saveBlog(blog);
+                            if (blogTemp == null) {
+                                attributes.addFlashAttribute("message", "根据地址上传文件成功，数据库新增失败");
+                            } else {
+                                attributes.addFlashAttribute("message", "根据地址上传文件成功，数据库新增成功");
+                            }
+                        } else {
+                            attributes.addFlashAttribute("message", ImageLinkEnum.getDescByValue(result));
+                        }
+                    }
                 }
             }
         } catch (IOException e) {
@@ -176,7 +189,7 @@ public class BlogController {
     }
 
 
-    @MyLog(operation = "【管理端】访问接口：新增/修改博客", type = "新增/修改")
+    @MyLog(operation = "【管理端】访问接口：修改博客", type = "修改")
     @PostMapping("/blogs/{id}")
     public String editBlogPost(Blog blog, @RequestParam(value = "file", required = false) MultipartFile file,
                                @RequestParam String uploadType, @RequestParam(value = "imageUrl", required = false) String imageUrl,
@@ -205,8 +218,8 @@ public class BlogController {
                         attributes.addFlashAttribute("message", "上传本地文件成功，数据库更新失败");
                     } else {
                         //数据库修改成功后要删除原来的图片
-                        AliyunOSSUtil.deleteFile(webUrl);
-                        attributes.addFlashAttribute("message", "上传本地文件成功，数据库更新成功，原图片删除成功");
+                        //AliyunOSSUtil.deleteFile(webUrl);
+                        attributes.addFlashAttribute("message", "上传本地文件成功，数据库更新成功，原图片暂不删除");
                     }
                 } else {
                     attributes.addFlashAttribute("message", FileUploadEnum.getDescByValue(result));
@@ -218,9 +231,20 @@ public class BlogController {
                     attributes.addFlashAttribute("message", URLUtil.verifyImageUrl(imageUrl));
                     //图片验证通过
                 } else {
-                    //获取原首图的网络链接地址
-                    String webUrl = blogService.getBlog(blog.getId()).getCoverPicture();
-                    if (!blogService.getBlog(blog.getId()).getCoverPicture().equals(imageUrl)) {
+                    //检测是否阿里云OSS当前文件夹中已经有这个文件地址了
+                    // (其实函数只能判断是否是oss路径，但是上面已经判断是有效的图片路径了，两者都通过就可以认为是存在此文件)
+                    if (URLUtil.isOSSFile(imageUrl)) {
+                        blog.setCoverPicture(imageUrl);
+                        blogTemp = blogService.updateBlog(blog.getId(), blog);
+                        if (blogTemp == null) {
+                            attributes.addFlashAttribute("message", "检测到此图片已存在，无需上传到OSS，但数据库更新失败");
+                        } else {
+                            attributes.addFlashAttribute("message", "检测到此图片已存在，无需上传到OSS，数据库更新成功");
+                        }
+                        //如果不是oss端文件
+                    } else {
+                        //获取原首图的网络链接地址
+                        String webUrl = blogService.getBlog(blog.getId()).getCoverPicture();
                         //随机文件名
                         String randomName = UUID.randomUUID().toString().replace("-", "") + ".jpg";
                         //设置博客首图地址为上传文件成功后，在阿里云oss中，该文件的访问地址
@@ -233,21 +257,13 @@ public class BlogController {
                                 attributes.addFlashAttribute("message", "根据地址上传文件成功，数据库更新失败");
                             } else {
                                 //数据库修改成功后要删除原来的图片
-                                AliyunOSSUtil.deleteFile(webUrl);
-                                attributes.addFlashAttribute("message", "根据地址上传文件成功，数据库更新成功，原图片删除成功");
+                                //AliyunOSSUtil.deleteFile(webUrl);
+                                attributes.addFlashAttribute("message", "根据地址上传文件成功，数据库更新成功，原图片暂不删除");
                             }
                         } else {
                             attributes.addFlashAttribute("message", ImageLinkEnum.getDescByValue(result));
                         }
-                    } else {
-                        blogTemp = blogService.updateBlog(blog.getId(), blog);
-                        if (blogTemp == null) {
-                            attributes.addFlashAttribute("message", "您未更改首图地址，且数据库更新失败");
-                        } else {
-                            attributes.addFlashAttribute("message", "您未更改首图地址，数据库更新成功");
-                        }
 
-                        //数据库中保存的首图网址和接收到的不一致，说明需要更改首图并且删除原来的首图
                     }
                 }
             }
@@ -263,10 +279,10 @@ public class BlogController {
     public String delete(@PathVariable Long id, RedirectAttributes attributes) {
         Blog blogTemp = blogService.getBlog(id);
         if (blogTemp != null) {
-            AliyunOSSUtil.deleteFile(blogTemp.getCoverPicture());
+//            AliyunOSSUtil.deleteFile(blogTemp.getCoverPicture());
             blogService.deleteBlog(id);
         }
-        attributes.addFlashAttribute("message", "删除成功");
+        attributes.addFlashAttribute("message", "删除成功，首图暂不删除");
         return REDIRECT_LISTBLOGPAGE;
     }
 }

@@ -28,11 +28,14 @@ public class FileTypeUtil {
 
 
     /**
+     * 检测图片地址是否可以正常访问
      * @param netUrl 图片地址
      * @return 是否为图片或是否可正常访问
      */
     public static boolean isImageUrl(String netUrl) {
         try {
+            //忽略证书检测
+            SslUtils.ignoreSsl();
             URL url = new URL(netUrl);
             HttpURLConnection httpUrl = (HttpURLConnection) url.openConnection();
             //设置连接主机超时（单位：毫秒）
@@ -50,7 +53,7 @@ public class FileTypeUtil {
                 return fileType.equals(FileTypeListEnum.BMP) || fileType.equals(FileTypeListEnum.GIF)
                         || fileType.equals(FileTypeListEnum.JPEG) || fileType.equals(FileTypeListEnum.PNG);
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             //无法读取的链接一并视为非图片链接
             e.printStackTrace();
             return false;

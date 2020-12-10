@@ -69,10 +69,10 @@
 <div class="m-padded-tb-big m-container">
     <div class="ui container">
         <form id="blog-form" action="#" th:object="${blog}" enctype="multipart/form-data"
-              th:action="@{/admin/blogs}" method="post" class="ui form">
+              th:action="*{id}==null ? @{/admin/blogs} : @{/admin/blogs/{id}(id=*{id})}" method="post" class="ui form">
             <input type="hidden" name="published">
             <input type="hidden" name="id" th:value="*{id}">
-            <input type="hidden" id="localPath" th:value="*{imageFolder}">
+            <input type="hidden" id="localPath" name="imageFolder" th:value="*{imageFolder}">
             <div class="required field">
                 <div class="ui left labeled input">
                     <div class="ui selection compact  teal basic  dropdown label">

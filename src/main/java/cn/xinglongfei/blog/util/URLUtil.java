@@ -29,12 +29,11 @@ public class URLUtil {
         }
     }
 
-
-    public static String substringUrlArguement(String url){
-        return url.substring(0,url.lastIndexOf("?"));
-    }
-
-
+    /**
+     * 获取给定链接对应的OSS对象存储的文件的文件名
+     * @param url OSS文件链接
+     * @return 文件名
+     */
     public static String getFileName(String url){
         String fileName = "";
         String suffixes="jpeg|jpg|png|bmp|gif";
@@ -46,7 +45,11 @@ public class URLUtil {
         return fileName;
     }
 
-
+    /**
+     * 获取给定链接对应的OSS对象存储的文件所在的文件夹路径
+     * @param url OSS文件链接
+     * @return 所在文件夹路径
+     */
     public static String getFilePath(String url){
         String filePath = "";
         String suffixes=getFileName(url);
@@ -58,6 +61,25 @@ public class URLUtil {
             filePath= mc.group();
         }
        return filePath;
+    }
+
+
+    /**
+     * 检测链接是否是OSS文件链接（域名为:image.xinglongfei.cn）
+     * @param url 链接
+     * @return 是/否
+     */
+    public static boolean isOSSFile(String url){
+        boolean result = false;
+        String suffixes=getFileName(url);
+        String regx = "(?<="+ AliyunOSSConfigConstant.getDomainName()+"/)(.*?)(?=/"+suffixes+")";
+        System.out.println(regx);
+        Pattern pat= Pattern.compile(regx);//正则判断
+        Matcher mc=pat.matcher(url);//条件匹配
+        if(mc.find()) {
+            result = true;
+        }
+        return result;
     }
 
 
