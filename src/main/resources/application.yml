@@ -8,5 +8,8 @@ spring:
       #单次请求文件的总大小
       max-request-size: 20MB
 
+  messages:
+    encoding: utf-8
+
 #默认评论头像
 comment.avatar: /images/Common/comment-avator1.png

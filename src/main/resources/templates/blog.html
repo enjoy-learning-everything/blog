@@ -460,12 +460,20 @@
 
 <script th:inline="javascript">
 
+    //为每一个代码块添加括号匹配样式
+    var preList = $('code');
+    for(var i=0;i<preList.length;i++){
+        preList.eq(i).addClass("match-braces");
+    }
+
+    //自定义邮件校验
     $().ready(function () {
         jQuery.validator.addMethod("isEmail", function (value, element) {
             var length = value.length;
             var email = /^[a-zA-Z1-9]+[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+(\.[a-z]{2,}){1,3}$/;
             return this.optional(element) || (length > 7 && email.test(value));
         }, "请填写正确的邮件地址");
+        //调用其他的验证
         validateAddForm();
     });
 
@@ -485,6 +493,9 @@
         hasInnerContainers: true,
     });
 
+
+
+
     //触发放大图片的函数
     $(function () {
         $(".common-img-parent img").click(function () {
@@ -494,12 +505,11 @@
     });
 
     //鼠标移入目录内容时禁用页面滚动，防止目录和页面一起滚动
-    document.getElementById('exceptBodyScroll').onmousewheel = function(event) {
+    document.getElementById('exceptBodyScroll').onmousewheel = function (event) {
         if (!event) event = window.event;
         this.scrollTop = this.scrollTop - (event.wheelDelta ? event.wheelDelta : -event.detail * 10);
         return false;
     }
-
 
 
     //初始化复制代码到剪贴板功能
@@ -531,7 +541,7 @@
         position: 'left center'
     });
 
-    var serverRootUrl = "http://xinglongfei.cn";
+    var serverRootUrl = [[#{blog.baseurl}]];
     var url = /*[[@{/blogs/{id}(id=${blog.id})}]]*/"";
     var qrcode = new QRCode("qrcode", {
         text: serverRootUrl + url,
