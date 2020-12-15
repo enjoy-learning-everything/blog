@@ -62,53 +62,66 @@
         </div>
 
         <div class="ui hover-shadow-light segments">
-            <div class="ui teal top attached segment">
-                <div class="ui padded vertical segment m-padded-tb-large " th:each="blog : ${page.content}">
-                    <div class="ui middle aligned mobile reversed stackable grid">
-                        <div class="ten wide column">
-                            <h3 class="ui header">
-                                <a href="#" class="m-item-black" th:href="@{/blogs/{id}(id=${blog.id})}"
-                                   target="_blank" th:text="${blog.title}">你真的理解什么是财富自由吗？</a>
 
-                            </h3>
-                            <p class="m-text" th:text="|${blog.description}......|">
-                                正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已....</p>
-                            <div class="ui grid">
-                                <div class="column">
-                                    <div class="ui mini horizontal link list">
-                                        <div class="item">
-                                            <i class="calendar icon"></i><span
-                                                th:text="${#dates.format(blog.createTime,'yyyy-MM-dd')}">2017-10-02</span>
-                                        </div>
-                                        <div class="item">
-                                            <i class="history icon"></i><span
-                                                th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-02</span>
-                                        </div>
-                                        <!--                                            <div class="item">-->
-                                        <!--                                                <i class="tag icon"></i>软件开发-->
-                                        <!--                                            </div>-->
-                                        <div class="item">
-                                            <i class="eye icon"></i><span th:text="${blog.viewCounts}">222</span>
+            <!--列表-->
+            <div class="ui top attached segment m-padded-no">
+                <div class="ui vertical segment m-padded-no" th:each="blog : ${page.content}">
+                    <div class="ui middle aligned stackable grid m-margin-no">
+                        <div class="ten wide column m-pc-padded-right-no">
+                            <div class="ui ribbon label" th:classappend="${blog.flag}=='原创'? 'red' : 'green'">
+                                <i class="icon" th:classappend="${blog.flag}=='原创'? 'pencil alternate' : 'share'"></i><span th:text="${blog.flag}">原创</span>
+                            </div>
+                            <div class="m-mobile-padded-lr-middle m-pc-padded-left-middle">
+                                <h3 class="ui header m-margin-tb-small ">
+                                    <a href="#" class="m-item-black" th:href="@{/blogs/{id}(id=${blog.id})}"
+                                       target="_blank" th:text="${blog.title}">做人，不要自作多情，生活中真的没有人在乎你</a>
+                                </h3>
+                                <p class="m-text m-margin-bottom-small"
+                                   th:text="|${blog.description}......|">
+                                    正确做好任何一件事情的前提是清晰、正确的理解目标。而事实是，我们很多人很多时候根本没有对目标正确的定义，甚至根本从来就没有想过，只是大家都那么做而已....</p>
+                                <div class="ui grid">
+                                    <div class="column">
+                                        <div class="ui mini horizontal link list">
+                                            <div class="item">
+                                                <i class="calendar icon"></i><span
+                                                    th:text="${#dates.format(blog.createTime,'yyyy-MM-dd')}">2017-10-02</span>
+                                            </div>
+                                            <div class="item">
+                                                <i class="history icon"></i><span
+                                                    th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-02</span>
+                                            </div>
+                                            <!--                                            <div class="item">-->
+                                            <!--                                                <i class="tag icon"></i>软件开发-->
+                                            <!--                                            </div>-->
+                                            <div class="item">
+                                                <i class="eye icon"></i><span
+                                                    th:text="${blog.viewCounts}">222</span>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
-                        <div class="six wide column ui img-effect m-padded-no image rounded">
-                            <a href="blog.html" th:href="@{/blogs/{id}(id=${blog.id})}" target="_blank"
-                               class="m-suspend-parent">
-                                <img src="../static/images/Index/page-cover.jpg" th:src="@{${blog.coverPicture}}" alt=""
-                                     class="ui rounded image">
-                                <div class="right aligned three wide column m-padded-tb-mini m-suspend-children">
-                                    <a href="#" class="ui teal label m-padded-small m-text-thin"
-                                       th:text="${blog.category.name}">认知升级</a>
+                        <div class="six wide column m-mobile-padded-bottom-no">
+                            <div class="m-mobile-padded-lr-middle ui image rounded m-mobile-margin-top--middle">
+                                <div class="img-effect ">
+                                    <a href="blog.html" th:href="@{/blogs/{id}(id=${blog.id})}" target="_blank"
+                                       class="m-suspend-parent">
+                                        <img src="../static/images/Index/page-cover.jpg"
+                                             th:src="@{${blog.coverPicture}}" alt="" class="ui rounded image">
+                                        <div class="right aligned three wide column m-padded-tb-mini m-suspend-children">
+                                            <a href="#" th:href="@{/categories/{id}(id=${blog.category.id})}"
+                                               class="ui teal label m-padded-small m-text-thin"
+                                               th:text="${blog.category.name}">认知升级</a>
+                                        </div>
+                                    </a>
                                 </div>
-                            </a>
+                            </div>
+
                         </div>
                     </div>
                 </div>
-
             </div>
 
             <!--底部分页-->

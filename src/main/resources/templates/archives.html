@@ -75,7 +75,7 @@
                              th:text="${#dates.format(blog.createTime,'MM月dd日')}">09月03日
                         </div>
                     </span>
-                        <span class="ui orange middle basic label m-padded-tiny" th:text="${blog.flag}">原创</span>
+                        <span class="ui middle basic label m-padded-tiny" th:text="${blog.flag}" th:classappend="${blog.flag}=='原创'? 'red' : 'green'">原创</span>
                     </a>
                 </div>
             </div>

@@ -191,6 +191,10 @@
     margin-left: 0.5em !important;
 }
 
+.m-margin-left-middle {
+    margin-left: 1em !important;
+}
+
 .m-margin-left-no {
     margin-left: 0 !important;
 }
@@ -256,6 +260,10 @@
 
 .m-margin-bottom-no {
     margin-bottom: 0 !important;
+}
+
+.m-margin-no {
+    margin: 0 !important;
 }
 
 

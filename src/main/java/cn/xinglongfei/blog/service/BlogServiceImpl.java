@@ -186,8 +186,8 @@ public class BlogServiceImpl implements BlogService {
     }
 
     @Override
-    public Long countBlog() {
-        return blogRepository.count();
+    public Long countPublishedBlog() {
+        return blogRepository.countPublishedBlog();
     }
 
 

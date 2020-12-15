@@ -193,6 +193,64 @@ body {
 .js-toc .is-active-link::before{
     width: 4px!important;
     background-color: #54BC4B!important;
+}
 
+
+.m-bg-change{
+
+}
+
+.m-bg-change{
+    display: block;
+    position: relative;
+    text-align: center;
+    color: #fff;
+    background: #00b5ad;
+    cursor: pointer;
+    border: none;
+}
+
+.m-bg-change:after,.m-bg-change:before {
+    content: '';
+    display: block;
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 0;
+    height: 100%;
+    background: #00b5ad;
+    z-index:-2;
+    transition: .3s;
+}
+
+.m-bg-change:hover{
+    z-index:1;
+    background:transparent;
+    /*transition: .3s;*/
+}
+
+.m-bg-change:before {
+    background: #ff7242;
+    z-index:-1;
+}
+
+.m-bg-change:hover:after,.m-bg-change:hover:before {
+    width: 100%;
+}
+
+
+
+.mouse-hover-rotate {
+    -webkit-transition: -webkit-transform 0.4s ease-out;
+    -moz-transition: -moz-transform 0.4s ease-out;
+    -o-transition: -o-transform 0.4s ease-out;
+    -ms-transition: -ms-transform 0.4s ease-out;
+}
+.mouse-hover-rotate:hover {
+    -webkit-transform: rotateZ(360deg);
+    -moz-transform: rotateZ(360deg);
+    -o-transform: rotateZ(360deg);
+    -ms-transform: rotateZ(360deg);
+    transform: rotateZ(360deg);
 }
 

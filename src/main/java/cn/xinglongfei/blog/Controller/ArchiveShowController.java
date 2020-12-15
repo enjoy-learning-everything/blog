@@ -22,7 +22,7 @@ public class ArchiveShowController {
         //传入归档Map
         model.addAttribute("archiveMap",blogService.archiveBlog());
         //传入博客总数
-        model.addAttribute("blogCount",blogService.countBlog());
+        model.addAttribute("blogCount",blogService.countPublishedBlog());
         return "archives";
     }
 }

@@ -48,7 +48,7 @@
 <!------中间内容------->
 <div class="m-padded-tb-big m-container-small">
     <div class="ui container">
-        <!--友情链接-->
+        <!--链接分类列表-->
         <div class="ui segment hover-shadow-light" th:each="item : ${linksMap}">
 <!--            <h3 class="ui teal header m-margin-top-small" th:text="${item.key}">友情链接</h3>-->
 <!--            <span th:text="${item.value.size()}"></span>-->
@@ -66,11 +66,12 @@
                 <div class="ui section divider m-margin-tb-no m-link-divider-long"></div>
             </div>
 
+            <!--链接列表-->
             <div class="ui grid">
                 <div class="column m-margin-tb-small">
                     <div class="ui mini horizontal link list">
-                        <a href="#" th:href="@{${link.url}}" target="_blank" class="block m-text-blacker" th:each="link : ${item.value}">
-                            <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
+                        <a href="#" th:href="@{${link.url}}" target="_blank" class="block m-text-blacker " th:each="link : ${item.value}">
+                            <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny hover-shadow-light" >
                                 <div class="m-inline-block middle aligned m-margin-right-tiny">
                                     <img src="../static/images/Index/page-cover.jpg" th:src="@{${link.avatar}}" alt="" class="ui circular image"
                                          width="50px" height="50px">
@@ -199,229 +200,6 @@
             </div>
 
         </div>
-
-
-        <!--/*-->
-        <!--学习网站-->
-        <div class="ui segment hover-shadow-light">
-            <h3 class="ui teal header m-margin-top-small">学习网站</h3>
-            <div class="m-margin-tb-small">
-                <div class="ui section divider m-margin-tb-no m-link-divider-short"
-                     style="border-color: #00b5ad!important;"></div>
-                <div class="ui section divider m-margin-tb-no m-link-divider-long"></div>
-            </div>
-
-            <div class="ui grid">
-                <div class="column m-margin-tb-small">
-                    <div class="ui mini horizontal link list">
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-        <!--工具链接-->
-        <div class="ui segment hover-shadow-light">
-            <h3 class="ui teal header m-margin-top-small">工具链接</h3>
-            <div class="m-margin-tb-small">
-                <div class="ui section divider m-margin-tb-no m-link-divider-short"
-                     style="border-color: #00b5ad!important;"></div>
-                <div class="ui section divider m-margin-tb-no m-link-divider-long"></div>
-            </div>
-
-            <div class="ui grid">
-                <div class="column m-margin-tb-small">
-                    <div class="ui mini horizontal link list">
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                        <div class="ui segment m-inline-block m-margin-lr-tiny m-margin-tb-tiny" >
-                            <div class="m-inline-block middle aligned m-margin-right-tiny">
-                                <img src="../static/images/Index/page-cover.jpg" alt="" class="ui circular image"
-                                     width="50px" height="50px">
-                            </div>
-                            <div class="m-inline-block middle aligned m-margin-left-tiny" style="width: 118px!important;">
-                                <h3 class="ui header m-margin-bottom-tiny" style="font-size: 14px!important;">
-                                    <!--                                    <a href="#" class="ui teal label m-padded-small m-text-thin">原创</a>-->
-                                    以小型的博客
-                                </h3>
-                                <p class="" style="font-size: 12px!important;">
-                                    正确做好任何一件事情的前晰晰。
-                                </p>
-                            </div>
-                        </div>
-                    </div>
-
-                </div>
-
-            </div>
-
-        </div>
-        <!--*/-->
-
     </div>
 </div>
 <br>

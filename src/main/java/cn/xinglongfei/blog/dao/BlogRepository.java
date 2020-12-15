@@ -32,6 +32,12 @@ public interface BlogRepository extends JpaRepository<Blog, Long>, JpaSpecificat
     @Query("select b from Blog b where b.published = true")
     Page<Blog> findAllPublishedBlog(Pageable pageable);
 
+    /**
+     * 查找已发布的博客总数
+     * @return 已发布的博客总数
+     */
+    @Query("select count(b) from Blog b where b.published = true")
+    Long countPublishedBlog();
 
 
     /**
