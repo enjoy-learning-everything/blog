@@ -2,12 +2,14 @@
 
 博客预览地址：[http://xinglongfei.cn/](http://xinglongfei.cn/)
 
+管理端的入口为：[http://xinglongfei.cn/admin](http://xinglongfei.cn/admin)
+> 近期在准备搭建Demo项目，可以开放Demo的测试账号，预计几天后上线
+
+> 最近可能版本更新比较慢了，因为得开始做毕设，还得准备春招面试，不过绝对不会放弃博客更新，就是会更新的比较慢而已，毕竟还有些地方不够完美、还有些bug没有修复
 
 ### 写在前面
 
 之前我的博客网站是用的github+hexo方式搭建的，最近打算自己通过代码来搭建博客，花了一个多礼拜的时间，把项目的基本功能模块搭建起来了，后续还会持续更新，最近在准备面试以及备战明年春招，争取每周为这个博客添砖加瓦，并且修复一些bug，其实现在也在准备着手思索博客系统2.0怎么实现，不过由于时间关系，应该得明年或者找到工作稳定下来后再去实现大版本更新了，不过在这之前，我会不断地去完善这个博客系统，实现小版本的更新。
-
-
 
 ### 使用教程
 1. 创建名为“blog”的数据库
@@ -21,6 +23,7 @@
 5. 在`application-run.yml`文件中修改自己的阿里云存储(OSS)配置信息   
     
     > 其中需要填写的keyid和keysecret在创建完成RAM子账号后会直接给出，务必保存下来，否则不会再次显示keyid和keysecret，只能重新创建一个RAM子账号
+6. 注意配置文件`application.yml`里面的spring.profiles.active这一项是否有误，我本地是有`application-dev.yml`和`application-pro.yml`这两个文件的，里面是生成环境和开发环境的配置，但是上传到git上的只有`application-run.yml`，我有的时候可能会忘记改回run去，所以如果发现没改的话，注意修正一下
 
 其他有不懂的可以通过邮箱`longfei_xing@foxmail.com`进行咨询，尽量别通过码云或者github私信，可能会一直不看消息
 
@@ -42,6 +45,7 @@
 * [动画插件：ANIMATE.CSS](http://www.animate.net.cn/)
 * [开源在线 Markdown 编辑器: editor.md](https://pandao.github.io/editor.md/)
 * [jQuery定位跳转插件：jquery.scrollto.js](https://github.com/flesler/jquery.scrollTo)
+* [明月浩空播放器](https://myhkw.cn/)
 * ……
 
 ### 3.博客功能
@@ -58,6 +62,7 @@
 * 展示博客评论
 * 展示外链页面
 * 展示关于我页面
+* 音乐播放器（独立页面）
 * 访客进行评论
 
 #### 后台管理
@@ -72,6 +77,12 @@
 
 
 ### 4.更新日志
+#### **V1.3.0(developing)——————2020/12/20**
+* 链接了一个音乐页面 
+* 一开始项目内嵌ssl证书，后面又取消了，改为nginx代理https
+> 最近一直想把前端改成pjax无刷新加载，准备加入一个音乐播放器，但是差不多改完了的时候，发现有些地方会有兼容性问题，索性放弃了，打算第二个大版本用Vue的时候来加入播放器组件，实现页面跳转不中断歌曲播放。
+
+
 #### **V1.2.5————————2020/12/16**
 * 优化博客详情页title为显示博客标题
 * 修复了上传文件因阿里云OSS绑定的域名无SSL证书而出错的问题

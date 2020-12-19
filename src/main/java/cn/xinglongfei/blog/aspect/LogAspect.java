@@ -4,6 +4,7 @@ import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.po.Log;
 import cn.xinglongfei.blog.po.User;
 import cn.xinglongfei.blog.service.LogService;
+import cn.xinglongfei.blog.util.RequestUtil;
 import eu.bitwalker.useragentutils.Browser;
 import eu.bitwalker.useragentutils.OperatingSystem;
 import eu.bitwalker.useragentutils.UserAgent;
@@ -93,7 +94,7 @@ public class LogAspect {
 
         // 客户端ip
         HttpServletRequest request = ((ServletRequestAttributes) RequestContextHolder.getRequestAttributes()).getRequest();
-        String ip = request.getRemoteAddr();
+        String ip = RequestUtil.getIpAddr(request);
         sysLog.setIp(ip);
         log.info("methodName=" + methodName, "ip=" + ip);
 
@@ -119,7 +120,7 @@ public class LogAspect {
 
         //调用service保存SysLog实体类到数据库，且只记录非调试者IP
         if(!sysLog.getIp().equals("0:0:0:0:0:0:0:1")&&!sysLog.getIp().equals("127.0.0.1")){
-        sysLogService.saveLog(sysLog);
+            sysLogService.saveLog(sysLog);
         }
 
     }

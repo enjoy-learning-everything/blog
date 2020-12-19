@@ -1,6 +1,7 @@
 spring:
   profiles:
-    active: pro
+    # 使用的配置文件，如果是application-run.yml则为run，如果是application-dev.yml则为dev
+    active: run
   servlet:
     multipart:
       #单个文件大小
