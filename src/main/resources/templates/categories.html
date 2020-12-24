@@ -83,11 +83,13 @@
                     <div class="ui middle aligned stackable grid m-margin-no">
                         <div class="ten wide column m-pc-padded-right-no">
                             <div class="ui ribbon label" th:classappend="${blog.flag}=='原创'? 'red' : 'green'">
-                                <i class="icon" th:classappend="${blog.flag}=='原创'? 'pencil alternate' : 'share'"></i><span th:text="${blog.flag}">原创</span>
+                                <i class="icon"
+                                   th:classappend="${blog.flag}=='原创'? 'pencil alternate' : 'share'"></i><span
+                                    th:text="${blog.flag}">原创</span>
                             </div>
                             <div class="m-mobile-padded-lr-middle m-pc-padded-left-middle">
                                 <h3 class="ui header m-margin-tb-small ">
-                                    <a href="#" class="m-item-black" th:href="@{/blogs/{id}(id=${blog.id})}"
+                                    <a href="#" class="m-text-blacker" th:href="@{/blogs/{id}(id=${blog.id})}"
                                        target="_blank" th:text="${blog.title}">做人，不要自作多情，生活中真的没有人在乎你</a>
                                 </h3>
                                 <p class="m-text m-margin-bottom-small"
@@ -126,7 +128,7 @@
                                              th:src="@{${blog.coverPicture}}" alt="" class="ui rounded image">
                                         <div class="right aligned three wide column m-padded-tb-mini m-suspend-children">
                                             <a href="#" th:href="@{/categories/{id}(id=${blog.category.id})}"
-                                               class="ui teal label m-padded-small m-text-thin"
+                                               class="ui teal label m-padded-small m-text-thin m-mobile-margin-right-middle"
                                                th:text="${blog.category.name}">认知升级</a>
                                         </div>
                                     </a>

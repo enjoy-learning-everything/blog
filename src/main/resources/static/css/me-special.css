@@ -34,7 +34,7 @@ body {
 
 .m-user-card .m-headline {
     /*color: #4c4948;*/
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .m-user-card .m-length-num {
@@ -47,7 +47,7 @@ body {
 }
 
 .m-user-card .author-desc {
-    font-size: 14px;
+    font-size: 16px;
 }
 
 .m-divider-short {
@@ -123,6 +123,17 @@ body {
 
 .type2 {
     display: none !important;
+}
+
+.m-normal-font-size{
+    font-size: 1em!important;
+}
+
+.m-contact-icon{
+    line-height: 1.4em!important;
+    font-size: 1.4em!important;
+    width: 1.4em!important;
+    height: 1.4em!important;
 }
 
 /*鼠标悬浮四周阴影效果移出后恢复过渡效果*/
@@ -238,7 +249,10 @@ body {
     width: 100%;
 }
 
-
+.m-hover-orange:hover{
+    color: #ff7242!important;
+    cursor: pointer;
+}
 
 .mouse-hover-rotate {
     -webkit-transition: -webkit-transform 0.4s ease-out;

@@ -7,7 +7,7 @@
     <!--标题栏图标-->
     <link rel="icon" href="../static/images/Common/favicon.ico" th:href="@{/images/Common/favicon.ico}"
           type="images/x-ico"/>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/semantic-ui/2.2.4/semantic.min.css">
+    <link rel="stylesheet" href="../static/lib/semantic/semantic.min.css"  th:href="@{/lib/semantic/semantic.min.css}">
     <link rel="stylesheet" href="../static/css/animate.min.css" th:href="@{/css/animate.min.css}">
     <!--引入typo.css-->
     <link rel="stylesheet" href="../static/css/typo.css" th:href="@{/css/typo.css}">
@@ -18,6 +18,7 @@
     <link rel="stylesheet" href="../static/css/me-common.css" th:href="@{/css/me-common.css}">
     <link rel="stylesheet" href="../static/css/me-special.css" th:href="@{/css/me-special.css}">
     <link rel="stylesheet" href="../static/css/me-media.css" th:href="@{/css/me-media.css}">
+    <link rel="stylesheet" href="../static/css/me-reset-semanticui.css" th:href="@{/css/me-reset-semanticui.css}">
 </head>
 <body>
 
@@ -29,26 +30,26 @@
             <img src="../static/images/Common/logo_row_simple.png" th:src="@{/images/Common/logo_row_simple.png}"
                  class="left float image m-margin-right-middle m-mobile-center" height="50px" alt="">
             <a href="index.html" th:href="@{/}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i
-                    class="home icon m-margin-right-no"></i>首页</a>
+                    class="home icon m-margin-right-no"></i>&nbsp;首页</a>
             <a href="categories.html" th:href="@{/categories/-1}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i
-                    class="folder open icon m-margin-right-no"></i>分类</a>
+                    class="folder open icon m-margin-right-no"></i>&nbsp;分类</a>
             <a href="tags.html" th:href="@{/tags/-1}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i
-                    class="tags icon m-margin-right-no"></i>标签</a>
+                    class="tags icon m-margin-right-no"></i>&nbsp;标签</a>
             <a href="archives.html" th:href="@{/archives}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i
-                    class="archive icon m-margin-right-no"></i>归档</a>
+                    class="archive icon m-margin-right-no"></i>&nbsp;归档</a>
 <!--            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i-->
 <!--                    class="heartbeat icon m-margin-right-no"></i>娱乐<i-->
 <!--                    class="angle down icon m-margin-right-no "></i></a>-->
             <a href="links.html" th:href="@{/links}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i
-                    class="linkify icon m-margin-right-no"></i>外链</a>
+                    class="linkify icon m-margin-right-no"></i>&nbsp;外链</a>
             <a href="https://music.xinglongfei.cn/" target="_blank"  class="m-item item m-mobile-hide"><i
-                    class="music icon m-margin-right-no"></i>音乐</a>
+                    class="music icon m-margin-right-no"></i>&nbsp;音乐</a>
             <a href="about.html" th:href="@{/about}" class="m-item item m-mobile-hide" th:classappend="${n==7} ? 'active'"><i
-                    class="user icon m-margin-right-no"></i>关于我</a>
+                    class="user icon m-margin-right-no"></i>&nbsp;关于我</a>
             <div class="right m-item item m-mobile-hide">
                 <form name="search" method="post" action="" th:action="@{/search}" target="_blank">
                     <div class="ui inverted transparent input">
-                        <input type="text" name="query" placeholder="请输入标题关键字">
+                        <input type="text" class="m-normal-font-size" name="query" placeholder="请输入标题关键字">
                         <i onclick="document.forms['search'].submit()" class="search link icon"></i>
                     </div>
                 </form>
@@ -114,8 +115,8 @@
 
 
 <th:block th:fragment="script">
-    <script src="https://cdn.jsdelivr.net/npm/jquery@3.2/dist/jquery.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
+    <script src="../static/lib/semantic/semantic.min.js"  th:src="@{/lib/semantic/semantic.min.js}"></script>
     <script src="https://cdn.jsdelivr.net/npm/jquery.scrollto@2.1.2/jquery.scrollTo.min.js"></script>
     <script src="../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
     <script src="../static/lib/prism/prism.js" th:src="@{/lib/prism/prism.js}"></script>

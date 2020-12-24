@@ -14,6 +14,11 @@
     margin: auto !important;
 }
 
+.m-container-tiny {
+    max-width: 60em !important;
+    margin: auto !important;
+}
+
 .m-container-mini{
     max-width: 30em !important;
     margin: auto !important;
@@ -275,9 +280,10 @@
 
 /*--------------字体设置--------------*/
 .m-text {
-    font-weight: 300 !important;
+    font-weight: 400 !important;
     letter-spacing: 1px !important;
     line-height: 1.8 !important;
+    color: #666;
 }
 
 
@@ -300,7 +306,7 @@
 }
 
 .m-item-black {
-    color: rgba(0, 0, 0, 0.55) !important;
+    color: rgba(0, 0, 0, 0.6) !important;
 }
 
 .m-text-blacker {
@@ -309,6 +315,10 @@
 
 .m-table-blacker{
     color: rgba(0,0,0,.87)!important;
+}
+
+.m-black-all{
+    color: #000!important;
 }
 
 .m-text-thin {

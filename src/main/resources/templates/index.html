@@ -76,7 +76,9 @@
                             <div class="ui middle aligned stackable grid m-margin-no">
                                 <div class="ten wide column m-pc-padded-right-no">
                                     <div class="ui ribbon label" th:classappend="${blog.flag}=='原创'? 'red' : 'green'">
-                                        <i class="icon" th:classappend="${blog.flag}=='原创'? 'pencil alternate' : 'share'"></i><span th:text="${blog.flag}">原创</span>
+                                        <i class="icon"
+                                           th:classappend="${blog.flag}=='原创'? 'pencil alternate' : 'share'"></i><span
+                                            th:text="${blog.flag}">原创</span>
                                     </div>
                                     <div class="m-mobile-padded-lr-middle m-pc-padded-left-middle">
                                         <h3 class="ui header m-margin-tb-small ">
@@ -158,48 +160,52 @@
                         <img src="../static/images/Common/avatar.png" th:src="@{/images/Common/avatar.png}"
                              class="ui circular centered  image m-margin-bottom-middle mouse-hover-rotate"
                              alt="" width="100px" height="100px">
-                        <div class="author-name m-margin-tb-small">TheYoungLad</div>
-                        <div class="author-desc m-margin-tb-small">
+                        <div class="author-name">TheYoungLad</div>
+                        <div class="author-desc">
                             今日事，今日毕
                         </div>
                     </div>
                     <!--博客文章数-->
                     <div class="ui three column grid m-padded-lr-small m-margin-tb-small">
-                        <div class="column ">
+                        <div class="column m-padded-tb-small">
                             <div class="m-headline">文章</div>
-                            <div class="m-length-num m-margin-top-small" th:text="${page.totalElements}">18</div>
+                            <div class="m-length-num m-hover-orange" th:text="${page.totalElements}">18</div>
                         </div>
-                        <div class="column ">
+                        <div class="column m-padded-tb-small">
                             <div class="m-headline">分类</div>
-                            <div class="m-length-num m-margin-top-small" th:text="${categoryCount}">18</div>
+                            <div class="m-length-num m-hover-orange" th:text="${categoryCount}">18</div>
                         </div>
-                        <div class="column ">
+                        <div class="column m-padded-tb-small">
                             <div class="m-headline">标签</div>
-                            <div class="m-length-num m-margin-top-small" th:text="${tagCount}">18</div>
+                            <div class="m-length-num m-hover-orange" th:text="${tagCount}">18</div>
                         </div>
                     </div>
                     <!--加入书签-->
                     <!--                    <a href="javascript:void(0)" onclick="_addFavorite()">加入收藏</a>-->
-                    <button class="ui fluid teal button m-bg-change" onclick="_addFavorite()" rel="sidebar" style="border-radius: 0"><i
-                            class="bookmark icon"></i>加入书签</button>
+                    <button class="ui fluid teal button m-bg-change" onclick="_addFavorite()" rel="sidebar"
+                            style="border-radius: 0"><i
+                            class="bookmark icon"></i>加入书签
+                    </button>
                     <!--相关链接-->
-                    <div class="ui three column grid m-padded-lr-large m-margin-tb-small" >
-                        <div class="column m-padded-mini">
+                    <div class="ui three column grid m-padded-lr-large m-margin-tb-small ">
+                        <div class="column m-padded-mini" style="">
                             <a href="#" target="_blank" th:href="|https://github.com/TheYoungLad|"
-                               style="color:#000;"><i class="github icon mouse-hover-rotate" style="font-size: 1.4em"></i></a>
+                               style="color:#000;"><i class="github icon mouse-hover-rotate m-contact-icon"
+                                                      ></i></a>
                         </div>
 
                         <div class="column m-padded-mini">
-                            <!--                            <a href="#" style="color:#000;"><i class="rss icon"></i></a>-->
                             <a href="#" target="_blank" th:href="|https://gitee.com/TheYoungLad|" style="color:#000;">
-                                <img src="../static/images/Common/gitee.png" class="image icon circular mouse-hover-rotate"
+                                <img src="../static/images/Common/gitee.png"
+                                     class="image icon circular mouse-hover-rotate"
                                      th:src="@{/images/Common/gitee.png}"
-                                     style="height: 17px!important;margin-top: 2px!important;" alt="">
+                                     style="height: 1.4em!important;margin-top: 4px!important;" alt="">
                             </a>
                         </div>
                         <div class="column m-padded-mini">
                             <a href="#" style="color:#000;" class="email" th:data-content="#{author.email}"
-                               data-position="bottom center"><i class="envelope icon mouse-hover-rotate" style="font-size: 1.2em"></i></a>
+                               data-position="bottom center"><i class="envelope icon mouse-hover-rotate m-contact-icon"
+                                                                ></i></a>
                         </div>
                     </div>
                 </div>

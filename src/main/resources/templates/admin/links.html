@@ -83,7 +83,7 @@
 
                 <div class="field">
                     <div class="ui labeled action input">
-                        <div class="ui category selection dropdown">
+                        <div class="ui category selection clearable dropdown">
                             <input type="hidden" name="linkCategoryId">
                             <i class="dropdown icon"></i>
                             <div class="default text">分类</div>
@@ -98,7 +98,6 @@
                                 <!--*/-->
                             </div>
                         </div>
-                        <button class="ui clear compact button">清除</button>
                     </div>
                 </div>
 
@@ -232,8 +231,8 @@
         $('.m-item').toggleClass('m-mobile-hide');
     });
 
-    $('.ui.dropdown').dropdown({
-        on: 'hover'
+    $('.ui.clearable.dropdown').dropdown({
+        clearable: true
     });
 
     function page(obj) {
@@ -262,13 +261,6 @@
         });
 
 
-    $('.clear.button')
-        .on('click', function() {
-            $('.ui.category.dropdown')
-                .dropdown('clear')
-            ;
-        })
-    ;
 </script>
 
 </body>
