@@ -7,13 +7,13 @@
     <!--标题栏图标-->
     <link rel="icon" href="../static/images/Common/favicon.ico" th:href="@{/images/Common/favicon.ico}"
           type="images/x-ico"/>
-    <link rel="stylesheet" href="../static/lib/semantic/semantic.min.css"  th:href="@{/lib/semantic/semantic.min.css}">
-    <link rel="stylesheet" href="../static/lib/editormd/css/editormd.min.css"  th:href="@{/lib/editormd/css/editormd.min.css}">
+    <link rel="stylesheet" href="../static/lib/semantic/semantic.min.css" th:href="@{/lib/semantic/semantic.min.css}">
+    <link rel="stylesheet" href="../static/lib/editormd/css/editormd.min.css"
+          th:href="@{/lib/editormd/css/editormd.min.css}">
     <link rel="stylesheet" href="../static/css/cover-editormd.css" th:href="@{/css/cover-editormd.css}">
     <link rel="stylesheet" href="../static/css/me-common.css" th:href="@{/css/me-common.css}">
     <link rel="stylesheet" href="../static/css/me-special.css" th:href="@{/css/me-special.css}">
     <link rel="stylesheet" href="../static/css/me-media.css" th:href="@{/css/me-media.css}">
-    <link rel="stylesheet" href="../static/css/me-reset-semanticui.css" th:href="@{/css/me-reset-semanticui.css}">
 </head>
 <body>
 
@@ -24,28 +24,33 @@
         <div class="ui inverted secondary stackable menu">
             <img src="../../static/images/Common/logo_row_simple.png" th:src="@{/images/Common/logo_row_simple.png}"
                  class="left float image m-margin-right-middle" height="50px" alt="">
-            <a href="../index.html" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide" th:classappend="${n==1} ? 'active'"><i class="home icon m-margin-right-no"></i>&nbsp;博客管理</a>
-            <a href="../categories.html" th:href="@{/admin/categories}" class="m-item item m-mobile-hide" th:classappend="${n==2} ? 'active'"><i
-                    class="folder open icon m-margin-right-no" ></i>&nbsp;分类管理</a>
-            <a href="../tags.html" th:href="@{/admin/tags}" class="m-item item m-mobile-hide" th:classappend="${n==3} ? 'active'"><i class="tags icon m-margin-right-no"></i>&nbsp;标签管理</a>
-            <a href="../links.html" th:href="@{/admin/links}" class="m-item item m-mobile-hide" th:classappend="${n==4} ? 'active'"><i
+            <a href="../index.html" th:href="@{/admin/blogs}" class="m-item item m-mobile-hide"
+               th:classappend="${n==1} ? 'active'"><i class="home icon m-margin-right-no"></i>&nbsp;博客管理</a>
+            <a href="../categories.html" th:href="@{/admin/categories}" class="m-item item m-mobile-hide"
+               th:classappend="${n==2} ? 'active'"><i
+                    class="folder open icon m-margin-right-no"></i>&nbsp;分类管理</a>
+            <a href="../tags.html" th:href="@{/admin/tags}" class="m-item item m-mobile-hide"
+               th:classappend="${n==3} ? 'active'"><i class="tags icon m-margin-right-no"></i>&nbsp;标签管理</a>
+            <a href="../links.html" th:href="@{/admin/links}" class="m-item item m-mobile-hide"
+               th:classappend="${n==4} ? 'active'"><i
                     class="linkify icon m-margin-right-no"></i>&nbsp;外链管理</a>
-            <a href="../links.html" th:href="@{/admin/linkCategories}" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i
+            <a href="../links.html" th:href="@{/admin/linkCategories}" class="m-item item m-mobile-hide"
+               th:classappend="${n==5} ? 'active'"><i
                     class="sitemap icon m-margin-right-no"></i>&nbsp;分类管理</a>
-            <a href="../logs.html" th:href="@{/admin/logs}" class="m-item item m-mobile-hide" th:classappend="${n==6} ? 'active'"><i class="pencil alternate icon m-margin-right-no"></i>&nbsp;日志管理</a>
-<!--            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="heartbeat icon m-margin-right-no"></i>娱乐<i-->
-<!--                    class="angle down icon m-margin-right-no "></i></a>-->
-<!--            <a href="../about.html" class="m-item item m-mobile-hide"><i class="user icon m-margin-right-no" th:classappend="${n==7} ? 'active'"></i>关于我</a>-->
+            <a href="../logs.html" th:href="@{/admin/logs}" class="m-item item m-mobile-hide"
+               th:classappend="${n==6} ? 'active'"><i class="pencil alternate icon m-margin-right-no"></i>&nbsp;日志管理</a>
+            <!--            <a href="#" class="m-item item m-mobile-hide" th:classappend="${n==5} ? 'active'"><i class="heartbeat icon m-margin-right-no"></i>娱乐<i-->
+            <!--                    class="angle down icon m-margin-right-no "></i></a>-->
+            <!--            <a href="../about.html" class="m-item item m-mobile-hide"><i class="user icon m-margin-right-no" th:classappend="${n==7} ? 'active'"></i>关于我</a>-->
             <div class="right m-item m-mobile-hide menu">
+
                 <div class="ui dropdown item">
-                    <div class="text">
-                        <img src="../../static/images/Common/avatar.png" th:src="@{/images/Common/avatar.png}"
-                             alt="" class="ui avatar image">
-                        Phoenix
-                    </div>
+                    <img src="../../static/images/Common/avatar.png" th:src="@{/images/Common/avatar.png}"
+                         alt="" class="ui avatar image">
+                    Phoenix
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a href="#" th:href="@{/admin/logout}" class="item">退出登录</a>
+                        <a href="#" th:onclick="logout()" class="item">退出登录</a>
                     </div>
                 </div>
             </div>
@@ -54,11 +59,20 @@
     <a href="#" class="ui black menu toggle icon button m-right-top m-mobile-show">
         <i class="sidebar icon"></i>
     </a>
+
+    <div class="ui mini logout modal">
+        <div class="header">退出登录</div>
+        <div class="content">
+            <p>你确定要退出登录吗</p>
+        </div>
+        <div class="actions">
+            <div class="ui negative button">取消</div>
+            <div class="ui positive right labeled icon button"><font style="vertical-align: inherit;"><font
+                    style="vertical-align: inherit;">退出</font></font><i class="checkmark icon"></i></div>
+        </div>
+    </div>
+
 </nav>
-
-
-
-
 
 
 <!------底部footer------>
@@ -97,9 +111,10 @@
                 <div class="eleven wide left aligned column ">
                     <h4 class="ui teal header">站点声明：</h4>
                     <p class="m-opacity-mini">1.文中的商标及图像版权属于其合法持有人，只供传递信息之用，非商务用途。交流时请遵守理性，宽容的原则。</p>
-                    <p class="m-opacity-mini">2.所有文章未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。举报邮箱：<span th:text="#{author.email}"></span></p>
+                    <p class="m-opacity-mini">2.所有文章未经授权禁止转载、摘编、复制或建立镜像，如有违反，追究法律责任。举报邮箱：<span
+                            th:text="#{author.email}"></span></p>
                     <p class="m-opacity-mini">Copyright © 2020 xinglongfei.cn. Designed by Phoenix.
-                        <a href="https://beian.miit.gov.cn/" style="color: #ffffff;">备案号：赣ICP备2020013364号</a> </p>
+                        <a href="https://beian.miit.gov.cn/" style="color: #ffffff;">备案号：赣ICP备2020013364号</a></p>
                 </div>
             </div>
         </div>
@@ -107,11 +122,57 @@
 </footer>
 
 
+<th:block th:fragment="deleteDialog(s)">
+    <div class="ui mini delete modal">
+        <div class="header">删除<span th:text="${s}"></span></div>
+        <div class="content">
+            <p>你确定删除<span th:text="${s}"></span>“<span id="delete-name" style="font-weight: bold;color: red"></span>”吗，删除后无法恢复！
+            </p>
+        </div>
+        <div class="actions">
+            <div class="ui negative button">取消</div>
+            <div class="ui positive right labeled icon button"><font style="vertical-align: inherit;"><font
+                    style="vertical-align: inherit;">确认</font></font><i class="checkmark icon"></i></div>
+        </div>
+    </div>
+</th:block>
+
+
+<th:block th:fragment="cancelDialog">
+    <div class="ui mini cancel modal">
+        <div class="header">返回页面</div>
+        <div class="content">
+            <p>确定返回吗？点击确定后，您的修改将会丢失！</p>
+        </div>
+        <div class="actions">
+            <div class="ui negative button">取消</div>
+            <div class="ui positive right labeled icon button"><font style="vertical-align: inherit;"><font
+                    style="vertical-align: inherit;">确认</font></font><i class="checkmark icon"></i></div>
+        </div>
+    </div>
+</th:block>
+
+
 <th:block th:fragment="script">
     <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.min.js"></script>
-    <script src="../static/lib/semantic/semantic.min.js"  th:src="@{/lib/semantic/semantic.min.js}"></script>
+    <script src="../static/lib/semantic/semantic.min.js" th:src="@{/lib/semantic/semantic.min.js}"></script>
     <!--引入editormd-->
     <script src="../../static/lib/editormd/editormd.min.js" th:src="@{/lib/editormd/editormd.min.js}"></script>
+
+    <script>
+        function logout() {
+            $('.ui.mini.logout.modal')
+                .modal('setting', 'closable', false)
+                .modal({ //各种回调方法
+                    onApprove: function () {  //单击确认按钮
+                        window.location = "/admin/logout";
+                    },
+                })
+                .modal('show')
+            ;
+        }
+    </script>
+
 </th:block>
 
 

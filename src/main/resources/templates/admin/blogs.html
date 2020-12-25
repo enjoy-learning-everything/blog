@@ -140,8 +140,7 @@
                     <td>
                         <a href="#" th:href="@{/admin/blogs/{id}/edit(id=${blog.id})}"
                            class="ui mini teal button">编辑</a>
-                        <a href="#" th:href="@{/admin/blogs/{id}/delete(id=${blog.id})}"
-                           class="ui mini red button">删除</a>
+                        <button class="ui mini red button" th:onclick="showDeleteDialog('blogs',[[${blog.id}]],[[${blog.title}]])">删除</button>
                     </td>
                 </tr>
                 </tbody>
@@ -165,12 +164,26 @@
                 </tr>
                 </tfoot>
             </table>
-
-
-
         </div>
     </div>
 </div>
+
+<th:block th:replace="admin/_fragments :: deleteDialog('博客')">
+    <div class="ui mini delete modal">
+        <div class="header">删除博客</div>
+        <div class="content">
+            <p>你确定删博客“<span id="delete-name"></span>”吗，删除后无法恢复！</p>
+        </div>
+        <div class="actions">
+            <div class="ui negative button">取消</div>
+            <div class="ui positive right labeled icon button"><font style="vertical-align: inherit;"><font
+                    style="vertical-align: inherit;">确认</font></font><i class="checkmark icon"></i></div>
+        </div>
+    </div>
+</th:block>
+
+
+
 <br>
 <br>
 <!------底部footer------>
@@ -257,6 +270,23 @@
                 .closest('.message')
                 .transition('fade');
         });
+
+    function showDeleteDialog(thing,id,name) {
+        $('.ui.mini.delete.modal')
+            .modal('setting', 'closable', false)
+            .modal({ //各种回调方法
+                onShow: function () {
+                    $('#delete-name')[0].innerHTML=name;
+                },
+                onApprove: function () {  //单击确认按钮
+                    window.location = "/admin/"+thing+"/" + id + "/delete";
+                },
+            })
+            .modal('show')
+        ;
+    }
+
+
 
 </script>
 

@@ -63,14 +63,14 @@
 
 <!------中间内容------->
 <div class="m-padded-tb-big m-container-small">
-    <div class="ui container hover-shadow-light">
+    <div class="ui container">
         <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
             <i class="close icon"></i>
             <div class="header">提示：</div>
             <p th:text="${message}">恭喜，操作成功！</p>
         </div>
 
-        <table class="ui celled table celled teal">
+        <table class="ui celled table celled teal hover-shadow-light">
             <thead>
             <tr>
                 <th>序号</th>
@@ -84,8 +84,7 @@
                 <td th:text="${category.name}">认知升级</td>
                 <td>
                     <a href="#" th:href="@{/admin/categories/{id}/edit(id=${category.id})}" class="ui mini teal button">编辑</a>
-                    <a href="#" th:href="@{/admin/categories/{id}/delete(id=${category.id})}"
-                       class="ui mini red button">删除</a>
+                    <button class="ui mini red button" th:onclick="showDeleteDialog('categories',[[${category.id}]],[[${category.name}]])">删除</button>
                 </td>
             </tr>
             </tbody>
@@ -113,6 +112,22 @@
         </table>
     </div>
 </div>
+
+<th:block th:replace="admin/_fragments :: deleteDialog('博客分类')">
+    <div class="ui mini delete modal">
+        <div class="header">删除博客分类</div>
+        <div class="content">
+            <p>你确定删博客分类“<span id="delete-name"></span>”吗，删除后无法恢复！</p>
+        </div>
+        <div class="actions">
+            <div class="ui negative button">取消</div>
+            <div class="ui positive right labeled icon button"><font style="vertical-align: inherit;"><font
+                    style="vertical-align: inherit;">确认</font></font><i class="checkmark icon"></i></div>
+        </div>
+    </div>
+</th:block>
+
+
 <br>
 <br>
 <!------底部footer------>
@@ -180,6 +195,21 @@
                 .closest('.message')
                 .transition('fade');
         });
+
+    function showDeleteDialog(thing,id,name) {
+        $('.ui.mini.delete.modal')
+            .modal('setting', 'closable', false)
+            .modal({ //各种回调方法
+                onShow: function () {
+                    $('#delete-name')[0].innerHTML=name;
+                },
+                onApprove: function () {  //单击确认按钮
+                    window.location = "/admin/"+thing+"/" + id + "/delete";
+                },
+            })
+            .modal('show')
+        ;
+    }
 
 </script>
 

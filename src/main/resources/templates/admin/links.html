@@ -139,8 +139,7 @@
                     <td>
                         <a href="#" th:href="@{/admin/links/{id}/edit(id=${link.id})}"
                            class="ui mini teal button">编辑</a>
-                        <a href="#" th:href="@{/admin/links/{id}/delete(id=${link.id})}"
-                           class="ui mini red button">删除</a>
+                        <button class="ui mini red button" th:onclick="showDeleteDialog('links',[[${link.id}]],[[${link.title}]])">删除</button>
                     </td>
                 </tr>
                 </tbody>
@@ -168,12 +167,27 @@
                 </tr>
                 </tfoot>
             </table>
-
-
-
         </div>
     </div>
 </div>
+
+
+<th:block th:replace="admin/_fragments :: deleteDialog('外链')">
+    <div class="ui mini delete modal">
+        <div class="header">删除外链</div>
+        <div class="content">
+            <p>你确定删外链“<span id="delete-name"></span>”吗，删除后无法恢复！</p>
+        </div>
+        <div class="actions">
+            <div class="ui negative button">取消</div>
+            <div class="ui positive right labeled icon button"><font style="vertical-align: inherit;"><font
+                    style="vertical-align: inherit;">确认</font></font><i class="checkmark icon"></i></div>
+        </div>
+    </div>
+</th:block>
+
+
+
 <br>
 <br>
 <!------底部footer------>
@@ -259,6 +273,22 @@
                 .closest('.message')
                 .transition('fade');
         });
+
+    function showDeleteDialog(thing,id,name) {
+        $('.ui.mini.delete.modal')
+            .modal('setting', 'closable', false)
+            .modal({ //各种回调方法
+                onShow: function () {
+                    $('#delete-name')[0].innerHTML=name;
+                },
+                onApprove: function () {  //单击确认按钮
+                    window.location = "/admin/"+thing+"/" + id + "/delete";
+                },
+            })
+            .modal('show')
+        ;
+    }
+
 
 
 </script>

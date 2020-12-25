@@ -86,12 +86,27 @@
             </div>
             /*/-->
             <div class="ui right aligned container">
-                <button type="button" class="ui button" onclick="self.location=document.referrer">返回</button>
+                <button type="button" class="ui button" onclick="showCancelDialog()">返回</button>
                 <button class="ui teal button">提交</button>
             </div>
         </form>
     </div>
 </div>
+
+<th:block th:replace="admin/_fragments :: cancelDialog">
+    <div class="ui mini cancel modal">
+        <div class="header">返回页面</div>
+        <div class="content">
+            <p>确定返回吗？点击确定后，您的修改将会丢失！</p>
+        </div>
+        <div class="actions">
+            <div class="ui negative button">取消</div>
+            <div class="ui positive right labeled icon button"><font style="vertical-align: inherit;"><font
+                    style="vertical-align: inherit;">确认</font></font><i class="checkmark icon"></i></div>
+        </div>
+    </div>
+</th:block>
+
 <br>
 <br>
 <br>
@@ -182,6 +197,17 @@
         }
     })
 
+    function showCancelDialog() {
+        $('.ui.mini.cancel.modal')
+            .modal('setting', 'closable', false)
+            .modal({ //各种回调方法
+                onApprove: function () {  //单击确认按钮
+                    self.location=document.referrer;
+                },
+            })
+            .modal('show')
+        ;
+    }
 
 </script>
 
