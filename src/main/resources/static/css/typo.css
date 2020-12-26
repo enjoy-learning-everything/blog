@@ -94,6 +94,20 @@ body, button, input, select, textarea {
     list-style: none;
 }
 
+.typo ul li,.typo ol li{
+    font-size: 1.15em;
+    font-weight: 400;
+}
+
+.typo ul li p,.typo ol li p{
+    font-size: 1em;
+    font-weight: 400;
+}
+
+.typo ul li p,.typo ol li p{
+    margin-bottom: 0;
+}
+
 /* 对齐是排版最重要的因素, 别让什么都居中 */
 .typo caption, .typo th {
     text-align: left;
@@ -247,6 +261,12 @@ body, button, input, select, textarea {
 .typo p, .typo pre, .typo ul, .typo ol, .typo dl, .typo form, .typo hr, .typo table,
 .typo-p, .typo-pre, .typo-ul, .typo-ol, .typo-dl, .typo-form, .typo-hr, .typo-table, blockquote {
     margin-bottom: 1.2em
+}
+
+/* 防止blockquote和ul嵌套导致的上下边距过大 */
+.typo blockquote ul{
+    margin-top: 0;
+    margin-bottom: 0;
 }
 
 .typo h1, .typo h2, .typo h3, .typo h4, .typo h5, .typo h6 {
