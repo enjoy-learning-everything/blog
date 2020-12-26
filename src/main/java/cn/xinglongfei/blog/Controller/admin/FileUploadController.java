@@ -41,7 +41,7 @@ public class FileUploadController {
             if (result.equals(FileUploadEnum.UPLOAD_FILE_SUCCESS.getValue())) {
                 resultMap.put("success", 1);
                 resultMap.put("message", "上传成功！");
-                resultMap.put("url", "http://"+AliyunOSSConfigConstant.getDomainName() +"/"+ FilePathEnum.PAGE.getPath() + "/" + locaPath +"/"+ randomName);
+                resultMap.put("url", AliyunOSSConfigConstant.getProtocol()+"://"+AliyunOSSConfigConstant.getDomainName() +"/"+ FilePathEnum.PAGE.getPath() + "/" + locaPath +"/"+ randomName);
             } else {
                 resultMap.put("success", 0);
                 resultMap.put("message", FileUploadEnum.getDescByValue(result));

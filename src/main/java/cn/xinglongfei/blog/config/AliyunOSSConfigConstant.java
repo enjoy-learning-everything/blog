@@ -11,7 +11,8 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class AliyunOSSConfigConstant {
-
+    //访问方式
+    public static String PROTOCOL;
     //仓库名称
     public static String BUCKET_NAME;
     //地域节点
@@ -23,6 +24,10 @@ public class AliyunOSSConfigConstant {
     //Access Key Secret
     public static String KEY_SECRET;
 
+    @Value("${oss.protocol}")
+    public void setProtocol(String protocol) {
+        PROTOCOL = protocol;
+    }
 
     @Value("${oss.bucketname}")
     public void setBucketName(String bucketName) {
@@ -47,6 +52,10 @@ public class AliyunOSSConfigConstant {
     @Value("${oss.keysecret}")
     public void setKeySecret(String keySecret) {
         KEY_SECRET = keySecret;
+    }
+
+    public static String getProtocol() {
+        return PROTOCOL;
     }
 
     public static String getBucketName() {

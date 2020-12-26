@@ -94,7 +94,7 @@ public class LinkController {
             //随机文件名
             String randomName = UUID.randomUUID().toString().replace("-", "") + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             //设置博客首图地址为上传文件成功后，在阿里云oss中，该文件的访问地址
-            link.setAvatar("http://" + AliyunOSSConfigConstant.getDomainName() + "/" + FilePathEnum.LINKAVATAR.getPath() + "/"
+            link.setAvatar(AliyunOSSConfigConstant.getProtocol()+"://" + AliyunOSSConfigConstant.getDomainName() + "/" + FilePathEnum.LINKAVATAR.getPath() + "/"
                     + randomName);
             System.out.println(link.getAvatar());
             //判断文件是否合法，合法则直接上传，不合法则返回错误信息
@@ -117,7 +117,7 @@ public class LinkController {
             //随机文件名
             String randomName = UUID.randomUUID().toString().replace("-", "") + ".jpg";
             //设置博客首图地址为上传文件成功后，在阿里云oss中，该文件的访问地址
-            link.setAvatar("http://" + AliyunOSSConfigConstant.getDomainName() + "/" + FilePathEnum.LINKAVATAR.getPath() + "/"
+            link.setAvatar(AliyunOSSConfigConstant.getProtocol()+"://" + AliyunOSSConfigConstant.getDomainName() + "/" + FilePathEnum.LINKAVATAR.getPath() + "/"
                     + randomName);
             String result = fileUploadService.upLoadFileToALiYunOSS(imageUrl, FilePathEnum.LINKAVATAR.getPath(), randomName);
             if (result.equals(ImageLinkEnum.UPLOAD_BY_URL_SUCCESS.getValue())) {
@@ -151,7 +151,7 @@ public class LinkController {
             //随机文件名
             String randomName = UUID.randomUUID().toString().replace("-", "") + file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."));
             //设置博客首图地址为上传文件成功后，在阿里云oss中，该文件的访问地址
-            link.setAvatar("http://" + AliyunOSSConfigConstant.getDomainName() + "/" + FilePathEnum.LINKAVATAR.getPath() + "/"
+            link.setAvatar(AliyunOSSConfigConstant.getProtocol()+"://" + AliyunOSSConfigConstant.getDomainName() + "/" + FilePathEnum.LINKAVATAR.getPath() + "/"
                     + randomName);
             //判断文件是否合法，合法则直接上传，不合法则返回错误信息
             String result = fileUploadService.upLoadFileToALiYunOSS(file, FilePathEnum.LINKAVATAR.getPath(), randomName);
@@ -180,7 +180,7 @@ public class LinkController {
                     //随机文件名
                     String randomName = UUID.randomUUID().toString().replace("-", "") + ".jpg";
                     //设置博客首图地址为上传文件成功后，在阿里云oss中，该文件的访问地址
-                    link.setAvatar("http://" + AliyunOSSConfigConstant.getDomainName() + "/" + FilePathEnum.LINKAVATAR.getPath() + "/"
+                    link.setAvatar(AliyunOSSConfigConstant.getProtocol()+"://" + AliyunOSSConfigConstant.getDomainName() + "/" + FilePathEnum.LINKAVATAR.getPath() + "/"
                             + randomName);
                     String result = fileUploadService.upLoadFileToALiYunOSS(imageUrl, FilePathEnum.LINKAVATAR.getPath(), randomName);
                     if (result.equals(ImageLinkEnum.UPLOAD_BY_URL_SUCCESS.getValue())) {

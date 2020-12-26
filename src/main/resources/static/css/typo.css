@@ -61,6 +61,10 @@ body, button, input, select, textarea {
     margin: 1em 0;
 }
 
+.typo blockquote p {
+    margin-bottom: 0.5em;
+}
+
 .typo blockquote p:last-child {
     margin-bottom: 0;
 }

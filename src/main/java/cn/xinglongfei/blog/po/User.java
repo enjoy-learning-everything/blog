@@ -20,6 +20,7 @@ public class User {
     private String password;
     private String avatar;
     private String email;
+    private Integer gender;
     private Integer type;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;

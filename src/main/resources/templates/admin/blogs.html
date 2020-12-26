@@ -115,7 +115,7 @@
 
         <div id="table-container" class="hover-shadow-light">
             <table th:fragment="blogListTable" class="ui celled teal table">
-                <thead  class="center aligned">
+                <thead class="center aligned">
                 <tr>
                     <th></th>
                     <th class="four wide left aligned">标题</th>
@@ -131,7 +131,7 @@
                 <tr th:each="blog,iterSta : ${page.content}">
                     <td th:text="${iterSta.count}">1</td>
                     <td class="left aligned"><a class="m-table-blacker" th:href="@{/admin/blogs/{id}(id=${blog.id})}"
-                           target="_blank" th:text="${blog.title}">刻意练习清单</a></td>
+                                                target="_blank" th:text="${blog.title}">刻意练习清单</a></td>
                     <td th:text="${blog.category.name}">认知升级</td>
                     <td th:text="${blog.recommend} ? '是':'否'">是</td>
                     <td th:text="${blog.published} ? '发布':'草稿'">草稿</td>
@@ -140,7 +140,9 @@
                     <td>
                         <a href="#" th:href="@{/admin/blogs/{id}/edit(id=${blog.id})}"
                            class="ui mini teal button">编辑</a>
-                        <button class="ui mini red button" th:onclick="showDeleteDialog('blogs',[[${blog.id}]],[[${blog.title}]])">删除</button>
+                        <button class="ui mini red button"
+                                th:onclick="showDeleteDialog('blogs',[[${blog.id}]],[[${blog.title}]])">删除
+                        </button>
                     </td>
                 </tr>
                 </tbody>
@@ -181,7 +183,6 @@
         </div>
     </div>
 </th:block>
-
 
 
 <br>
@@ -241,9 +242,14 @@
         $('.m-item').toggleClass('m-mobile-hide');
     });
 
+    $('.ui.dropdown').dropdown({
+        on: 'hover'
+    });
+
     $('.ui.clearable.dropdown').dropdown({
         clearable: true
     });
+
 
     function page(obj) {
         $("[name='page']").val($(obj).data("page"));
@@ -271,21 +277,20 @@
                 .transition('fade');
         });
 
-    function showDeleteDialog(thing,id,name) {
+    function showDeleteDialog(thing, id, name) {
         $('.ui.mini.delete.modal')
             .modal('setting', 'closable', false)
             .modal({ //各种回调方法
                 onShow: function () {
-                    $('#delete-name')[0].innerHTML=name;
+                    $('#delete-name')[0].innerHTML = name;
                 },
                 onApprove: function () {  //单击确认按钮
-                    window.location = "/admin/"+thing+"/" + id + "/delete";
+                    window.location = "/admin/" + thing + "/" + id + "/delete";
                 },
             })
             .modal('show')
         ;
     }
-
 
 
 </script>

@@ -50,6 +50,8 @@
                     Phoenix
                     <i class="dropdown icon"></i>
                     <div class="menu">
+                        <a th:href="@{/admin/userInfo}"  class="item">个人信息</a>
+                        <a th:href="@{/admin/changePassword}" class="item" >修改密码</a>
                         <a href="#" th:onclick="logout()" class="item">退出登录</a>
                     </div>
                 </div>
@@ -134,6 +136,13 @@
             <div class="ui positive right labeled icon button"><font style="vertical-align: inherit;"><font
                     style="vertical-align: inherit;">确认</font></font><i class="checkmark icon"></i></div>
         </div>
+    </div>
+</th:block>
+
+<th:block th:fragment="userCenter(n)">
+    <div class="ui teal secondary vertical pointing menu" style="text-align: right">
+        <a class="item" th:href="@{/admin/userInfo}" th:classappend="${n==1} ? 'active'">个人信息</a>
+        <a class="item" th:href="@{/admin/changePassword}" th:classappend="${n==2} ? 'active'">修改密码</a>
     </div>
 </th:block>
 
