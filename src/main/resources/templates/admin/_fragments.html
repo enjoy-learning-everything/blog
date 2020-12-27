@@ -47,11 +47,11 @@
                 <div class="ui dropdown item">
                     <img src="../../static/images/Common/avatar.png" th:src="@{/images/Common/avatar.png}"
                          alt="" class="ui avatar image">
-                    Phoenix
+                    <span th:text="${session.user.username}">Phoenix</span>
                     <i class="dropdown icon"></i>
                     <div class="menu">
-                        <a th:href="@{/admin/userInfo}"  class="item">个人信息</a>
-                        <a th:href="@{/admin/changePassword}" class="item" >修改密码</a>
+                        <a th:href="@{/admin/user/userInfo}"  class="item">个人信息</a>
+                        <a th:href="@{/admin/user/changePassword}" class="item" >修改密码</a>
                         <a href="#" th:onclick="logout()" class="item">退出登录</a>
                     </div>
                 </div>
@@ -141,8 +141,8 @@
 
 <th:block th:fragment="userCenter(n)">
     <div class="ui teal secondary vertical pointing menu" style="text-align: right">
-        <a class="item" th:href="@{/admin/userInfo}" th:classappend="${n==1} ? 'active'">个人信息</a>
-        <a class="item" th:href="@{/admin/changePassword}" th:classappend="${n==2} ? 'active'">修改密码</a>
+        <a class="item" th:href="@{/admin/user/userInfo}" th:classappend="${n==1} ? 'active'">个人信息</a>
+        <a class="item" th:href="@{/admin/user/changePassword}" th:classappend="${n==2} ? 'active'">修改密码</a>
     </div>
 </th:block>
 

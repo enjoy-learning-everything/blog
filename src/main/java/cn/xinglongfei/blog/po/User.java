@@ -84,6 +84,14 @@ public class User {
         this.email = email;
     }
 
+    public Integer getGender() {
+        return gender;
+    }
+
+    public void setGender(Integer gender) {
+        this.gender = gender;
+    }
+
     public Integer getType() {
         return type;
     }

@@ -69,17 +69,17 @@
                 <div class="twelve wide stretched column">
                     <form class="ui form">
                         <div class="inline field">
-                            <label>用&nbsp; &nbsp;户&nbsp; 名：</label>
-                            <input type="text" name="first-name" placeholder="用户名用以登录">
+                            <label>用&nbsp; 户&nbsp; 名：</label>
+                            <input type="text" name="username" disabled placeholder="用户名用以登录" th:value="${session.user.username}">
                         </div>
                         <div class="inline field">
                             <label>昵　　称：</label>
-                            <input type="text" name="last-name" placeholder="昵称可供他人查看">
+                            <input type="text" name="nickname" disabled placeholder="昵称可供他人查看" th:value="${session.user.nickname}">
                         </div>
                         <div class="inline field">
                             <label>性　　别：</label>
-                            <div class="ui selection dropdown">
-                                <input type="hidden" name="gender">
+                            <div class="ui selection disabled dropdown">
+                                <input type="hidden" name="gender" th:value="*{session.user.gender}!=null ? *{session.user.gender}">
                                 <i class="dropdown icon"></i>
                                 <div class="default text">请输入您的性别</div>
                                 <div class="menu">
@@ -90,11 +90,11 @@
                         </div>
                         <div class="inline field">
                             <label>电子邮箱：</label>
-                            <input type="email" placeholder="电子邮箱可以用来找回密码">
+                            <input type="email" disabled placeholder="电子邮箱可以用来找回密码" th:value="${session.user.email}">
                         </div>
                         <div class="m-margin-top-large">
-                            <button class="ui positive button" type="reset">重置</button>
-                            <button class="ui negative button" type="submit">保存</button>
+<!--                            <button class="ui positive button" type="reset">重置</button>-->
+<!--                            <button class="ui negative button" type="submit">保存</button>-->
                         </div>
                     </form>
                 </div>
@@ -162,6 +162,7 @@
     $('.ui.dropdown').dropdown({
         on: 'hover'
     });
+
 
 
 </script>
