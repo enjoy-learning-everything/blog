@@ -31,4 +31,17 @@ oss:
   domainname: xxxxxxx    #bucket绑定的域名
 
 
+blog:
+  index: http://127.0.0.1:8080
+    authoremail: xxxx #博主邮箱，用来提醒博客有人评论了
+
+#发送邮箱的配置信息
+email:
+  host: xxxxx #邮箱服务商,126邮箱为smtp.126.com,163邮箱为163.smtp.com，QQ为smtp.qq.com
+  charset: xxxxx  #邮件字符集
+  sender: xxxxx  #发件人邮箱
+  sendername: xxxxx   #发件昵称
+  authorcode: xxxxx   #邮箱STMP/POP3授权码
+  subject: xxxxx   #邮件主题
+
 

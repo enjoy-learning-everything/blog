@@ -65,7 +65,8 @@
         <div class="ui top attached segment m-width-change">
             <h2 class="m-margin-bottom-small">
                 <laebl class="ui teal right inverted  label m-margin-right-small" style="vertical-align: middle;"
-                   th:text="${blog.flag}">原创</laebl>
+                       th:text="${blog.flag}">原创
+                </laebl>
                 <span th:text="${blog.title}">服务器常用的状态码及其对应的含义</span>
             </h2>
             <div class="ui mini horizontal link list">
@@ -245,7 +246,8 @@
                             <h3 class="ui header">XXX Comments</h3>
                             <div class="comment" th:each="comment : ${comments}">
                                 <a class="avatar">
-                                    <img src="../static/images/Common/avatar.png" th:src="@{${comment.avatar}}">
+                                    <img src="../static/images/Common/avatar.png"
+                                         th:src="${#strings.startsWith(comment.avatar,'data:image')}==true?${comment.avatar}:@{${comment.avatar}}">
                                 </a>
                                 <div class="content">
                                     <a class="author">
@@ -270,7 +272,7 @@
                                 <div class="comments" th:if="${#arrays.length(comment.replyComments)>0}">
                                     <div class="comment" th:each="reply : ${comment.replyComments}">
                                         <a class="avatar">
-                                            <img src="../static/images/Common/avatar.png" th:src="@{${reply.avatar}}">
+                                            <img src="../static/images/Common/avatar.png" th:src="${#strings.startsWith(reply.avatar,'data:image')}==true?${reply.avatar}:@{${reply.avatar}}">
                                         </a>
                                         <div class="content">
                                             <a class="author">
@@ -462,7 +464,7 @@
 
     //为每一个代码块添加括号匹配样式
     var preList = $('code');
-    for(var i=0;i<preList.length;i++){
+    for (var i = 0; i < preList.length; i++) {
         preList.eq(i).addClass("match-braces");
     }
 
@@ -492,8 +494,6 @@
         // For headings inside relative or absolute positioned containers within content.
         hasInnerContainers: true,
     });
-
-
 
 
     //触发放大图片的函数

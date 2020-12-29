@@ -6,6 +6,7 @@ import cn.xinglongfei.blog.po.Blog;
 import cn.xinglongfei.blog.service.BlogService;
 import cn.xinglongfei.blog.service.CategoryService;
 import cn.xinglongfei.blog.service.TagService;
+import cn.xinglongfei.blog.util.EmailSendUtil;
 import cn.xinglongfei.blog.vo.BlogQuery;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
@@ -13,10 +14,7 @@ import org.springframework.data.domain.Sort;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 
 /**
  * Created by Phoenix on 2020/11/14
@@ -44,12 +42,20 @@ public class IndexController {
         return "index";
     }
 
+    @ResponseBody
+    @GetMapping("/send")
+    public String send() {
+        boolean result = EmailSendUtil.sendEmail("1919180528@qq.com", "您在【小破站】上的留言有新回复啦！"
+                ," Nginx反向代理不同域名到不同端口/路径(HTTPS版，含SSL)，这篇文章写的很不错哦，请再接再厉哈",false);
+        return result ? "OK" : "FAILED";
+    }
+
     @MyLog(operation = "【访客端】跳转页面：搜索结果")
     @PostMapping("/search")
     public String search(@RequestParam String query, @PageableDefault(size = 10, sort = {"createTime"},
             direction = Sort.Direction.DESC) Pageable pageable, BlogQuery blog, Model model) {
         //根据用户输入的内容（query）查询出内容和标题中包含该字段的博客
-        model.addAttribute("page", blogService.listBlog("%"+query+"%",pageable));
+        model.addAttribute("page", blogService.listBlog("%" + query + "%", pageable));
         return "search";
     }
 
@@ -58,10 +64,10 @@ public class IndexController {
     public String blog(@PathVariable Long id, Model model) {
         Blog blog = blogService.getBlog(id);
         //只能查看发布的博客
-        if(blog.isPublished()){
-            model.addAttribute("blog",blogService.getAndConvert(id));
+        if (blog.isPublished()) {
+            model.addAttribute("blog", blogService.getAndConvert(id));
             return "blog";
-        }else{
+        } else {
             return "error/404";
         }
     }

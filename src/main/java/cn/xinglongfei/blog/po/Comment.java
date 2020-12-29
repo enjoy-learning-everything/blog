@@ -19,6 +19,9 @@ public class Comment {
     private String email;
     private String website;
     private String content;
+
+    @Basic(fetch = FetchType.LAZY)
+    @Lob
     private String avatar;
     @Temporal(TemporalType.TIMESTAMP)
     private Date createTime;

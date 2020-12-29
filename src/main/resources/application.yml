@@ -12,5 +12,17 @@ spring:
   messages:
     encoding: utf-8
 
+
+
+thread:
+  corepoolsize: 50
+  maxpoolsize: 200
+  queuecapacity: 1000
+  keepaliveseconds: 300
+
+
 #默认评论头像
 comment.avatar: /images/Common/comment-avator1.png
+
+#网站主页地址
+blog.index: https://xinglongfei.cn

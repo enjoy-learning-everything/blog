@@ -1,10 +1,14 @@
 package cn.xinglongfei.blog.Controller;
 
+import cn.xinglongfei.blog.config.ThreadPoolConfig;
 import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.po.Comment;
 import cn.xinglongfei.blog.po.User;
 import cn.xinglongfei.blog.service.BlogService;
 import cn.xinglongfei.blog.service.CommentService;
+import cn.xinglongfei.blog.util.EmailContentUtil;
+import cn.xinglongfei.blog.util.EmailSendUtil;
+import cn.xinglongfei.blog.util.MosaicAvatarUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
@@ -14,6 +18,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.servlet.http.HttpSession;
+import java.io.IOException;
 
 /**
  * Created by Phoenix on 2020/11/19
@@ -25,7 +30,16 @@ public class CommentController {
     private CommentService commentService;
 
     @Autowired
+    private ThreadPoolConfig threadPoolConfig;
+
+    @Autowired
     private BlogService blogService;
+
+    @Value("${blog.index}")
+    private String blogIndex;
+
+    @Value("${blog.authoremail}")
+    private String blogAuthorEmail;
 
     @Value("${comment.avatar}")
     private String avatar;
@@ -56,10 +70,48 @@ public class CommentController {
             comment.setAvatar(user.getAvatar());
             comment.setAdminComment(true);
         } else {
-            comment.setAvatar(avatar);
+            //如果邮箱有历史评论，则获得上次的头像
+            String lastAvatar = commentService.getLastAvatar(comment.getEmail());
+            if(lastAvatar==null){
+                try {
+                    comment.setAvatar(MosaicAvatarUtil.createBase64Avatar());
+                } catch (IOException e) {
+                    comment.setAvatar(avatar);
+                    e.printStackTrace();
+                }
+            }else {
+                comment.setAvatar(lastAvatar);
+            }
         }
+
         //保存评论
-        commentService.saveComment(comment);
+        Comment resultComment = commentService.saveComment(comment);
+        Comment commentParent = resultComment.getParentComment();
+
+        //多线程发送邮件
+        threadPoolConfig.threadPoolTaskExecutor().execute(new Runnable() {
+            @Override
+            public void run() {
+                try {
+                    if(commentParent==null){
+                        //如果是评论根节点，给博主发邮件
+                        String template = EmailContentUtil.readToString(CommentController.class.getResource("/templates/email-templates/newComment.html").getPath());
+                        EmailSendUtil.sendEmail(blogAuthorEmail,"您的 【小破站】 上有新的评论啦！",
+                                EmailContentUtil.setNewCommentEmailContent(template,resultComment.getNickname(),resultComment.getContent(),blogIndex+"/blogs/"+blogId),true);
+                    }else{
+                        //如果不是评论根节点，给被回复者发邮件
+                        String template = EmailContentUtil.readToString(CommentController.class.getResource("/templates/email-templates/newCommentReply.html").getPath());
+                        EmailSendUtil.sendEmail(commentParent.getEmail(),"您在 【小破站】 上的评论有新的回复啦！",
+                                EmailContentUtil.setNewCommentReplyEmailContent(template,commentParent.getNickname(),commentParent.getContent(),
+                                        resultComment.getNickname(),resultComment.getContent(),blogIndex+"/blogs/"+blogId),true);
+                    }
+                } catch (Exception e) {
+                    System.out.println("邮件发送异常");
+                    e.printStackTrace();
+                }
+            }
+        });
+
         return "redirect:/comments/" + blogId;
     }
 

@@ -46,6 +46,22 @@ public class CommentServiceImpl implements CommentService {
         return commentRepository.save(comment);
     }
 
+    @Override
+    public String getLastAvatar(String email) {
+        List<Comment> commentsList = new ArrayList<>();
+        commentsList = commentRepository.findByEmail(email);
+        if (null != commentsList && commentsList.size() > 0) {
+            return commentsList.get(0).getAvatar();
+        }else{
+            return null;
+        }
+    }
+
+    @Override
+    public Comment getComment(Long id) {
+        return commentRepository.getOne(id);
+    }
+
     /**
      * 循环获取每个顶级的评论节点
      * @param comments

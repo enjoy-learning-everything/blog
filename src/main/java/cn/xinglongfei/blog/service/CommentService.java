@@ -14,4 +14,8 @@ public interface CommentService {
     List<Comment> listCommentByBlogId(Long blogId);
 
     Comment saveComment(Comment comment);
+
+    String getLastAvatar(String email);
+
+    Comment getComment(Long id);
 }

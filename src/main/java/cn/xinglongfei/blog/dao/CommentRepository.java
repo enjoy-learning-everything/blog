@@ -18,4 +18,6 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
      * @return 符合要求的一级评论
      */
     List<Comment> findByBlogIdAndParentCommentNull(Long blogId, Sort sort);
+
+    List<Comment> findByEmail(String email);
 }
