@@ -1,17 +1,17 @@
 /*
  Navicat Premium Data Transfer
 
- Source Server         : MySQL
+ Source Server         : 华为云数据库
  Source Server Type    : MySQL
  Source Server Version : 50728
- Source Host           : localhost:3306
+ Source Host           : 121.36.224.67:3308
  Source Schema         : blog
 
  Target Server Type    : MySQL
  Target Server Version : 50728
  File Encoding         : 65001
 
- Date: 06/12/2020 16:38:41
+ Date: 03/01/2021 00:36:51
 */
 
 SET NAMES utf8mb4;
@@ -37,7 +37,7 @@ CREATE TABLE `t_blog`  (
   `cover_picture` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `create_time` datetime(6) NOT NULL,
   `update_time` datetime(6) NOT NULL,
-  `image_folder` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `image_folder` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
   `appreciate_statement` bit(1) NOT NULL,
   `comment_counts` bigint(20) NULL DEFAULT NULL,
   `comment_statement` bit(1) NOT NULL,
@@ -48,7 +48,7 @@ CREATE TABLE `t_blog`  (
   `share_statement` bit(1) NOT NULL,
   `view_counts` bigint(20) NULL DEFAULT NULL,
   `word_counts` bigint(20) NULL DEFAULT NULL,
-  `category_id` bigint(20) NULL DEFAULT NULL,
+  `category_id` bigint(20) NOT NULL,
   `user_id` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FK8ky5rrsxh01nkhctmo7d48p82`(`user_id`) USING BTREE,
@@ -86,19 +86,19 @@ CREATE TABLE `t_category`  (
 DROP TABLE IF EXISTS `t_comment`;
 CREATE TABLE `t_comment`  (
   `id` bigint(20) NOT NULL,
-  `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `create_time` datetime(6) NULL DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `website` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `blog_id` bigint(20) NULL DEFAULT NULL,
-  `parent_comment_id` bigint(20) NULL DEFAULT NULL,
+  `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `content` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `avatar` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `website` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `admin_comment` bit(1) NOT NULL,
+  `parent_comment_id` bigint(20) NULL DEFAULT NULL,
+  `create_time` datetime(6) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FKke3uogd04j4jx316m1p51e05u`(`blog_id`) USING BTREE,
   INDEX `FK4jj284r3pb7japogvo6h72q95`(`parent_comment_id`) USING BTREE,
-  CONSTRAINT `FK4jj284r3pb7japogvo6h72q95` FOREIGN KEY (`parent_comment_id`) REFERENCES `t_comment` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `FK4jj284r3pb7japogvo6h72q95` FOREIGN KEY (`parent_comment_id`) REFERENCES `t_comment` (`id`) ON DELETE SET NULL ON UPDATE RESTRICT,
   CONSTRAINT `FKke3uogd04j4jx316m1p51e05u` FOREIGN KEY (`blog_id`) REFERENCES `t_blog` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -123,11 +123,11 @@ CREATE TABLE `t_link`  (
   `description` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
   `url` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `priority` bigint(20) NULL DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `user_id` bigint(20) NULL DEFAULT NULL,
   `link_category_id` bigint(20) NULL DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `create_time` datetime(6) NULL DEFAULT NULL,
+  `user_id` bigint(20) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `FK4p6use8c40fkyi1g8hn49gt0b`(`link_category_id`) USING BTREE,
   INDEX `FK6phyak83u4hyqsk15rb62l8wa`(`user_id`) USING BTREE,
@@ -141,16 +141,16 @@ CREATE TABLE `t_link`  (
 DROP TABLE IF EXISTS `t_syslog`;
 CREATE TABLE `t_syslog`  (
   `id` bigint(20) NOT NULL,
-  `user_id` bigint(20) NULL DEFAULT NULL,
   `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `ip` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `system` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `browser` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `operation` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `opera_time` datetime(6) NULL DEFAULT NULL,
   `method` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `args` longtext CHARACTER SET utf8 COLLATE utf8_general_ci NULL,
-  `opera_time` datetime(6) NULL DEFAULT NULL,
+  `user_id` bigint(20) NULL DEFAULT NULL,
   `type` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `browser` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `system` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 
@@ -170,14 +170,15 @@ CREATE TABLE `t_tag`  (
 DROP TABLE IF EXISTS `t_user`;
 CREATE TABLE `t_user`  (
   `id` bigint(20) NOT NULL,
-  `create_time` datetime(6) NULL DEFAULT NULL,
-  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `nickname` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `password` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `type` int(11) NULL DEFAULT NULL,
-  `update_time` datetime(6) NULL DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `avatar` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
-  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `type` int(11) NULL DEFAULT NULL,
+  `create_time` datetime(6) NULL DEFAULT NULL,
+  `update_time` datetime(6) NULL DEFAULT NULL,
+  `gender` int(11) NULL DEFAULT NULL,
   PRIMARY KEY (`id`) USING BTREE
 ) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
 

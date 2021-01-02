@@ -358,6 +358,10 @@
     color: #333;
 }
 
+.m-font-color-red {
+    color: red;
+}
+
 .m-teal{
     color: teal;
 }

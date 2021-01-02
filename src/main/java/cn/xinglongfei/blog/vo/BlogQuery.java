@@ -8,6 +8,7 @@ public class BlogQuery {
     private String title;
     private Long categoryId;
     private boolean recommend;
+    private boolean noPublished;
 
     public BlogQuery() {
     }
@@ -36,12 +37,21 @@ public class BlogQuery {
         this.recommend = recommend;
     }
 
+    public boolean isNoPublished() {
+        return noPublished;
+    }
+
+    public void setNoPublished(boolean noPublished) {
+        this.noPublished = noPublished;
+    }
+
     @Override
     public String toString() {
         return "BlogQuery{" +
                 "title='" + title + '\'' +
                 ", categoryId=" + categoryId +
                 ", recommend=" + recommend +
+                ", noPublished=" + noPublished +
                 '}';
     }
 }

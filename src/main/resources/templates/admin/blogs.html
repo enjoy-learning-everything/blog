@@ -100,12 +100,18 @@
 
                         </div>
                     </div>
-
                 </div>
+
+                <div class="ui checkbox">
+                    <input type="checkbox" id="noPublished" name="noPublished">
+                    <label for="noPublished">草稿</label>
+                </div>
+                &nbsp;&nbsp;
                 <div class="ui checkbox">
                     <input type="checkbox" id="recommend" name="recommend">
                     <label for="recommend">推荐</label>
                 </div>
+                &nbsp;&nbsp;
                 <div class="field">
                     <button type="button" id="search-btn" class="ui teal basic mini button"><i class="search icon"></i>搜索
                     </button>
@@ -134,7 +140,7 @@
                                                 target="_blank" th:text="${blog.title}">刻意练习清单</a></td>
                     <td th:text="${blog.category.name}">认知升级</td>
                     <td th:text="${blog.recommend} ? '是':'否'">是</td>
-                    <td th:text="${blog.published} ? '发布':'草稿'">草稿</td>
+                    <td th:text="${blog.published} ? '发布':'草稿'" th:classappend="${!blog.published} ? 'm-font-color-red'">草稿</td>
                     <td th:text="${#dates.format(blog.createTime,'yyyy-MM-dd HH:mm:ss')}">2017-10-02 9:45</td>
                     <td th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd HH:mm:ss')}">2018-09-28 12:11</td>
                     <td>
@@ -265,6 +271,7 @@
         $("#table-container").load(/*[[@{/admin/blogs/search}]]*/"/admin/blogs/search", {
             title: $("[name = 'title']").val(),
             categoryId: $("[name = 'categoryId']").val(),
+            noPublished: $("[name = 'noPublished']").prop('checked'),
             recommend: $("[name = 'recommend']").prop('checked'),
             page: $("[name = 'page']").val(),
         });

@@ -65,6 +65,10 @@ public class BlogServiceImpl implements BlogService {
                 if (blogQuery.isRecommend()) {
                     predicates.add(cb.equal(root.<Boolean>get("recommend"), blogQuery.isRecommend()));
                 }
+                if (blogQuery.isNoPublished()) {
+                    //NoPublished和Published为互斥，取反
+                    predicates.add(cb.equal(root.<Boolean>get("published"), !blogQuery.isNoPublished()));
+                }
                 cq.where(predicates.toArray(new Predicate[predicates.size()]));
                 return null;
             }
