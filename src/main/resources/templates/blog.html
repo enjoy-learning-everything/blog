@@ -118,7 +118,7 @@
                  class="ui fluid rounded image m-margin-bottom-large">
 
             <!--分割线-->
-            <h4 class="ui horizontal divider header m-margin-top-large"><i class="tag icon"></i>Description</h4>
+            <h4 class="ui horizontal divider header m-margin-top-large"><i class="tag icon"></i>Content</h4>
 
             <div id="content" class="typo typo-selection ui segment basic js-toc-content
             line-numbers data-download-link no-whitespace-normalization common-img-parent" th:utext="${blog.content}">
@@ -243,7 +243,10 @@
                 <div id="comment-data" class="ui basic segment">
                     <div th:fragment="commentList">
                         <div class="ui threaded comments">
-                            <h3 class="ui header">XXX Comments</h3>
+                            <h2 class="ui header" th:unless="${commentCount}=='0'">
+                                <span th:text="${commentCount}">0</span> Comments
+                            </h2>
+                            <div style="text-align: center;color: #888;" th:if="${commentCount}=='0'">这篇文章还没有评论哦，快来抢沙发吧 ~</div>
                             <div class="comment" th:each="comment : ${comments}">
                                 <a class="avatar">
                                     <img src="../static/images/Common/avatar.png"
@@ -272,7 +275,8 @@
                                 <div class="comments" th:if="${#arrays.length(comment.replyComments)>0}">
                                     <div class="comment" th:each="reply : ${comment.replyComments}">
                                         <a class="avatar">
-                                            <img src="../static/images/Common/avatar.png" th:src="${#strings.startsWith(reply.avatar,'data:image')}==true?${reply.avatar}:@{${reply.avatar}}">
+                                            <img src="../static/images/Common/avatar.png"
+                                                 th:src="${#strings.startsWith(reply.avatar,'data:image')}==true?${reply.avatar}:@{${reply.avatar}}">
                                         </a>
                                         <div class="content">
                                             <a class="author">

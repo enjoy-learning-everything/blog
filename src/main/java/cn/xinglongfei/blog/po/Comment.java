@@ -1,5 +1,7 @@
 package cn.xinglongfei.blog.po;
 
+import org.hibernate.annotations.Proxy;
+
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.Date;
@@ -9,6 +11,7 @@ import java.util.List;
  * Created by Phoenix on 2020/11/16
  */
 @Entity
+@Proxy(lazy = false)
 @Table(name = "t_comment")
 public class Comment {
 

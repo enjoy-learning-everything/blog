@@ -5,6 +5,7 @@ import cn.xinglongfei.blog.log.MyLog;
 import cn.xinglongfei.blog.po.Blog;
 import cn.xinglongfei.blog.service.BlogService;
 import cn.xinglongfei.blog.service.CategoryService;
+import cn.xinglongfei.blog.service.CommentService;
 import cn.xinglongfei.blog.service.TagService;
 import cn.xinglongfei.blog.util.EmailSendUtil;
 import cn.xinglongfei.blog.vo.BlogQuery;
@@ -24,6 +25,8 @@ public class IndexController {
 
     @Autowired
     private BlogService blogService;
+    @Autowired
+    private CommentService commentService;
     @Autowired
     private CategoryService categoryService;
     @Autowired
@@ -46,7 +49,7 @@ public class IndexController {
     @GetMapping("/send")
     public String send() {
         boolean result = EmailSendUtil.sendEmail("1919180528@qq.com", "您在【小破站】上的留言有新回复啦！"
-                ," Nginx反向代理不同域名到不同端口/路径(HTTPS版，含SSL)，这篇文章写的很不错哦，请再接再厉哈",false);
+                , " Nginx反向代理不同域名到不同端口/路径(HTTPS版，含SSL)，这篇文章写的很不错哦，请再接再厉哈", false);
         return result ? "OK" : "FAILED";
     }
 
@@ -66,6 +69,7 @@ public class IndexController {
         //只能查看发布的博客
         if (blog.isPublished()) {
             model.addAttribute("blog", blogService.getAndConvert(id));
+            model.addAttribute("commentCount", commentService.countCommentByBlog(blog));
             return "blog";
         } else {
             return "error/404";

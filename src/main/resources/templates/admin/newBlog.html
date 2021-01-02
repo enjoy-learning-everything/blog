@@ -291,6 +291,13 @@
 
 
 <script th:inline="javascript">
+    document.onkeydown = function(e) {
+        var e = e || event;
+        if(e.keyCode == 13) {
+            e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+        }
+    }
+
     $(function () {
         //设置表情默认文件夹
         editormd.emoji.path = "/lib/editormd/plugins/emoji-dialog/emoji/"
@@ -346,6 +353,7 @@
 
 
     $('.ui.form').form({
+        keyboardShortcuts: false,
         fields: {
             flag: {
                 identifier: 'flag',

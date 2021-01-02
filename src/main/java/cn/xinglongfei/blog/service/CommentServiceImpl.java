@@ -1,6 +1,7 @@
 package cn.xinglongfei.blog.service;
 
 import cn.xinglongfei.blog.dao.CommentRepository;
+import cn.xinglongfei.blog.po.Blog;
 import cn.xinglongfei.blog.po.Comment;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,8 +23,8 @@ public class CommentServiceImpl implements CommentService {
     private CommentRepository commentRepository;
 
     @Override
-    public Long countComment() {
-        return commentRepository.count();
+    public Integer countCommentByBlog(Blog blog){
+        return commentRepository.countCommentByBlog(blog);
     }
 
     @Override

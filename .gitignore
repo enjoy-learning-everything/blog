@@ -4,7 +4,7 @@ log/
 !.mvn/wrapper/maven-wrapper.jar
 !**/src/main/**
 !**/src/test/**
-
+src/main/docker/
 ### STS ###
 .apt_generated
 .classpath

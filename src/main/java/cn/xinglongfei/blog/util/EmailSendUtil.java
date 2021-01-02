@@ -25,16 +25,15 @@ public class EmailSendUtil {
     private static String emailUseSSL = EmailConfigConstant.getEmailUseSSL();
     //发件的邮箱
     private static String emailSender = EmailConfigConstant.getEmailSender();
-    //发件昵称
-    private static String emailSenderName = EmailConfigConstant.getEmailSenderName();
     //Zoho邮箱密码
     private static String emailPassword = EmailConfigConstant.getEmailPassword();
 
     //发送邮件
     public static boolean sendEmail(String emailAddress, String subject, String content,boolean isHtml) {
         try {
-            logger.info("--------------准备发送邮件----------------");
-
+            logger.info("-------------开始获取配置信息-------------------");
+            logger.info("-------------host主机： "+emailHost);
+            logger.info("-------------端口： "+emailPort);
             MailAccount account = new MailAccount();
             account.setHost(emailHost);
             account.setPort(Integer.parseInt(emailPort));
@@ -44,6 +43,7 @@ public class EmailSendUtil {
             account.setPass(emailPassword);
             account.setSocketFactoryClass("javax.net.ssl.SSLSocketFactory");
             account.setSslEnable(Boolean.parseBoolean(emailUseSSL));
+            logger.info("--------------准备发送邮件----------------");
             MailUtil.send(account, CollUtil.newArrayList(emailAddress), subject, content, isHtml);
 
             logger.info("--------------发送邮件成功----------------");

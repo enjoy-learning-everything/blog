@@ -18,8 +18,6 @@ public class EmailConfigConstant {
     private static String emailUseSSL;
     //发件的邮箱
     private static String emailSender;
-    //发件昵称
-    private static String emailSenderName;
     //Zoho邮箱密码
     private static String emailPassword;
 
@@ -48,11 +46,6 @@ public class EmailConfigConstant {
         EmailConfigConstant.emailSender = emailSender;
     }
 
-    @Value("${email.zoho.sendername}")
-    public void setEmailSenderName(String emailSenderName) {
-        EmailConfigConstant.emailSenderName = emailSenderName;
-    }
-
     @Value("${email.zoho.password}")
     public void setEmailPassword(String emailPassword) {
         EmailConfigConstant.emailPassword = emailPassword;
@@ -76,10 +69,6 @@ public class EmailConfigConstant {
 
     public static String getEmailSender() {
         return emailSender;
-    }
-
-    public static String getEmailSenderName() {
-        return emailSenderName;
     }
 
     public static String getEmailPassword() {

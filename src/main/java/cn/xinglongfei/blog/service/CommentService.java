@@ -1,5 +1,6 @@
 package cn.xinglongfei.blog.service;
 
+import cn.xinglongfei.blog.po.Blog;
 import cn.xinglongfei.blog.po.Comment;
 
 import java.util.List;
@@ -9,7 +10,7 @@ import java.util.List;
  */
 public interface CommentService {
 
-    Long countComment();
+    Integer countCommentByBlog(Blog blog);
 
     List<Comment> listCommentByBlogId(Long blogId);
 
@@ -18,4 +19,5 @@ public interface CommentService {
     String getLastAvatar(String email);
 
     Comment getComment(Long id);
+
 }

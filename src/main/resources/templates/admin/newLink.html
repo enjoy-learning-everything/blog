@@ -228,6 +228,13 @@
 
 <script>
 
+    document.onkeydown = function(e) {
+        var e = e || event;
+        if(e.keyCode == 13) {
+            e.preventDefault ? e.preventDefault() : (e.returnValue = false);
+        }
+    }
+
 
     $('.menu.toggle').click(function () {
         $('.m-item').toggleClass('m-mobile-hide');
@@ -239,6 +246,7 @@
 
 
     $('.ui.form').form({
+        keyboardShortcuts: false,
         fields: {
             title: {
                 identifier: 'title',

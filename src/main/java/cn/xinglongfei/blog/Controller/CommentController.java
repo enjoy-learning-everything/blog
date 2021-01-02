@@ -1,13 +1,12 @@
 package cn.xinglongfei.blog.Controller;
 
-import cn.xinglongfei.blog.config.ThreadPoolConfig;
 import cn.xinglongfei.blog.log.MyLog;
+import cn.xinglongfei.blog.po.Blog;
 import cn.xinglongfei.blog.po.Comment;
 import cn.xinglongfei.blog.po.User;
 import cn.xinglongfei.blog.service.BlogService;
 import cn.xinglongfei.blog.service.CommentService;
-import cn.xinglongfei.blog.util.EmailContentUtil;
-import cn.xinglongfei.blog.util.EmailSendUtil;
+import cn.xinglongfei.blog.thread.SendEmailThread;
 import cn.xinglongfei.blog.util.MosaicAvatarUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -30,10 +29,9 @@ public class CommentController {
     private CommentService commentService;
 
     @Autowired
-    private ThreadPoolConfig threadPoolConfig;
-
-    @Autowired
     private BlogService blogService;
+
+    SendEmailThread sendEmailThread;
 
     @Value("${blog.index}")
     private String blogIndex;
@@ -49,69 +47,49 @@ public class CommentController {
     public String commentList(@PathVariable Long blogId, Model model) {
         //传入评论列表
         model.addAttribute("comments", commentService.listCommentByBlogId(blogId));
+        Blog blog = blogService.getBlog(blogId);
+        model.addAttribute("commentCount", commentService.countCommentByBlog(blog));
         return "blog :: commentList";
     }
 
     /**
      * 添加评论
+     *
      * @param comment 评论对象
      * @param session session对象
      * @return 调用/comments/{blogId}接口
      */
-    @MyLog(operation = "【访客端】访问接口：添加评论",type = "新增")
+    @MyLog(operation = "【访客端】访问接口：添加评论", type = "新增")
     @PostMapping("/comments")
     public String post(Comment comment, HttpSession session) {
         //获取博客信息
         Long blogId = comment.getBlog().getId();
         comment.setBlog(blogService.getBlog(blogId));
         User user = (User) session.getAttribute("user");
-        //用户名不为空则设置为管理员身份
+        //用户名不为空则设置为管理员身份和管理员头像
         if (user != null) {
             comment.setAvatar(user.getAvatar());
             comment.setAdminComment(true);
         } else {
             //如果邮箱有历史评论，则获得上次的头像
             String lastAvatar = commentService.getLastAvatar(comment.getEmail());
-            if(lastAvatar==null){
+            if (lastAvatar == null) {
                 try {
                     comment.setAvatar(MosaicAvatarUtil.createBase64Avatar());
                 } catch (IOException e) {
                     comment.setAvatar(avatar);
                     e.printStackTrace();
                 }
-            }else {
+            } else {
                 comment.setAvatar(lastAvatar);
             }
         }
-
         //保存评论
         Comment resultComment = commentService.saveComment(comment);
-        Comment commentParent = resultComment.getParentComment();
-
-        //多线程发送邮件
-        threadPoolConfig.threadPoolTaskExecutor().execute(new Runnable() {
-            @Override
-            public void run() {
-                try {
-                    if(commentParent==null){
-                        //如果是评论根节点，给博主发邮件
-                        String template = EmailContentUtil.readToString(CommentController.class.getResource("/templates/email-templates/newComment.html").getPath());
-                        EmailSendUtil.sendEmail(blogAuthorEmail,"您的 【小破站】 上有新的评论啦！",
-                                EmailContentUtil.setNewCommentEmailContent(template,resultComment.getNickname(),resultComment.getContent(),blogIndex+"/blogs/"+blogId),true);
-                    }else{
-                        //如果不是评论根节点，给被回复者发邮件
-                        String template = EmailContentUtil.readToString(CommentController.class.getResource("/templates/email-templates/newCommentReply.html").getPath());
-                        EmailSendUtil.sendEmail(commentParent.getEmail(),"您在 【小破站】 上的评论有新的回复啦！",
-                                EmailContentUtil.setNewCommentReplyEmailContent(template,commentParent.getNickname(),commentParent.getContent(),
-                                        resultComment.getNickname(),resultComment.getContent(),blogIndex+"/blogs/"+blogId),true);
-                    }
-                } catch (Exception e) {
-                    System.out.println("邮件发送异常");
-                    e.printStackTrace();
-                }
-            }
-        });
-
+        //发送邮件
+        sendEmailThread = new SendEmailThread(resultComment, blogAuthorEmail, blogIndex);
+        Thread thread = new Thread(sendEmailThread);
+        thread.start();
         return "redirect:/comments/" + blogId;
     }
 

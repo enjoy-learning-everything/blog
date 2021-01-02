@@ -1,5 +1,6 @@
 package cn.xinglongfei.blog.dao;
 
+import cn.xinglongfei.blog.po.Blog;
 import cn.xinglongfei.blog.po.Comment;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -20,4 +21,6 @@ public interface CommentRepository extends JpaRepository<Comment,Long> {
     List<Comment> findByBlogIdAndParentCommentNull(Long blogId, Sort sort);
 
     List<Comment> findByEmail(String email);
+
+    Integer countCommentByBlog(Blog blog);
 }

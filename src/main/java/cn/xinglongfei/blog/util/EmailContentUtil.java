@@ -1,9 +1,8 @@
 package cn.xinglongfei.blog.util;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
-import java.io.UnsupportedEncodingException;
+import org.springframework.core.io.ClassPathResource;
+
+import java.io.*;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
@@ -14,18 +13,18 @@ public class EmailContentUtil {
 
     /**
      * 将文件内容读出
-     * @param fileName 文件名
+     * @param fileName 相对目录+文件名，resources为根目录
      * @return 文件内容
      */
-    public static String readToString(String fileName) {
+    public static String readToString(String fileName) throws IOException {
+        ClassPathResource classPathResource = new ClassPathResource(fileName);
+        InputStream inputStream = classPathResource.getInputStream();
+
         String encoding = "UTF-8";
-        File file = new File(fileName);
-        long filelength = file.length();
-        byte[] filecontent = new byte[(int) filelength];
+        byte[] filecontent = new byte[inputStream.available()];
         try {
-            FileInputStream in = new FileInputStream(file);
-            in.read(filecontent);
-            in.close();
+            inputStream.read(filecontent);
+            inputStream.close();
         } catch (IOException e) {
             e.printStackTrace();
         }
