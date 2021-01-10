@@ -58,13 +58,11 @@
             <thead>
             <tr>
                 <th>序号</th>
-<!--                <th>用户ID</th>-->
                 <th>用户名</th>
                 <th>操作者IP</th>
                 <th>用户系统</th>
                 <th>用户浏览器</th>
                 <th>执行操作</th>
-<!--                <th>操作类型</th>-->
                 <th>方法名称</th>
                 <th>操作时间</th>
             </tr>
@@ -72,15 +70,12 @@
             <tbody>
             <tr th:each="log,iterStata : ${page.content}">
                 <td th:text="${iterStata.count}">1</td>
-<!--                <td th:text="${log.userId}">1</td>-->
                 <td th:text="${log.username}">Phoenix</td>
                 <td th:text="${log.ip}">127.0.0.1</td>
                 <td th:text="${log.system}">Windows_10</td>
                 <td th:text="${log.browser}">Chrome_8</td>
                 <td th:text="${log.operation}">登录</td>
-<!--                <td th:text="${log.type}">登录</td>-->
                 <td th:text="${#strings.substring(log.method,31)}">/login</td>
-<!--                <td th:text="${log.args}">null</td>-->
                 <td th:text="${#dates.format(log.operaTime,'yyyy-MM-dd HH:mm:ss')}">1990-01-01-0:00</td>
             </tr>
             </tbody>
