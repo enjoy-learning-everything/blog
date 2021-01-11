@@ -10,6 +10,8 @@
 
 管理端的入口为：[https://demo.xinglongfei.cn/admin](https://demo.xinglongfei.cn/admin)
 
+管理端用户名为demo，密码为demo
+
 > 最近可能版本更新比较慢了，因为得开始做毕设，还得准备春招面试，不过绝对不会放弃博客更新，就是会更新的比较慢而已，毕竟还有些地方不够完美、还有些bug没有修复
 
 ### 写在前面

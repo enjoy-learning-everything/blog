@@ -77,6 +77,9 @@
         </div>
 
         <div class="ui hover-shadow-light segments">
+            <div class="ui segment" th:if="${#arrays.length(page.content)}==0">
+                <div class="m-margin-tb-large m-item-black" style="text-align: center;">这个分类还没有博客或者博客不是发布状态哦 ~</div>
+            </div>
             <!--列表-->
             <div class="ui top attached segment m-padded-no">
                 <div class="ui vertical segment m-padded-no" th:each="blog : ${page.content}">
