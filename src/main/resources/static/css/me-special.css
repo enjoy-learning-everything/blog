@@ -1,3 +1,31 @@
+/*-------让footer置于页面最底部的CSS---------*/
+html {
+    height: 100%;
+}
+
+body {
+    min-height: 100%;
+    margin: 0;
+    padding: 0;
+    position: relative;
+}
+
+main {
+    padding-top: 30px;
+    padding-bottom: 245px;     /* 215+30，保证上下padding相同 */
+}
+
+/* main的padding-bottom值要等于或大于footer的height值 以保证main的内容能够全部显示出来而不被footer遮盖*/
+footer {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
+    height: 215px;
+}
+
+
+
+
 body {
     background: url("../images/Common/bg1.png");
 }
@@ -35,6 +63,9 @@ body {
 .m-user-card .m-headline {
     /*color: #4c4948;*/
     font-size: 16px;
+    /*font-weight: 700;*/
+    margin-top: 0.5em;
+    margin-bottom: 0.5em;
 }
 
 .m-user-card .m-length-num {
@@ -43,11 +74,14 @@ body {
 }
 
 .m-user-card .author-name {
-    font-size: 22px;
+    font-size: 25px;
+    /*font-weight: 600;*/
+    margin-top: 0.8em;
+    margin-bottom: 0.5em;
 }
 
 .m-user-card .author-desc {
-    font-size: 16px;
+    font-size: 18px;
 }
 
 .m-divider-short {
@@ -125,15 +159,15 @@ body {
     display: none !important;
 }
 
-.m-normal-font-size{
-    font-size: 1em!important;
+.m-normal-font-size {
+    font-size: 1em !important;
 }
 
-.m-contact-icon{
-    line-height: 1.4em!important;
-    font-size: 1.4em!important;
-    width: 1.4em!important;
-    height: 1.4em!important;
+.m-contact-icon {
+    line-height: 1.4em !important;
+    font-size: 1.4em !important;
+    width: 1.4em !important;
+    height: 1.4em !important;
 }
 
 /*鼠标悬浮四周阴影效果移出后恢复过渡效果*/
@@ -175,9 +209,9 @@ body {
 }
 
 /*目录外层*/
-.toc-container{
-    width: 350px!important;
-    padding: 20px 0!important;
+.toc-container {
+    width: 350px !important;
+    padding: 20px 0 !important;
 }
 
 
@@ -190,28 +224,28 @@ body {
 }
 
 /*目录列表*/
-.js-toc .toc-list{
+.js-toc .toc-list {
     position: relative;
 }
 
 /*目录非当前节点的左边那个游标*/
-.js-toc .toc-link::before{
-    width: 3px!important;
-    background-color: #ffffff!important;
+.js-toc .toc-link::before {
+    width: 3px !important;
+    background-color: #ffffff !important;
 }
 
 /*目录当前节点的左边那个游标*/
-.js-toc .is-active-link::before{
-    width: 4px!important;
-    background-color: #54BC4B!important;
+.js-toc .is-active-link::before {
+    width: 4px !important;
+    background-color: #54BC4B !important;
 }
 
 
-.m-bg-change{
+.m-bg-change {
 
 }
 
-.m-bg-change{
+.m-bg-change {
     display: block;
     position: relative;
     text-align: center;
@@ -221,7 +255,7 @@ body {
     border: none;
 }
 
-.m-bg-change:after,.m-bg-change:before {
+.m-bg-change:after, .m-bg-change:before {
     content: '';
     display: block;
     position: absolute;
@@ -230,27 +264,27 @@ body {
     width: 0;
     height: 100%;
     background: #00b5ad;
-    z-index:-2;
+    z-index: -2;
     transition: .3s;
 }
 
-.m-bg-change:hover{
-    z-index:1;
-    background:transparent;
+.m-bg-change:hover {
+    z-index: 1;
+    background: transparent;
     /*transition: .3s;*/
 }
 
 .m-bg-change:before {
     background: #ff7242;
-    z-index:-1;
+    z-index: -1;
 }
 
-.m-bg-change:hover:after,.m-bg-change:hover:before {
+.m-bg-change:hover:after, .m-bg-change:hover:before {
     width: 100%;
 }
 
-.m-hover-orange:hover{
-    color: #ff7242!important;
+.m-hover-orange:hover {
+    color: #ff7242 !important;
     cursor: pointer;
 }
 
@@ -260,6 +294,7 @@ body {
     -o-transition: -o-transform 0.4s ease-out;
     -ms-transition: -ms-transform 0.4s ease-out;
 }
+
 .mouse-hover-rotate:hover {
     -webkit-transform: rotateZ(360deg);
     -moz-transform: rotateZ(360deg);

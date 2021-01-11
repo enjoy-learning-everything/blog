@@ -51,17 +51,17 @@
 
 
 <!------中间内容------->
-<div class="m-padded-tb-big m-container-small">
+<main class="m-container-small">
     <div class="ui container">
         <div class="ui success large message">
             <h2>Hi，</h2>
-            <p>Phoenix，欢迎登录！</p>
+            <p><span th:text="${session.user.username}">Phoenix</span>，欢迎登录！</p>
         </div>
 
         <img src="../../static/images/Index/page-cover.jpg" th:src="@{/images/Index/page-cover.jpg}" alt=""
              class="ui rounded bordered fulid image" style="width: 1000px!important;height: 400px!important;">
     </div>
-</div>
+</main>
 <br>
 <br>
 

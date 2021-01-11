@@ -47,7 +47,7 @@
 
 
 <!------中间内容------->
-<div class="m-padded-tb-big m-container-small">
+<main class="m-container-small">
     <div class="ui container">
         <!--header-->
         <div class="ui top attached segment">
@@ -73,7 +73,7 @@
                             </div>
                             <div class="m-mobile-padded-lr-middle m-pc-padded-left-middle">
                                 <h3 class="ui header m-margin-tb-small ">
-                                    <a href="#" class="m-item-black" th:href="@{/blogs/{id}(id=${blog.id})}"
+                                    <a href="#" class="m-text-blacker" th:href="@{/blogs/{id}(id=${blog.id})}"
                                        target="_blank" th:text="${blog.title}">做人，不要自作多情，生活中真的没有人在乎你</a>
                                 </h3>
                                 <p class="m-text m-margin-bottom-small"
@@ -83,18 +83,19 @@
                                     <div class="column">
                                         <div class="ui mini horizontal link list">
                                             <div class="item">
-                                                <i class="calendar icon"></i><span
+                                                <i class="calendar icon"></i>&nbsp;<span
                                                     th:text="${#dates.format(blog.createTime,'yyyy-MM-dd')}">2017-10-02</span>
                                             </div>
                                             <div class="item">
-                                                <i class="history icon"></i><span
+                                                <i class="history icon"></i>&nbsp;<span
                                                     th:text="${#dates.format(blog.updateTime,'yyyy-MM-dd')}">2017-10-02</span>
                                             </div>
-                                            <!--                                            <div class="item">-->
-                                            <!--                                                <i class="tag icon"></i>软件开发-->
-                                            <!--                                            </div>-->
                                             <div class="item">
-                                                <i class="eye icon"></i><span
+                                                <i class="tags icon"></i>&nbsp;标签:
+                                                <span th:each="tag : ${blog.tags}" th:text="| ${tag.name}; |">软件开发; 后端开发; SSM框架</span>
+                                            </div>
+                                            <div class="item">
+                                                <i class="eye icon"></i>&nbsp;<span
                                                     th:text="${blog.viewCounts}">222</span>
                                             </div>
                                         </div>
@@ -141,7 +142,7 @@
 
 
     </div>
-</div>
+</main>
 <br>
 <br>
 

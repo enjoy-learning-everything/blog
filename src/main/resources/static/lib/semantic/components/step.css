@@ -135,7 +135,7 @@
 
 /* Title */
 .ui.steps .step .title {
-  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, 'Microsoft YaHei', "Noto Sans CJK", "WenQuanYi Micro Hei", sans-serif;
+  font-family: Lato, Helvetica, 'Helvetica Neue', Arial, "PingFang SC", 'Microsoft YaHei', "Noto Sans CJK", "WenQuanYi Micro Hei", sans-serif;
   font-size: 1.14285714em;
   font-weight: bold;
 }

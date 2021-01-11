@@ -44,9 +44,8 @@
     </a>
 </nav>
 
-
 <!------中间内容------->
-<div class="m-padded-tb-big m-container-small">
+<main class="m-container-small">
     <div class="ui container">
         <!--链接分类列表-->
         <div class="ui segment hover-shadow-light" th:each="item : ${linksMap}">
@@ -201,8 +200,9 @@
 
         </div>
     </div>
-</div>
-<br>
+</main>
+
+
 <!------底部footer------>
 <footer th:replace="_fragments :: footer">
     <!--底部teal颜色的条-->

@@ -164,6 +164,11 @@
     margin-bottom: 2em !important;
 }
 
+.m-margin-tb-big{
+    margin-top: 3em !important;
+    margin-bottom: 3em !important;
+}
+
 
 .m-margin-lr-mini{
     margin-left: 0.2em !important;

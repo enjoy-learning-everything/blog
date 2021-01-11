@@ -63,7 +63,7 @@
 
 
 <!------中间内容------->
-<div class="m-padded-tb-big m-container-small">
+<main class="m-container-small">
     <div class="ui container">
         <form action="#" method="post" th:object="${linkCategory}"
               th:action="*{id}==null ? @{/admin/linkCategories} : @{/admin/linkCategories/{id}(id=*{id})}"
@@ -97,7 +97,7 @@
             </div>
         </form>
     </div>
-</div>
+</main>
 
 <th:block th:replace="admin/_fragments :: cancelDialog">
     <div class="ui mini cancel modal">

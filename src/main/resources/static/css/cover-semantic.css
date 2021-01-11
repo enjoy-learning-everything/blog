@@ -1,3 +1,12 @@
-.ui.threaded.comments .comment .comments{
-    padding: 2.5em 0 1em 2.25em!important;
+body {
+    height: unset !important;
 }
+
+.ui.threaded.comments .comment .comments {
+    padding: 2.5em 0 1em 2.25em !important;
+}
+
+.ui.comments {
+    max-width: unset !important;
+}
+

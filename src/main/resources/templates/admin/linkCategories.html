@@ -62,7 +62,7 @@
 
 
 <!------中间内容------->
-<div class="m-padded-tb-big m-container-small">
+<main class="m-container-small">
     <div class="ui container">
         <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
             <i class="close icon"></i>
@@ -113,7 +113,7 @@
             </tfoot>
         </table>
     </div>
-</div>
+</main>
 
 <th:block th:replace="admin/_fragments :: deleteDialog('外链分类')">
     <div class="ui mini delete modal">
@@ -129,9 +129,6 @@
     </div>
 </th:block>
 
-
-<br>
-<br>
 <!------底部footer------>
 <footer th:replace="_fragments :: footer">
     <!--底部teal颜色的条-->

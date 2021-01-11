@@ -100,7 +100,7 @@
 
 /* Text Container */
 .ui.text.container {
-  font-family: Lato, 'Helvetica Neue', Arial, Helvetica, 'Microsoft YaHei', "Noto Sans CJK", "WenQuanYi Micro Hei", sans-serif;
+  font-family: Lato, Helvetica, 'Helvetica Neue', Arial, "PingFang SC", 'Microsoft YaHei', "Noto Sans CJK", "WenQuanYi Micro Hei", sans-serif;
   max-width: 700px !important;
   line-height: 1.5;
 }

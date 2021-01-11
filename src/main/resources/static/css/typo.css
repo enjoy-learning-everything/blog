@@ -2,18 +2,18 @@
 
 
 /* 要注意表单元素并不继承父级 font 的问题 */
-body, button, input, select, textarea {
-    font: 400 1em/1.8 Lato, Helvetica, 'Helvetica Neue', Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK", "WenQuanYi Micro Hei", sans-serif;
-    color: #000;
-}
+/*body, button, input, select, textarea {*/
+/*    font: 400 1em/1.8 Lato, Helvetica, 'Helvetica Neue', Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK", "WenQuanYi Micro Hei", sans-serif;*/
+/*    color: #000;*/
+/*}*/
 
 .typo {
+    font: 400 1em/1.8 Lato, Helvetica, 'Helvetica Neue', Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK", "WenQuanYi Micro Hei", sans-serif;
     color: #555;
 }
 
 .typo p {
     font-size: 1.15em;
-    /*font-weight: 300;*/
     line-height: 1.8;
     text-align: justify;
 }
@@ -29,7 +29,7 @@ body, button, input, select, textarea {
 }
 
 /* HTML5 媒体文件跟 img 保持一致 */
-.typo audio, canvas, video {
+.typo audio, .typo canvas, .typo video {
     display: inline-block;
 }
 
@@ -98,17 +98,17 @@ body, button, input, select, textarea {
     list-style: none;
 }
 
-.typo ul li,.typo ol li{
+.typo ul li, .typo ol li {
     font-size: 1.15em;
     font-weight: 400;
 }
 
-.typo ul li p,.typo ol li p{
+.typo ul li p, .typo ol li p {
     font-size: 1em;
     font-weight: 400;
 }
 
-.typo ul li p,.typo ol li p{
+.typo ul li p, .typo ol li p {
     margin-bottom: 0;
 }
 
@@ -268,14 +268,14 @@ body, button, input, select, textarea {
 }
 
 /* 防止blockquote和ul嵌套导致的上下边距过大 */
-.typo blockquote ul{
+.typo blockquote ul {
     margin-top: 0;
     margin-bottom: 0;
 }
 
 .typo h1, .typo h2, .typo h3, .typo h4, .typo h5, .typo h6 {
     font-family: Lato, Helvetica, 'Helvetica Neue', Arial, "PingFang SC", "Microsoft YaHei", "Noto Sans CJK", "WenQuanYi Micro Hei", sans-serif;
-    color: #000;
+    color: #444;
     line-height: 1.35;
 }
 
@@ -290,7 +290,7 @@ body, button, input, select, textarea {
 
 .typo h1, .typo-h1 {
     font-size: 2em;
-    font-weight: 800;
+    font-weight: 700;
 }
 
 .typo h2, .typo-h2 {

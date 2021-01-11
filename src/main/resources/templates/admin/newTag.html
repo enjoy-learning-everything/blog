@@ -17,7 +17,7 @@
 
 <!------导航------>
 <!--inverted:颜色反转；attached消除圆角-->
-<nav th:replace="admin/_fragments :: menu(2)" class="ui inverted attached segment m-padded-tb-mini">
+<nav th:replace="admin/_fragments :: menu(3)" class="ui inverted attached segment m-padded-tb-mini">
     <div class="ui container">
         <div class="ui inverted secondary stackable menu">
             <img src="../../static/images/Common/logo_row_simple.png" th:src="@{/images/Common/logo_row_simple.png}"
@@ -63,7 +63,7 @@
 
 
 <!------中间内容------->
-<div class="m-padded-tb-big m-container-small">
+<main class="m-container-small">
     <div class="ui container">
         <form action="#" method="post" th:object="${tag}"
               th:action="*{id}==null ? @{/admin/tags} : @{/admin/tags/{id}(id=*{id})}"
@@ -91,7 +91,7 @@
             </div>
         </form>
     </div>
-</div>
+</main>
 
 <th:block th:replace="admin/_fragments :: cancelDialog">
     <div class="ui mini cancel modal">

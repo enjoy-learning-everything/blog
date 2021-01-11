@@ -62,7 +62,7 @@
 
 
 <!------中间内容------->
-<div class="m-padded-tb-big m-container">
+<main class="m-container">
     <div class="ui container">
 
         <div class="ui success message" th:unless="${#strings.isEmpty(message)}">
@@ -169,7 +169,7 @@
             </table>
         </div>
     </div>
-</div>
+</main>
 
 
 <th:block th:replace="admin/_fragments :: deleteDialog('外链')">
