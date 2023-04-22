@@ -1,18 +1,7 @@
+# 该项目不再维护，后面直接使用Wordpress。
+
+
 ## 博客系统
-
-如果要访问我的博客，可以访问下面的网址
-
-博客预览地址：[https://xinglongfei.cn/](https://xinglongfei.cn/)
-
-另外也提供了Dmemo演示地址，可以访问如下网址进行操作：
-
-博客预览地址：[https://demo.xinglongfei.cn/](https://demo.xinglongfei.cn/)
-
-管理端的入口为：[https://demo.xinglongfei.cn/admin](https://demo.xinglongfei.cn/admin)
-
-管理端用户名为demo，密码为demo
-
-> 最近可能版本更新比较慢了，因为得开始做毕设，还得准备春招面试，不过绝对不会放弃博客更新，就是会更新的比较慢而已，毕竟还有些地方不够完美、还有些bug没有修复
 
 ### 写在前面
 
